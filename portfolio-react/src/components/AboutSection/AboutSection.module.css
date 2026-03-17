@@ -1,3 +1,236 @@
-.about {
+.aboutPinned {
+  height: 400vh;
   position: relative;
+}
+
+.aboutSticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Headline */
+.aboutHeadline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  opacity: 0;
+  transform: scale(0.85);
+  pointer-events: none;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  justify-content: center;
+}
+
+.sectionNum {
+  font-size: 13px;
+  color: var(--accent-cyan);
+  letter-spacing: 2px;
+}
+
+.sectionTitle {
+  font-size: clamp(18px, 3vw, 28px);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.sectionAst {
+  color: var(--accent-orange);
+  font-size: 18px;
+}
+
+/* Split layout */
+.aboutSplit {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 60px;
+  align-items: center;
+  max-width: 900px;
+  width: 100%;
+  padding: 0 40px;
+  opacity: 0;
+  z-index: 3;
+}
+
+/* Bio phrases */
+.aboutBio {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.aboutPhrase {
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--text-secondary);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+}
+
+.aboutPhrase.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.highlight {
+  color: var(--accent-orange);
+  font-weight: 500;
+  transition: text-shadow 0.6s var(--ease-out-expo);
+}
+
+.highlight.glow {
+  text-shadow: 0 0 20px var(--accent-orange-muted), 0 0 40px var(--accent-orange-muted);
+}
+
+/* Links wrap */
+.aboutLinksWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.aboutLink {
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: var(--text-tertiary);
+  padding: 14px 18px;
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.4s var(--ease-out-expo);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateX(40px);
+}
+
+.aboutLink.visible {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo), background 0.4s var(--ease-out-expo), border-color 0.4s var(--ease-out-expo), color 0.4s var(--ease-out-expo);
+}
+
+.aboutLink.visible:hover {
+  transform: translateX(4px);
+}
+
+/* Left accent bar */
+.aboutLink::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  bottom: 20%;
+  width: 2.5px;
+  border-radius: 0 2px 2px 0;
+  opacity: 0;
+  transform: scaleY(0.3);
+  transition: all 0.4s var(--ease-out-expo);
+}
+
+.aboutLink:hover::before {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+.aboutLink:hover {
+  color: var(--text-primary);
+  transform: translateX(4px);
+}
+
+/* Color variants */
+.aboutLinkCyan::before { background: var(--accent-cyan); }
+.aboutLinkCyan:hover {
+  border-color: var(--accent-cyan);
+  background: var(--accent-cyan-muted);
+}
+
+.aboutLinkPrimary::before { background: var(--text-primary); }
+.aboutLinkPrimary:hover {
+  border-color: var(--text-primary);
+  background: var(--bg-card-hover);
+}
+
+.aboutLinkYellow::before { background: var(--accent-yellow); }
+.aboutLinkYellow:hover {
+  border-color: var(--accent-yellow);
+  background: var(--accent-yellow-muted);
+}
+
+.aboutLinkOrange::before { background: var(--accent-orange); }
+.aboutLinkOrange:hover {
+  border-color: var(--accent-orange);
+  background: var(--accent-orange-muted);
+}
+
+.aboutLinkArrow {
+  font-size: 14px;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: all 0.4s var(--ease-out-expo);
+}
+
+.aboutLink:hover .aboutLinkArrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.aboutLinkCyan:hover .aboutLinkArrow { color: var(--accent-cyan); }
+.aboutLinkPrimary:hover .aboutLinkArrow { color: var(--text-primary); }
+.aboutLinkYellow:hover .aboutLinkArrow { color: var(--accent-yellow); }
+.aboutLinkOrange:hover .aboutLinkArrow { color: var(--accent-orange); }
+
+/* Sticker */
+.stickerAboutMemoji {
+  left: 14%;
+  bottom: 12%;
+  width: clamp(160px, 20vw, 280px);
+  --sticker-rotate: -8deg;
+}
+
+.stickerScrollPop {
+  transform: scale(0) rotate(var(--sticker-rotate, 0deg));
+  opacity: 0;
+  transition: transform 0.5s var(--ease-sticker-pop), opacity 0.4s ease-out;
+  animation: none;
+}
+
+@media (max-width: 768px) {
+  .aboutPinned { height: 500vh; }
+  .aboutSticky {
+    padding: 0 16px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-top: 80px;
+  }
+  .aboutHeadline .sectionTitle { font-size: 18px; }
+  .aboutSplit {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0;
+    max-width: 100%;
+  }
+  .aboutPhrase { font-size: 13px; }
+  .aboutLinksWrap { gap: 10px; }
+  .aboutLink { padding: 12px 16px; font-size: 12px; }
+  .stickerAboutMemoji { width: 140px; left: 8%; bottom: 15%; }
 }
