@@ -1,3 +1,94 @@
-.footer {
+.footerSection {
+  padding: 100px 40px 60px;
+  border-top: 0.5px solid var(--border);
   position: relative;
+}
+
+.footerCta {
+  font-size: clamp(20px, 2.5vw, 32px);
+  font-weight: 300;
+  margin-bottom: 8px;
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: opacity 1.2s var(--ease-out-expo), transform 1.2s var(--ease-out-expo);
+}
+
+.footerEmail {
+  font-size: clamp(20px, 2.5vw, 32px);
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 0.3s;
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: opacity 1.2s var(--ease-out-expo), transform 1.2s var(--ease-out-expo), color 0.3s;
+}
+
+.footerEmail:hover {
+  color: var(--accent-orange);
+}
+
+/* Reveal animation — controlled by JS in Phase 4 */
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.footerBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 80px;
+  padding-top: 20px;
+  border-top: 0.5px solid var(--border);
+}
+
+.footerSig {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  letter-spacing: 2px;
+}
+
+.accent {
+  color: var(--accent-cyan);
+}
+
+.footerSocials {
+  display: flex;
+  gap: 20px;
+}
+
+.footerSocials a {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  transition: color 0.3s;
+}
+
+.footerSocials a:hover {
+  color: var(--accent-cyan);
+}
+
+/* Sticker */
+.stickerFooterApple {
+  right: 10%;
+  top: 30%;
+  width: clamp(80px, 10vw, 140px);
+  --sticker-rotate: -4deg;
+}
+
+.stickerFloatSlow {
+  animation: stickerFloat 6s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+  .footerSection { padding: 60px 20px 40px; }
+  .stickerFooterApple { width: 80px; }
 }
