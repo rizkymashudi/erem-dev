@@ -1,1 +1,51 @@
-/* Phase 2: Shared keyframe definitions */
+/* ============================
+   Shared Keyframe Definitions
+   ============================ */
+
+@keyframes stickerFloat {
+  0%, 100% { transform: translateY(0) rotate(var(--sticker-rotate, 0deg)); }
+  50% { transform: translateY(-8px) rotate(var(--sticker-rotate, 0deg)); }
+}
+
+@keyframes stickerFloatHero {
+  0%, 100% { transform: translateY(-55%) rotate(-5deg); }
+  50% { transform: translateY(calc(-55% - 10px)) rotate(-3deg); }
+}
+
+@keyframes stickerFloatHeroMobile {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-6px) rotate(-5deg); }
+}
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow:
+      0 2px 16px var(--nav-shadow-outer),
+      0 0 0 0.5px var(--nav-border-inner) inset,
+      0 1px 0 var(--nav-highlight) inset,
+      0 0 20px var(--accent-orange-muted),
+      0 0 60px var(--accent-orange-muted);
+  }
+  50% {
+    box-shadow:
+      0 2px 16px var(--nav-shadow-outer),
+      0 0 0 0.5px var(--nav-border-inner) inset,
+      0 1px 0 var(--nav-highlight) inset,
+      0 0 30px var(--accent-orange-muted),
+      0 0 80px var(--accent-cyan-muted);
+  }
+}
