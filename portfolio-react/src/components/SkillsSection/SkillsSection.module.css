@@ -1,3 +1,113 @@
-.skills {
+.skillsPinned {
+  height: 450vh;
   position: relative;
+}
+
+.skillsSticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.skillsStack {
+  position: relative;
+  width: 420px;
+  max-width: 90vw;
+  height: 280px;
+}
+
+.skillCard {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 28px 24px;
+  border: 0.5px solid var(--glass-border);
+  border-radius: 16px;
+  background: var(--glass-bg);
+  box-shadow:
+    0 4px 24px var(--glass-shadow),
+    0 0 0 0.5px var(--glass-border-inner) inset,
+    0 1px 0 var(--glass-highlight) inset;
+  opacity: 0;
+  will-change: transform, opacity;
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+}
+
+/* Refraction strip */
+.skillCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 24px;
+  right: 24px;
+  height: 0.5px;
+  background: linear-gradient(90deg, transparent, var(--glass-refraction), transparent);
+  opacity: 0.6;
+}
+
+.skillNum {
+  font-size: 11px;
+  color: var(--accent-cyan);
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+}
+
+.skillName {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.skillDesc {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  line-height: 1.7;
+}
+
+/* Sticker positions */
+.stickerSwiftui {
+  left: 18%;
+  top: 18%;
+  width: clamp(100px, 13vw, 180px);
+  --sticker-rotate: -8deg;
+}
+
+.stickerPhotos {
+  right: 18%;
+  bottom: 22%;
+  width: clamp(80px, 10vw, 130px);
+  --sticker-rotate: 6deg;
+}
+
+.stickerScrollPop {
+  transform: scale(0) rotate(var(--sticker-rotate, 0deg));
+  opacity: 0;
+  transition: transform 0.5s var(--ease-sticker-pop), opacity 0.4s ease-out;
+  animation: none;
+}
+
+@media (max-width: 768px) {
+  .skillsSticky { padding: 0 16px; }
+  .skillsStack {
+    width: 100%;
+    max-width: 100%;
+    height: 220px;
+  }
+  .skillCard { padding: 20px 18px; }
+  .skillName { font-size: 13px; }
+  .skillDesc { font-size: 11px; }
+  .stickerSwiftui { width: 70px; left: 8%; top: 15%; }
+  .stickerPhotos { width: 60px; right: 8%; bottom: 25%; }
+}
+
+@media (max-width: 480px) {
+  .skillsStack { height: 200px; }
+  .skillCard { padding: 16px 14px; }
 }

@@ -1,4 +1,167 @@
 .hero {
-  position: relative;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 40px 80px;
+  position: relative;
+  perspective: 1200px;
+  z-index: 1;
+}
+
+.heroTilt {
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+  max-width: 600px;
+}
+
+.heroLayer {
+  will-change: transform, opacity;
+  transition: transform 0.1s linear;
+}
+
+.heroLabel {
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 32px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s var(--ease-out-expo) 0.2s forwards;
+}
+
+.heroTitle {
+  font-size: clamp(22px, 3.2vw, 36px);
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--text-primary);
+  min-height: 1.7em;
+}
+
+.cursorBlink {
+  display: inline-block;
+  width: 2px;
+  height: 0.9em;
+  background: var(--accent-orange);
+  vertical-align: middle;
+  margin-left: 6px;
+  animation: blink 1s step-end infinite;
+}
+
+.heroSub {
+  margin-top: 40px;
+  font-size: 13px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.5px;
+  line-height: 1.8;
+  max-width: 500px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+}
+
+.heroSub.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.heroCta {
+  margin-top: 40px;
+  display: flex;
+  gap: 16px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+}
+
+.heroCta.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border: 0.5px solid var(--border);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-out-expo);
+}
+
+.btn:hover {
+  border-color: var(--accent-cyan);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+}
+
+.btnPrimary {
+  background: var(--accent-orange);
+  color: #fff;
+  border-color: var(--accent-orange);
+}
+
+.btnPrimary:hover {
+  opacity: 0.85;
+  color: #fff;
+}
+
+/* Hello sticker */
+.stickerHeroHello {
+  right: 8%;
+  top: 50%;
+  transform: translateY(-55%) rotate(-5deg);
+  width: clamp(180px, 22vw, 300px);
+  --sticker-rotate: -5deg;
+}
+
+.stickerFloat {
+  animation: stickerFloatHero 4s ease-in-out infinite;
+}
+
+.heroFadeOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, var(--bg-primary));
+  pointer-events: none;
+  z-index: 0;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 100px 20px 60px;
+    perspective: 800px;
+  }
+
+  .heroCta {
+    flex-direction: column;
+  }
+
+  .heroTilt {
+    max-width: 100%;
+  }
+
+  .stickerHeroHello {
+    width: clamp(90px, 24vw, 120px);
+    right: 8%;
+    top: 22%;
+    transform: rotate(-5deg);
+    opacity: 0.6;
+  }
+
+  .stickerFloat {
+    animation: stickerFloatHeroMobile 4s ease-in-out infinite;
+  }
 }

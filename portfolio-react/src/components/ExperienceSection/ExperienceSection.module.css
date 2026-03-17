@@ -1,3 +1,177 @@
-.experience {
+.expPinned {
+  height: 600vh;
   position: relative;
+}
+
+.expSticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Progress bar — left side vertical */
+.expProgress {
+  position: absolute;
+  left: 40px;
+  top: 15%;
+  bottom: 15%;
+  width: 2px;
+  background: var(--border);
+  border-radius: 1px;
+  z-index: 3;
+}
+
+.expProgressFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: var(--accent-cyan);
+  border-radius: 1px;
+  transition: height 0.1s linear;
+}
+
+.expProgressNodes {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 100%;
+}
+
+/* Headline */
+.expHeadline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  opacity: 0;
+  transform: scale(0.85);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  justify-content: center;
+}
+
+.sectionNum {
+  font-size: 13px;
+  color: var(--accent-cyan);
+  letter-spacing: 2px;
+}
+
+.sectionTitle {
+  font-size: clamp(18px, 3vw, 28px);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.sectionAst {
+  color: var(--accent-orange);
+  font-size: 18px;
+}
+
+/* Year counter */
+.expYear {
+  position: absolute;
+  font-size: clamp(120px, 20vw, 260px);
+  font-weight: 600;
+  color: var(--exp-year-color);
+  opacity: 0;
+  z-index: 0;
+  letter-spacing: -5px;
+  user-select: none;
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease-out-expo);
+}
+
+/* Chapter cards */
+.expChapters {
+  position: relative;
+  z-index: 1;
+  width: 500px;
+  max-width: 70vw;
+  margin-left: 40px;
+}
+
+.expChapter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(40px);
+  pointer-events: none;
+}
+
+.expChapter.active {
+  pointer-events: auto;
+}
+
+.expChapterDate {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  margin-bottom: 12px;
+}
+
+.expChapterRole {
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 500;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.expChapterCompany {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.expChapterLocation {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-bottom: 16px;
+}
+
+.expChapterDesc {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  line-height: 1.8;
+  max-width: 450px;
+}
+
+@media (max-width: 768px) {
+  .expPinned { height: 550vh; }
+  .expSticky { padding: 0 16px; }
+  .expProgress { left: 12px; top: 20%; bottom: 20%; }
+  .expChapters {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 16px;
+  }
+  .expChapterRole { font-size: clamp(18px, 5vw, 24px); }
+  .expChapterCompany { font-size: 13px; }
+  .expChapterDesc { font-size: 12px; max-width: 100%; }
+  .expYear { font-size: clamp(70px, 16vw, 120px); }
+  .expHeadline .sectionTitle { font-size: 18px; }
+}
+
+@media (max-width: 480px) {
+  .expPinned { height: 600vh; }
 }

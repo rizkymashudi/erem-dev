@@ -1,4 +1,38 @@
-.marquee {
+.marqueeWrap {
+  border-top: 0.5px solid var(--border);
+  border-bottom: 0.5px solid var(--border);
+  padding: 14px 0;
   overflow: hidden;
+  transition: border-color var(--transition-base);
+  position: relative;
+  z-index: 2;
+}
+
+.marqueeTrack {
+  display: flex;
+  gap: 40px;
+  width: max-content;
+  animation: marquee var(--marquee-speed, 20s) linear infinite;
+}
+
+.marqueeTrack:hover {
+  animation-play-state: paused;
+}
+
+.marqueeItem {
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
   white-space: nowrap;
+  transition: color 0.3s;
+}
+
+.marqueeTrack:hover .marqueeItem {
+  color: var(--accent-cyan);
+}
+
+.marqueeSep {
+  color: var(--text-tertiary);
+  font-size: 12px;
 }
