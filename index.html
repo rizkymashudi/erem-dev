@@ -1,0 +1,3724 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rizky M — iOS Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============================
+   CSS Variables & Theming
+   ============================ */
+:root {
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', 'Courier New', monospace;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-base: 0.4s var(--ease-out-expo);
+}
+
+[data-theme="dark"] {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #141414;
+  --bg-card: rgba(255,255,255,0.03);
+  --bg-card-hover: rgba(255,255,255,0.07);
+  --text-primary: #E0E0E0;
+  --text-secondary: #808080;
+  --text-tertiary: #6C6C6C;
+  --text-hint: rgba(255,255,255,0.22);
+  --border: rgba(255,255,255,0.1);
+  --border-hover: rgba(255,255,255,0.18);
+  --accent-swift: #E65A4F;
+  --accent-ui: #3EC1C9;
+  --accent-code: #F2C94C;
+  --accent-watch: #F2C94C;
+  --accent-orange: #E65A4F;
+  --accent-cyan: #3EC1C9;
+  --accent-yellow: #F2C94C;
+  --accent-orange-muted: rgba(230,90,79,0.12);
+  --accent-cyan-muted: rgba(62,193,201,0.12);
+  --accent-yellow-muted: rgba(242,201,76,0.12);
+  --toggle-bg: rgba(255,255,255,0.08);
+  --toggle-icon: #E0E0E0;
+  --nav-bg: rgba(255,255,255,0.06);
+  --nav-border: rgba(255,255,255,0.12);
+  --nav-border-inner: rgba(255,255,255,0.08);
+  --nav-shadow-outer: rgba(0,0,0,0.4);
+  --nav-highlight: rgba(255,255,255,0.06);
+  --glass-bg: rgba(255,255,255,0.02);
+  --glass-border: rgba(255,255,255,0.1);
+  --glass-border-inner: rgba(255,255,255,0.06);
+  --glass-shadow: rgba(0,0,0,0.25);
+  --glass-highlight: rgba(255,255,255,0.04);
+  --glass-refraction: rgba(255,255,255,0.15);
+  --exp-year-color: var(--accent-orange);
+}
+
+[data-theme="light"] {
+  --bg-primary: #E0E0E0;
+  --bg-secondary: #D2D2D2;
+  --bg-card: rgba(0,0,0,0.03);
+  --bg-card-hover: rgba(0,0,0,0.07);
+  --text-primary: #1a1a1a;
+  --text-secondary: #6C6C6C;
+  --text-tertiary: #808080;
+  --text-hint: rgba(0,0,0,0.2);
+  --border: rgba(0,0,0,0.1);
+  --border-hover: rgba(0,0,0,0.18);
+  --accent-swift: #E65A4F;
+  --accent-ui: #3EC1C9;
+  --accent-code: #D4A828;
+  --accent-watch: #D4A828;
+  --accent-orange: #E65A4F;
+  --accent-cyan: #2A9EA5;
+  --accent-yellow: #D4A828;
+  --accent-orange-muted: rgba(230,90,79,0.1);
+  --accent-cyan-muted: rgba(62,193,201,0.1);
+  --accent-yellow-muted: rgba(212,168,40,0.1);
+  --toggle-bg: rgba(0,0,0,0.06);
+  --toggle-icon: #1a1a1a;
+  --nav-bg: rgba(255,255,255,0.45);
+  --nav-border: rgba(255,255,255,0.6);
+  --nav-border-inner: rgba(255,255,255,0.5);
+  --nav-shadow-outer: rgba(0,0,0,0.08);
+  --nav-highlight: rgba(255,255,255,0.7);
+  --glass-bg: rgba(255,255,255,0.35);
+  --glass-border: rgba(255,255,255,0.55);
+  --glass-border-inner: rgba(255,255,255,0.45);
+  --glass-shadow: rgba(0,0,0,0.04);
+  --glass-highlight: rgba(255,255,255,0.6);
+  --glass-refraction: rgba(255,255,255,0.8);
+  --exp-year-color: var(--text-hint);
+}
+
+/* ============================
+   Reset & Base
+   ============================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-hint) transparent;
+}
+
+body {
+  font-family: var(--font-mono);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  transition: background var(--transition-base), color var(--transition-base);
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+::selection {
+  background: var(--accent-cyan);
+  color: #fff;
+}
+
+/* ============================
+   Navigation — Dynamic Island
+   ============================ */
+.nav-outer {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+}
+
+.nav {
+  border-radius: 100px;
+  border: 0.5px solid var(--nav-border);
+  background: var(--nav-bg);
+  backdrop-filter: blur(40px) saturate(1.8);
+  -webkit-backdrop-filter: blur(40px) saturate(1.8);
+  box-shadow:
+    0 2px 20px var(--nav-shadow-outer),
+    0 0 0 0.5px var(--nav-border-inner) inset,
+    0 1px 0 var(--nav-highlight) inset;
+  transition:
+    border-radius 0.6s var(--ease-out-expo),
+    box-shadow 0.4s var(--ease-out-expo),
+    background 0.4s var(--ease-out-expo),
+    border-color 0.4s var(--ease-out-expo);
+  overflow: hidden;
+}
+
+.nav:hover {
+  box-shadow:
+    0 4px 30px var(--nav-shadow-outer),
+    0 0 0 0.5px var(--nav-border-inner) inset,
+    0 1px 0 var(--nav-highlight) inset;
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px 7px 18px;
+}
+
+.nav-logo {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  white-space: nowrap;
+}
+
+.nav-logo span { color: var(--accent-cyan); }
+
+.nav-sep {
+  width: 0.5px;
+  height: 16px;
+  background: var(--border);
+  flex-shrink: 0;
+  margin: 0 8px;
+}
+
+.nav-desktop-links {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  gap: 4px;
+}
+
+.nav-links a {
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  transition: all 0.3s var(--ease-out-expo);
+  position: relative;
+  padding: 6px 12px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+.nav-links a:hover {
+  color: var(--text-primary);
+  background: var(--nav-bg);
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 1px;
+  background: var(--accent-cyan);
+  transition: width 0.3s var(--ease-out-expo);
+}
+
+.nav-links a:hover::after { width: 50%; }
+
+.theme-toggle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 0.5px solid var(--border);
+  background: var(--toggle-bg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  color: var(--toggle-icon);
+  flex-shrink: 0;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-orange);
+  transform: rotate(30deg);
+}
+
+.theme-toggle svg {
+  width: 13px;
+  height: 13px;
+  transition: transform 0.4s var(--ease-out-expo);
+}
+
+/* ============================
+   Hamburger — Hidden on Desktop
+   ============================ */
+.hamburger {
+  display: none;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.hamburger-line {
+  display: block;
+  position: absolute;
+  left: 6px;
+  width: 16px;
+  height: 1.5px;
+  background: var(--text-primary);
+  border-radius: 2px;
+  transition: all 0.4s var(--ease-out-expo);
+}
+
+.hamburger-top { top: 9px; }
+.hamburger-mid { top: 13px; }
+.hamburger-bot { top: 17px; }
+
+/* Hamburger → X morphing */
+.nav.expanded .hamburger-top {
+  top: 13px;
+  transform: rotate(45deg);
+}
+.nav.expanded .hamburger-mid {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.nav.expanded .hamburger-bot {
+  top: 13px;
+  transform: rotate(-45deg);
+}
+
+/* ============================
+   Mobile Panel — Hidden by Default
+   ============================ */
+.nav-mobile-panel {
+  display: none;
+}
+
+/* ============================
+   Mobile — Dynamic Island Expand
+   ============================ */
+@media (max-width: 768px) {
+  .nav-outer {
+    top: 12px;
+    left: 16px;
+    right: 16px;
+    transform: none;
+  }
+
+  .nav {
+    width: 100%;
+    transition:
+      border-radius 0.6s var(--ease-out-expo),
+      box-shadow 0.4s var(--ease-out-expo),
+      background 0.4s var(--ease-out-expo),
+      border-color 0.4s var(--ease-out-expo);
+  }
+
+  .nav-bar {
+    padding: 6px 6px 6px 16px;
+  }
+
+  .nav-desktop-links { display: none; }
+  .nav-sep { display: none; }
+
+  .nav-logo { margin-right: auto; }
+
+  .hamburger { display: flex; }
+
+  /* ---- Mobile Panel ---- */
+  .nav-mobile-panel {
+    display: block;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.5s var(--ease-out-expo);
+  }
+
+  /* Collapsed: tight pill */
+  .nav:not(.expanded) {
+    border-radius: 100px;
+  }
+
+  /* Expanded: rounded rect */
+  .nav.expanded {
+    border-radius: 24px;
+    box-shadow:
+      0 8px 40px var(--nav-shadow-outer),
+      0 0 0 0.5px var(--nav-border-inner) inset,
+      0 1px 0 var(--nav-highlight) inset;
+  }
+
+  /* Inner content wrapper */
+  .nav-mobile-links {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px 8px 8px;
+  }
+
+  .nav-mobile-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 12px;
+    border-radius: 16px;
+    transition: all 0.3s var(--ease-out-expo);
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  .nav.expanded .nav-mobile-link {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Stagger each link */
+  .nav.expanded .nav-mobile-link:nth-child(1) { transition-delay: 0.06s; }
+  .nav.expanded .nav-mobile-link:nth-child(2) { transition-delay: 0.1s; }
+  .nav.expanded .nav-mobile-link:nth-child(3) { transition-delay: 0.14s; }
+  .nav.expanded .nav-mobile-link:nth-child(4) { transition-delay: 0.18s; }
+  .nav.expanded .nav-mobile-link:nth-child(5) { transition-delay: 0.22s; }
+
+  /* Reset delay on collapse */
+  .nav:not(.expanded) .nav-mobile-link {
+    transition-delay: 0s;
+    transition-duration: 0.15s;
+  }
+
+  .nav-mobile-link:hover,
+  .nav-mobile-link:active {
+    background: var(--bg-card-hover);
+  }
+
+  .nav-mobile-num {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--accent-cyan);
+    min-width: 32px;
+  }
+
+  .nav-mobile-label {
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-primary);
+  }
+
+  .nav-mobile-footer {
+    padding: 8px 12px 14px;
+    border-top: 0.5px solid var(--border);
+    margin: 0 8px 6px;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: all 0.3s var(--ease-out-expo);
+  }
+
+  .nav.expanded .nav-mobile-footer {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.26s;
+  }
+
+  .nav:not(.expanded) .nav-mobile-footer {
+    transition-delay: 0s;
+    transition-duration: 0.1s;
+  }
+
+  .nav-mobile-email {
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: var(--text-tertiary);
+  }
+}
+
+/* ============================
+   Hero Section
+   ============================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 40px 80px;
+  position: relative;
+  perspective: 1200px;
+}
+
+.hero-tilt {
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+  max-width: 600px;
+}
+
+.hero-layer {
+  will-change: transform, opacity;
+  transition: transform 0.1s linear;
+}
+
+.hero-label {
+  font-size: 12px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  margin-bottom: 32px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.8s var(--ease-out-expo) 0.2s forwards;
+}
+
+.hero-title {
+  font-size: clamp(22px, 3.2vw, 36px);
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--text-primary);
+  min-height: 1.7em;
+}
+
+.icon-slot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 20px;
+  border-radius: 4px;
+  vertical-align: middle;
+  margin: 0 3px;
+  transition: transform 0.3s var(--ease-out-expo);
+}
+
+.icon-slot:hover { transform: scale(1.2); }
+
+.icon-swift { background: var(--accent-swift); }
+.icon-ui { background: var(--accent-ui); }
+.icon-code { background: var(--accent-code); }
+
+.cursor-blink {
+  display: inline-block;
+  width: 2px;
+  height: 0.9em;
+  background: var(--accent-orange);
+  vertical-align: middle;
+  margin-left: 6px;
+  animation: blink 1s step-end infinite;
+}
+
+.hero-sub {
+  margin-top: 40px;
+  font-size: 13px;
+  color: var(--text-tertiary);
+  letter-spacing: 0.5px;
+  line-height: 1.8;
+  max-width: 500px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+}
+
+.hero-sub.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-cta {
+  margin-top: 40px;
+  display: flex;
+  gap: 16px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+}
+
+.hero-cta.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  border: 0.5px solid var(--border);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s var(--ease-out-expo);
+}
+
+.btn:hover {
+  border-color: var(--accent-cyan);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--accent-orange);
+  color: #fff;
+  border-color: var(--accent-orange);
+}
+
+.btn-primary:hover {
+  opacity: 0.85;
+  color: #fff;
+}
+
+/* ============================
+   Marquee
+   ============================ */
+.marquee-wrap {
+  border-top: 0.5px solid var(--border);
+  border-bottom: 0.5px solid var(--border);
+  padding: 14px 0;
+  overflow: hidden;
+  transition: border-color var(--transition-base);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 40px;
+  width: max-content;
+  animation: marquee var(--marquee-speed, 20s) linear infinite;
+}
+
+.marquee-track:hover { animation-play-state: paused; }
+
+.marquee-item {
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+
+.marquee-track:hover .marquee-item { color: var(--accent-cyan); }
+
+.marquee-sep { color: var(--text-tertiary); font-size: 12px; }
+
+/* ============================
+   Section Headers
+   ============================ */
+.section {
+  padding: 100px 40px;
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 48px;
+}
+
+.section-num {
+  font-size: 12px;
+  color: var(--accent-cyan);
+  letter-spacing: 2px;
+}
+
+.section-title {
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.section-ast { color: var(--accent-orange); font-size: 14px; }
+
+.section-note {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  line-height: 1.7;
+  max-width: 500px;
+  margin-top: -32px;
+  margin-bottom: 48px;
+}
+
+/* ============================
+   Projects — Phased Scroll-Jack
+   ============================ */
+
+/* Phase 0: The pinned container — 500vh gives us scroll budget */
+.work-pinned {
+  height: 500vh;
+  position: relative;
+}
+
+.work-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Phase 1-2: Headline — centered, starts invisible */
+.work-headline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.85);
+  transition: none;
+}
+
+.work-headline-inner {
+  text-align: center;
+  max-width: 700px;
+  padding: 0 40px;
+}
+
+.work-headline .section-header {
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.work-headline .section-title {
+  font-size: clamp(18px, 3vw, 28px);
+  letter-spacing: 4px;
+}
+
+.work-headline .section-num {
+  font-size: 13px;
+}
+
+.work-headline .section-ast {
+  font-size: 18px;
+}
+
+.work-subtitle {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  line-height: 1.7;
+  min-height: 1.7em;
+}
+
+.work-subtitle .cursor-blink {
+  display: inline-block;
+  width: 2px;
+  height: 0.9em;
+  background: var(--accent-cyan);
+  vertical-align: middle;
+  margin-left: 4px;
+  animation: blink 1s step-end infinite;
+}
+
+/* Phase 7: Exit headline — same treatment as entrance headline */
+.work-exit-headline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.85);
+}
+
+.work-exit-headline .section-title {
+  font-size: clamp(18px, 3vw, 28px);
+  letter-spacing: 4px;
+}
+
+.work-exit-headline .section-num {
+  font-size: 13px;
+}
+
+.work-exit-headline .section-ast {
+  font-size: 18px;
+}
+
+/* Phase 3-6: Carousel — starts offscreen right */
+.work-carousel {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 1;
+  padding: 0 40px;
+  opacity: 0;
+}
+
+.work-track {
+  display: flex;
+  gap: 36px;
+  align-items: stretch;
+  will-change: transform;
+  padding: 50px 60px 30px;
+}
+
+.project-card {
+  flex: 0 0 380px;
+  min-width: 380px;
+  display: flex;
+  flex-direction: column;
+  background: var(--nav-bg);
+  border: 0.5px solid var(--nav-border);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  backdrop-filter: blur(40px) saturate(1.8);
+  -webkit-backdrop-filter: blur(40px) saturate(1.8);
+  box-shadow:
+    0 4px 24px var(--nav-shadow-outer),
+    0 0 0 0.5px var(--nav-border-inner) inset,
+    0 1px 0 var(--nav-highlight) inset;
+  transition:
+    box-shadow 0.5s var(--ease-out-expo),
+    border-color 0.4s var(--ease-out-expo),
+    transform 0.5s var(--ease-out-expo);
+}
+
+.project-card:hover {
+  border-color: var(--accent-orange);
+  transform: translateY(-6px);
+  box-shadow:
+    0 24px 60px var(--nav-shadow-outer),
+    0 0 0 0.5px var(--nav-border-inner) inset,
+    0 1px 0 var(--nav-highlight) inset,
+    0 0 0 1px var(--accent-orange-muted);
+  z-index: 10;
+}
+
+.project-thumb {
+  width: 100%;
+  aspect-ratio: 16/10;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.project-thumb-bg {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s var(--ease-out-expo);
+}
+
+.project-card:hover .project-thumb-bg { transform: scale(1.08); }
+
+/* Shimmer overlay on hover */
+.project-thumb::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.04) 40%,
+    rgba(255,255,255,0.08) 50%,
+    rgba(255,255,255,0.04) 60%,
+    transparent
+  );
+  transition: none;
+  pointer-events: none;
+}
+
+.project-card:hover .project-thumb::after {
+  left: 140%;
+  transition: left 0.8s var(--ease-out-expo);
+}
+
+.project-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: all 0.5s var(--ease-out-expo);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 0 0 0.5px rgba(255,255,255,0.1) inset;
+}
+
+.project-card:hover .project-play {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.project-play::after {
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 12px solid rgba(255,255,255,0.7);
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  margin-left: 3px;
+}
+
+.project-info {
+  padding: 20px 24px 24px;
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Subtle top border glow on info section */
+.project-info::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 24px;
+  right: 24px;
+  height: 0.5px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+.project-name {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  transition: color 0.3s var(--ease-out-expo);
+}
+
+.project-card:hover .project-name {
+  color: var(--accent-orange);
+}
+
+.project-desc {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  line-height: 1.6;
+  margin-bottom: 14px;
+  flex: 1;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.project-tag {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  padding: 5px 12px;
+  border: 0.5px solid var(--border);
+  border-radius: 100px;
+  color: var(--text-secondary);
+  transition: all 0.4s var(--ease-out-expo);
+  background: transparent;
+}
+
+.project-card:hover .project-tag {
+  border-color: var(--accent-cyan-muted);
+  color: var(--text-primary);
+  background: var(--accent-cyan-muted);
+}
+
+/* Stagger tag animation on hover */
+.project-card:hover .project-tag:nth-child(1) { transition-delay: 0s; }
+.project-card:hover .project-tag:nth-child(2) { transition-delay: 0.03s; }
+.project-card:hover .project-tag:nth-child(3) { transition-delay: 0.06s; }
+.project-card:hover .project-tag:nth-child(4) { transition-delay: 0.09s; }
+
+.project-card:not(:hover) .project-tag {
+  transition-delay: 0s;
+}
+
+/* ============================
+   Skills — Stacking Cards
+   ============================ */
+.skills-pinned {
+  height: 450vh;
+  position: relative;
+}
+
+.skills-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.skills-stack {
+  position: relative;
+  width: 420px;
+  max-width: 90vw;
+  height: 280px;
+}
+
+.skill-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 28px 24px;
+  border: 0.5px solid var(--glass-border);
+  border-radius: 16px;
+  background: var(--glass-bg);
+  box-shadow:
+    0 4px 24px var(--glass-shadow),
+    0 0 0 0.5px var(--glass-border-inner) inset,
+    0 1px 0 var(--glass-highlight) inset;
+  opacity: 0;
+  will-change: transform, opacity;
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+}
+
+/* Refraction strip on each card */
+.skill-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 24px;
+  right: 24px;
+  height: 0.5px;
+  background: linear-gradient(90deg, transparent, var(--glass-refraction), transparent);
+  opacity: 0.6;
+}
+
+.skill-card .skill-num {
+  font-size: 11px;
+  color: var(--accent-cyan);
+  letter-spacing: 2px;
+  margin-bottom: 14px;
+}
+
+.skill-card .skill-name {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.skill-card .skill-desc {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  line-height: 1.7;
+}
+
+/* ============================
+   Experience — Cinematic Chapters
+   ============================ */
+.exp-pinned {
+  height: 600vh;
+  position: relative;
+}
+
+.exp-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Progress bar — left side vertical */
+.exp-progress {
+  position: absolute;
+  left: 40px;
+  top: 15%;
+  bottom: 15%;
+  width: 2px;
+  background: var(--border);
+  border-radius: 1px;
+  z-index: 3;
+}
+
+.exp-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: var(--accent-cyan);
+  border-radius: 1px;
+  transition: height 0.1s linear;
+}
+
+.exp-progress-nodes {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 100%;
+}
+
+.exp-node {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-tertiary);
+  background: var(--bg-primary);
+  transition: all 0.4s var(--ease-out-expo);
+  z-index: 1;
+}
+
+.exp-node.active {
+  border-color: var(--accent-cyan);
+  background: var(--accent-cyan);
+  transform: translateX(-50%) scale(1.3);
+}
+
+.exp-node.passed {
+  border-color: var(--accent-cyan);
+  background: var(--accent-cyan);
+  transform: translateX(-50%) scale(1);
+}
+
+/* Headline — centered entrance */
+.exp-headline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  opacity: 0;
+  transform: scale(0.85);
+}
+
+.exp-headline .section-header {
+  justify-content: center;
+}
+
+.exp-headline .section-title {
+  font-size: clamp(18px, 3vw, 28px);
+  letter-spacing: 4px;
+}
+
+.exp-headline .section-num { font-size: 13px; }
+.exp-headline .section-ast { font-size: 18px; }
+
+/* Year counter — giant background text */
+.exp-year {
+  position: absolute;
+  font-size: clamp(120px, 20vw, 260px);
+  font-weight: 600;
+  color: var(--exp-year-color);
+  opacity: 0;
+  z-index: 0;
+  letter-spacing: -5px;
+  user-select: none;
+  pointer-events: none;
+  transition: opacity 0.6s var(--ease-out-expo);
+}
+
+/* Chapter cards — centered, one at a time */
+.exp-chapters {
+  position: relative;
+  z-index: 1;
+  width: 500px;
+  max-width: 70vw;
+  margin-left: 40px;
+}
+
+.exp-chapter {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(40px);
+  pointer-events: none;
+}
+
+.exp-chapter.active {
+  pointer-events: auto;
+}
+
+.exp-chapter-date {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  margin-bottom: 12px;
+}
+
+.exp-chapter-role {
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 500;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+
+.exp-chapter-company {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.exp-chapter-location {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-bottom: 16px;
+}
+
+.exp-chapter-desc {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  line-height: 1.8;
+  max-width: 450px;
+}
+
+/* ============================
+   About — "The Reveal"
+   ============================ */
+.about-pinned {
+  height: 400vh;
+  position: relative;
+}
+
+.about-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Headline */
+.about-headline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  opacity: 0;
+  transform: scale(0.85);
+  pointer-events: none;
+}
+
+.about-headline .section-header { justify-content: center; }
+.about-headline .section-title {
+  font-size: clamp(18px, 3vw, 28px);
+  letter-spacing: 4px;
+}
+.about-headline .section-num { font-size: 13px; }
+.about-headline .section-ast { font-size: 18px; }
+
+/* Split layout */
+.about-split {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 60px;
+  align-items: center;
+  max-width: 900px;
+  width: 100%;
+  padding: 0 40px;
+  opacity: 0;
+  z-index: 3;
+}
+
+/* Bio phrases */
+.about-bio {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.about-phrase {
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--text-secondary);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+}
+
+.about-phrase.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.about-phrase .highlight {
+  color: var(--accent-orange);
+  font-weight: 500;
+  transition: text-shadow 0.6s var(--ease-out-expo);
+}
+
+.about-phrase .highlight.glow {
+  text-shadow: 0 0 20px var(--accent-orange-muted), 0 0 40px var(--accent-orange-muted);
+}
+
+/* Links wrap — entry animation, hover handled by .about-link base */
+.about-links-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.about-links-wrap .about-link {
+  opacity: 0;
+  transform: translateX(40px);
+}
+
+.about-links-wrap .about-link[data-link-delay="0"] { transform: translateX(50px); }
+.about-links-wrap .about-link[data-link-delay="1"] { transform: translateX(40px); }
+.about-links-wrap .about-link[data-link-delay="2"] { transform: translateX(45px); }
+.about-links-wrap .about-link[data-link-delay="3"] { transform: translateX(35px); }
+
+.about-links-wrap .about-link.visible {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.6s var(--ease-out-expo), transform 0.6s var(--ease-out-expo), background 0.4s var(--ease-out-expo), border-color 0.4s var(--ease-out-expo), color 0.4s var(--ease-out-expo);
+}
+
+/* Once landed, allow hover to take over transform */
+.about-links-wrap .about-link.visible:hover {
+  transform: translateX(4px);
+}
+
+.about-link {
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: var(--text-tertiary);
+  padding: 14px 18px;
+  border: 0.5px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.4s var(--ease-out-expo);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Left accent bar — hidden by default */
+.about-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 20%;
+  bottom: 20%;
+  width: 2.5px;
+  border-radius: 0 2px 2px 0;
+  opacity: 0;
+  transform: scaleY(0.3);
+  transition: all 0.4s var(--ease-out-expo);
+}
+
+.about-link:hover::before {
+  opacity: 1;
+  transform: scaleY(1);
+}
+
+/* Base hover */
+.about-link:hover {
+  color: var(--text-primary);
+  transform: translateX(4px);
+}
+
+/* Cyan — LinkedIn */
+.about-link--cyan::before { background: var(--accent-cyan); }
+.about-link--cyan:hover {
+  border-color: var(--accent-cyan);
+  background: var(--accent-cyan-muted);
+}
+
+/* Yellow — Medium */
+.about-link--yellow::before { background: var(--accent-yellow); }
+.about-link--yellow:hover {
+  border-color: var(--accent-yellow);
+  background: var(--accent-yellow-muted);
+}
+
+/* Orange — Email */
+.about-link--orange::before { background: var(--accent-orange); }
+.about-link--orange:hover {
+  border-color: var(--accent-orange);
+  background: var(--accent-orange-muted);
+}
+
+/* Primary (neutral) — GitHub */
+.about-link--primary::before { background: var(--text-primary); }
+.about-link--primary:hover {
+  border-color: var(--text-primary);
+  background: var(--bg-card-hover);
+}
+
+.about-link-arrow {
+  font-size: 14px;
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: all 0.4s var(--ease-out-expo);
+}
+
+.about-link:hover .about-link-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Arrow inherits accent color */
+.about-link--cyan:hover .about-link-arrow { color: var(--accent-cyan); }
+.about-link--primary:hover .about-link-arrow { color: var(--text-primary); }
+.about-link--yellow:hover .about-link-arrow { color: var(--accent-yellow); }
+.about-link--orange:hover .about-link-arrow { color: var(--accent-orange); }
+
+/* ============================
+   Footer / Contact
+   ============================ */
+.footer-section {
+  padding: 100px 40px 60px;
+  border-top: 0.5px solid var(--border);
+}
+
+.footer-cta {
+  font-size: clamp(20px, 2.5vw, 32px);
+  font-weight: 300;
+  margin-bottom: 8px;
+}
+
+.footer-email {
+  font-size: clamp(20px, 2.5vw, 32px);
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 0.3s;
+  display: inline-block;
+}
+
+.footer-email:hover { color: var(--accent-orange); }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 80px;
+  padding-top: 20px;
+  border-top: 0.5px solid var(--border);
+}
+
+.footer-sig {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  letter-spacing: 2px;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-socials a {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  transition: color 0.3s;
+}
+
+.footer-socials a:hover { color: var(--accent-cyan); }
+
+/* ============================
+   Scroll Animations — Apple Cinematic
+   ============================ */
+
+/* Base reveal — all elements start hidden */
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Parallax sections — each section has depth layering */
+.section {
+  position: relative;
+}
+
+/* Hero pinned effect — stays in place while content scrolls over */
+.hero {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-fade-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, var(--bg-primary));
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Section entrance variants */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(60px);
+}
+
+.reveal-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+}
+
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 1.2s var(--ease-out-expo), transform 1.2s var(--ease-out-expo);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
+}
+
+/* Stagger delays for grid children */
+.stagger-1 { transition-delay: 0.05s !important; }
+.stagger-2 { transition-delay: 0.12s !important; }
+.stagger-3 { transition-delay: 0.19s !important; }
+.stagger-4 { transition-delay: 0.26s !important; }
+.stagger-5 { transition-delay: 0.33s !important; }
+.stagger-6 { transition-delay: 0.40s !important; }
+
+/* Parallax depth layers — controlled by JS */
+[data-parallax] {
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+/* Section divider — cinematic breathing space */
+.section-spacer {
+  height: 10vh;
+  position: relative;
+}
+
+/* Marquee parallax — slight scroll offset */
+.marquee-wrap {
+  position: relative;
+  z-index: 2;
+}
+
+/* Progressive blur on scroll-out (applied via JS) */
+.section[data-scroll-fade] {
+  will-change: opacity, filter;
+}
+
+/* Footer entrance — dramatic scale up */
+.footer-section {
+  position: relative;
+}
+
+.footer-section .footer-cta,
+.footer-section .footer-email {
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: opacity 1.2s var(--ease-out-expo), transform 1.2s var(--ease-out-expo);
+}
+
+.footer-section.in-view .footer-cta {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.footer-section.in-view .footer-email {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: 0.15s;
+}
+
+/* ============================
+   Sticker Placeholders
+   ============================ */
+.sticker {
+  position: absolute;
+  pointer-events: none;
+  z-index: 4;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.1));
+  transition: transform 0.6s var(--ease-out-expo);
+}
+
+.sticker img,
+.sticker svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Subtle float animation */
+@keyframes stickerFloat {
+  0%, 100% { transform: translateY(0) rotate(var(--sticker-rotate, 0deg)); }
+  50% { transform: translateY(-8px) rotate(var(--sticker-rotate, 0deg)); }
+}
+
+.sticker--float {
+  animation: stickerFloat 4s ease-in-out infinite;
+}
+
+.sticker--float-slow {
+  animation: stickerFloat 6s ease-in-out infinite;
+}
+
+/* Hero sticker — sits to the right of hero text, vertically centered */
+.sticker--hero-hello {
+  right: 8%;
+  top: 50%;
+  transform: translateY(-55%) rotate(-5deg);
+  width: clamp(180px, 22vw, 300px);
+  --sticker-rotate: -5deg;
+}
+
+.sticker--hero-hello.sticker--float {
+  animation: stickerFloatHero 4s ease-in-out infinite;
+}
+
+@keyframes stickerFloatHero {
+  0%, 100% { transform: translateY(-55%) rotate(-5deg); }
+  50% { transform: translateY(calc(-55% - 10px)) rotate(-3deg); }
+}
+
+/* Work section stickers */
+.sticker--work-swift {
+  right: 15%;
+  top: 15%;
+  width: clamp(80px, 10vw, 140px);
+  --sticker-rotate: 8deg;
+}
+
+.sticker--work-xcode {
+  left: 8%;
+  bottom: 20%;
+  width: clamp(100px, 12vw, 180px);
+  --sticker-rotate: -6deg;
+}
+
+/* Scroll-driven pop animation — starts hidden */
+.sticker--scroll-pop {
+  transform: scale(0) rotate(var(--sticker-rotate, 0deg));
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease-out;
+  animation: none;
+}
+
+.sticker--scroll-pop.popped-in {
+  transform: scale(1) rotate(var(--sticker-rotate, 0deg));
+  opacity: 1;
+  animation: stickerFloat 4s ease-in-out infinite 0.5s;
+}
+
+.sticker--scroll-pop.popped-out {
+  transform: scale(0) rotate(var(--sticker-rotate, 0deg));
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease-out;
+  animation: none;
+}
+
+/* Card wrapper — allows sticker to overflow above the card */
+.project-card-wrap {
+  position: relative;
+  flex: 0 0 380px;
+  min-width: 380px;
+  overflow: visible;
+}
+
+.project-card-wrap .project-card {
+  flex: none;
+  min-width: 0;
+  width: 100%;
+}
+
+/* Unicorn sticker — top-right of thumbnail area, matching Figma */
+.sticker--card-unicorn {
+  position: absolute;
+  top: -20px;
+  right: -50px;
+  width: clamp(120px, 15vw, 180px);
+  z-index: 10;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.1));
+  transform: rotate(12deg);
+  --sticker-rotate: 12deg;
+}
+
+/* Skills section sticker */
+.sticker--skills-arkit {
+  left: 12%;
+  bottom: 8%;
+  width: clamp(120px, 16vw, 240px);
+  --sticker-rotate: -12deg;
+}
+
+/* Skills section stickers */
+.sticker--skills-swiftui {
+  left: 18%;
+  top: 18%;
+  width: clamp(100px, 13vw, 180px);
+  --sticker-rotate: -8deg;
+}
+
+.sticker--skills-photos {
+  right: 18%;
+  bottom: 22%;
+  width: clamp(80px, 10vw, 130px);
+  --sticker-rotate: 6deg;
+}
+
+/* About section stickers */
+.sticker--about-memoji {
+  left: 14%;
+  bottom: 12%;
+  width: clamp(160px, 20vw, 280px);
+  --sticker-rotate: -8deg;
+}
+
+.sticker--about-swiftui {
+  right: 5%;
+  top: 20%;
+  width: clamp(80px, 10vw, 140px);
+  --sticker-rotate: 10deg;
+}
+
+/* Footer sticker */
+.sticker--footer-apple {
+  right: 10%;
+  top: 30%;
+  width: clamp(80px, 10vw, 140px);
+  --sticker-rotate: -4deg;
+}
+
+@media (max-width: 768px) {
+  .sticker--hero-hello { width: 120px; right: 5%; top: 10%; }
+  .sticker--work-swift { width: 70px; right: 8%; top: 10%; }
+  .sticker--work-xcode { width: 80px; left: 5%; bottom: 25%; }
+  .sticker--card-unicorn { width: 110px; top: -15px; right: -30px; }
+  .project-card-wrap {
+    flex: 0 0 300px;
+    min-width: 300px;
+  }
+  .sticker--skills-arkit { width: 100px; left: 5%; top: 50%; }
+  .sticker--skills-swiftui { width: 70px; left: 8%; top: 15%; }
+  .sticker--skills-photos { width: 60px; right: 8%; bottom: 25%; }
+  .sticker--about-memoji { width: 140px; left: 8%; bottom: 15%; }
+  .sticker--about-swiftui { display: none; }
+  .sticker--footer-apple { width: 80px; }
+}
+
+/* ============================
+   Animations
+   ============================ */
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow:
+      0 2px 16px var(--nav-shadow-outer),
+      0 0 0 0.5px var(--nav-border-inner) inset,
+      0 1px 0 var(--nav-highlight) inset,
+      0 0 20px var(--accent-orange-muted),
+      0 0 60px var(--accent-orange-muted);
+  }
+  50% {
+    box-shadow:
+      0 2px 16px var(--nav-shadow-outer),
+      0 0 0 0.5px var(--nav-border-inner) inset,
+      0 1px 0 var(--nav-highlight) inset,
+      0 0 30px var(--accent-orange-muted),
+      0 0 80px var(--accent-cyan-muted);
+  }
+}
+
+/* Featured card glow pulse */
+.project-card:nth-child(1) {
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+.project-card:nth-child(1):hover {
+  animation: none;
+}
+
+/* Particle canvas inside thumbnails */
+.project-thumb canvas.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.5;
+  transition: opacity 0.6s var(--ease-out-expo);
+}
+
+.project-card:hover .project-thumb canvas.particles {
+  opacity: 1;
+}
+
+/* ============================
+   Responsive
+   ============================ */
+@media (max-width: 768px) {
+  .hero { padding: 100px 20px 60px; perspective: 800px; }
+  .section { padding: 60px 20px; }
+  .hero-cta { flex-direction: column; }
+
+  /* Sticker: repositioned for mobile */
+  .sticker--hero-hello {
+    width: clamp(90px, 24vw, 120px);
+    right: 8%;
+    top: 22%;
+    transform: rotate(-5deg);
+    opacity: 0.6;
+  }
+  .sticker--hero-hello.sticker--float {
+    animation: stickerFloatHeroMobile 4s ease-in-out infinite;
+  }
+
+  .hero-tilt { max-width: 100%; }
+
+  /* ── Work section ── horizontal carousel on mobile too */
+  .work-pinned { height: 500vh; }
+  .work-sticky { padding: 0; }
+  .work-headline-inner { text-align: center; padding: 0 16px; }
+  .work-headline .section-title { font-size: 18px; }
+  .work-carousel { padding: 0; }
+  .work-track {
+    gap: 20px;
+    padding: 20px 20px;
+  }
+  .project-card {
+    flex: 0 0 300px;
+    min-width: 300px;
+  }
+  .project-thumb { aspect-ratio: 16/10; }
+  .work-exit-headline .section-title { font-size: 18px; }
+
+  /* ── Skills section ── */
+  .skills-pinned { height: 450vh; }
+  .skills-sticky { padding: 0 16px; }
+  .skills-stack {
+    width: 100%;
+    max-width: 100%;
+    height: 220px;
+  }
+  .skill-card { padding: 20px 18px; }
+  .skill-card .skill-name { font-size: 13px; }
+  .skill-card .skill-desc { font-size: 11px; }
+
+  /* ── Experience section ── */
+  .exp-pinned { height: 550vh; }
+  .exp-sticky { padding: 0 16px; }
+  .exp-progress { left: 12px; top: 20%; bottom: 20%; }
+  .exp-chapters {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 16px;
+  }
+  .exp-chapter-role { font-size: clamp(18px, 5vw, 24px); }
+  .exp-chapter-company { font-size: 13px; }
+  .exp-chapter-desc { font-size: 12px; max-width: 100%; }
+  .exp-year { font-size: clamp(70px, 16vw, 120px); }
+  .exp-headline .section-title { font-size: 18px; }
+
+  /* ── About section ── */
+  .about-pinned { height: 500vh; }
+  .about-sticky {
+    padding: 0 16px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-top: 80px;
+  }
+  .about-headline .section-title { font-size: 18px; }
+  .about-split {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0;
+    max-width: 100%;
+  }
+  .about-phrase { font-size: 13px; }
+  .about-links-wrap { gap: 10px; }
+  .about-link { padding: 12px 16px; font-size: 12px; }
+
+  /* ── Footer ── */
+  .footer-section { padding: 60px 20px 40px; }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Tablet: slightly smaller cards, tighter spacing */
+  .project-card { flex: 0 0 320px; min-width: 320px; }
+  .work-track { gap: 28px; }
+  .exp-chapters { max-width: 60vw; }
+  .about-split { max-width: 100%; gap: 40px; }
+}
+
+@media (max-width: 480px) {
+  .hero-title { font-size: 20px; }
+
+  /* Tighter budgets for very small screens */
+  .work-pinned { height: 550vh; }
+  .project-card { flex: 0 0 260px; min-width: 260px; }
+  .skills-pinned { height: 500vh; }
+  .exp-pinned { height: 600vh; }
+  .about-pinned { height: 550vh; }
+
+  .skills-stack { height: 200px; }
+  .skill-card { padding: 16px 14px; }
+}
+
+@keyframes stickerFloatHeroMobile {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-6px) rotate(-5deg); }
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<div class="nav-outer" id="navOuter">
+<nav class="nav" id="mainNav">
+  <div class="nav-bar">
+    <a href="#" class="nav-logo">RM<span>_</span></a>
+    <div class="nav-sep"></div>
+    <div class="nav-desktop-links">
+      <div class="nav-links">
+        <a href="#work">work</a>
+        <a href="#skills">skills</a>
+        <a href="#experience">experience</a>
+        <a href="#about">about</a>
+        <a href="#contact">contact</a>
+      </div>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"/>
+        <line x1="12" y1="1" x2="12" y2="3"/>
+        <line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/>
+        <line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+    </button>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span class="hamburger-line hamburger-top"></span>
+      <span class="hamburger-line hamburger-mid"></span>
+      <span class="hamburger-line hamburger-bot"></span>
+    </button>
+  </div>
+  <div class="nav-mobile-panel" id="mobilePanel">
+    <div class="nav-mobile-links">
+      <a href="#work" class="nav-mobile-link">
+        <span class="nav-mobile-num">(01)</span>
+        <span class="nav-mobile-label">work</span>
+      </a>
+      <a href="#skills" class="nav-mobile-link">
+        <span class="nav-mobile-num">(02)</span>
+        <span class="nav-mobile-label">skills</span>
+      </a>
+      <a href="#experience" class="nav-mobile-link">
+        <span class="nav-mobile-num">(03)</span>
+        <span class="nav-mobile-label">experience</span>
+      </a>
+      <a href="#about" class="nav-mobile-link">
+        <span class="nav-mobile-num">(04)</span>
+        <span class="nav-mobile-label">about</span>
+      </a>
+      <a href="#contact" class="nav-mobile-link">
+        <span class="nav-mobile-num">(05)</span>
+        <span class="nav-mobile-label">contact</span>
+      </a>
+    </div>
+    <div class="nav-mobile-footer">
+      <span class="nav-mobile-email">rizkymashudi7@gmail.com</span>
+    </div>
+  </div>
+</nav>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="heroSection">
+  <div class="hero-tilt" id="heroTilt">
+    <div class="hero-layer" data-speed="0.15">
+      <div class="hero-label">(00) — intro</div>
+    </div>
+    <div class="hero-layer" data-speed="0.3">
+      <h1 class="hero-title" id="heroTitle"><span class="cursor-blink" id="typingCursor"></span></h1>
+    </div>
+    <div class="hero-layer" data-speed="0.5">
+      <p class="hero-sub">
+        4+ years building production iOS apps at scale. Apple Developer Academy graduate. Currently leveling up at Essential Developer Academy, London.
+      </p>
+    </div>
+    <div class="hero-layer" data-speed="0.7">
+      <div class="hero-cta">
+        <a href="#work" class="btn btn-primary">view work &darr;</a>
+        <a href="#contact" class="btn">get in touch</a>
+      </div>
+    </div>
+  </div>
+  <!-- Hello sticker -->
+  <div class="sticker sticker--hero-hello sticker--float">
+    <img src="assets/stickers/hello.png" alt="" draggable="false" />
+  </div>
+  <div class="hero-fade-overlay"></div>
+</section>
+
+<!-- ============ MARQUEE: TECH ============ -->
+<div class="marquee-wrap">
+  <div class="marquee-track" style="--marquee-speed: 22s;">
+    <span class="marquee-item">Swift</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">SwiftUI</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">UIKit</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">Combine</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">Core Data</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">Clean Architecture</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">TDD</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">WatchKit</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">HealthKit</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">CI/CD</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">Domain Driven Design</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">Systems Design</span><span class="marquee-sep">/</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="marquee-item">Swift</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">SwiftUI</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">UIKit</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">Combine</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">Core Data</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">Clean Architecture</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">TDD</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">WatchKit</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">HealthKit</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">CI/CD</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">Domain Driven Design</span><span class="marquee-sep">/</span>
+    <span class="marquee-item">Systems Design</span><span class="marquee-sep">/</span>
+  </div>
+</div>
+
+<!-- ============ WORK ============ -->
+<section class="work-pinned" id="work">
+  <div class="work-sticky">
+    <!-- Phase 1-2: Headline entrance (pinned, scale+fade) -->
+    <div class="work-headline" id="workHeadline">
+      <div class="work-headline-inner">
+        <div class="section-header">
+          <span class="section-num">(01)</span>
+          <span class="section-title">Featured work</span>
+          <span class="section-ast">*</span>
+        </div>
+        <p class="work-subtitle" id="workSubtitle"></p>
+      </div>
+    </div>
+
+    <!-- Headline stickers — pop in with headline, pop out when cards arrive -->
+    <div class="sticker sticker--work-swift sticker--scroll-pop" id="stickerSwift">
+      <img src="assets/stickers/swift.png" alt="" draggable="false" />
+    </div>
+    <div class="sticker sticker--work-xcode sticker--scroll-pop" id="stickerXcode">
+      <img src="assets/stickers/xcode.png" alt="" draggable="false" />
+    </div>
+
+    <!-- Phase 3-6: Card carousel (horizontal track) -->
+    <div class="work-carousel" id="workCarousel">
+      <div class="work-track" id="workTrack">
+        <div class="project-card" data-card-rotate="-3">
+          <div class="project-thumb">
+            <div class="project-thumb-bg" style="background: linear-gradient(135deg, rgba(62,193,201,0.14), rgba(62,193,201,0.04) 50%, rgba(230,90,79,0.08));"></div>
+            <div class="project-play"></div>
+          </div>
+          <div class="project-info">
+            <div class="project-name">nbs.co.id — iOS platform</div>
+            <div class="project-desc">Enterprise iOS application developed over 3+ years as lead iOS engineer. Scalable architecture, continuous delivery.</div>
+            <div class="project-tags">
+              <span class="project-tag">Swift</span>
+              <span class="project-tag">Clean Architecture</span>
+              <span class="project-tag">CI/CD</span>
+              <span class="project-tag">3+ years</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card" data-card-rotate="2">
+          <div class="project-thumb">
+            <div class="project-thumb-bg" style="background: linear-gradient(135deg, rgba(230,90,79,0.14), rgba(230,90,79,0.04));"></div>
+            <div class="project-play"></div>
+          </div>
+          <div class="project-info">
+            <div class="project-name">PerLu — fact verification</div>
+            <div class="project-desc">Verify social media text against MAFINDO's database. Copy, paste, get the truth.</div>
+            <div class="project-tags">
+              <span class="project-tag">UIKit</span>
+              <span class="project-tag">API Integration</span>
+              <span class="project-tag">MAFINDO</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card" data-card-rotate="-1.5">
+          <div class="project-thumb">
+            <div class="project-thumb-bg" style="background: linear-gradient(135deg, rgba(242,201,76,0.14), rgba(242,201,76,0.04));"></div>
+            <div class="project-play"></div>
+          </div>
+          <div class="project-info">
+            <div class="project-name">Sleeplance — watchOS companion</div>
+            <div class="project-desc">Sleep tracking wearable app, evolved through 3 challenge iterations from MVP to TestFlight release.</div>
+            <div class="project-tags">
+              <span class="project-tag">WatchKit</span>
+              <span class="project-tag">HealthKit</span>
+              <span class="project-tag">TestFlight</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card" data-card-rotate="3.5">
+          <div class="project-thumb">
+            <div class="project-thumb-bg" style="background: linear-gradient(135deg, rgba(62,193,201,0.14), rgba(62,193,201,0.04));"></div>
+            <div class="project-play"></div>
+          </div>
+          <div class="project-info">
+            <div class="project-name">Say it! — sentence generator</div>
+            <div class="project-desc">Structured sentence builder from keyword input. Designed for quick, natural expression.</div>
+            <div class="project-tags">
+              <span class="project-tag">Native iOS</span>
+              <span class="project-tag">NLP</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-card-wrap">
+          <div class="sticker sticker--card-unicorn sticker--float">
+            <img src="assets/stickers/unicorn.png" alt="" draggable="false" />
+          </div>
+          <div class="project-card" data-card-rotate="-2.5">
+          <div class="project-thumb">
+            <div class="project-thumb-bg" style="background: linear-gradient(135deg, rgba(230,90,79,0.1), rgba(242,201,76,0.08));"></div>
+            <div class="project-play"></div>
+          </div>
+          <div class="project-info">
+            <div class="project-name">Pocket Money — expense tracker</div>
+            <div class="project-desc">Personal finance tracking with CoreData persistence and visual spending breakdowns.</div>
+            <div class="project-tags">
+              <span class="project-tag">CoreData</span>
+              <span class="project-tag">Charts</span>
+            </div>
+          </div>
+        </div>
+        </div><!-- .project-card-wrap -->
+      </div>
+    </div>
+
+    <!-- Phase 7: Next section headline entrance -->
+    <div class="work-exit-headline" id="workExitHeadline">
+      <div class="work-headline-inner">
+        <div class="section-header">
+          <span class="section-num">(02)</span>
+          <span class="section-title">What I do</span>
+          <span class="section-ast">*</span>
+        </div>
+      </div>
+      <!-- ARKit sticker — pops in with the WHAT I DO headline -->
+      <div class="sticker sticker--skills-arkit sticker--scroll-pop" id="stickerArkit">
+        <img src="assets/stickers/arkit.png" alt="" draggable="false" />
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ============ SKILLS ============ -->
+<section class="skills-pinned" id="skills">
+  <div class="skills-sticky">
+    <!-- SwiftUI sticker — top-left -->
+    <div class="sticker sticker--skills-swiftui sticker--scroll-pop" id="stickerSwiftUI">
+      <img src="assets/stickers/swiftui.png" alt="" draggable="false" />
+    </div>
+
+    <!-- Photos sticker — bottom-right -->
+    <div class="sticker sticker--skills-photos sticker--scroll-pop" id="stickerPhotos">
+      <img src="assets/stickers/photos.png" alt="" draggable="false" />
+    </div>
+
+    <div class="skills-stack" id="skillsStack">
+      <div class="skill-card" data-from="left" data-tilt="-3">
+        <div class="skill-num">(02.01)</div>
+        <div class="skill-name">iOS development</div>
+        <div class="skill-desc">Swift, SwiftUI, UIKit. Building production apps with clean architecture, SOLID principles, and test-driven development.</div>
+      </div>
+      <div class="skill-card" data-from="right" data-tilt="2.5">
+        <div class="skill-num">(02.02)</div>
+        <div class="skill-name">Systems design</div>
+        <div class="skill-desc">Domain-driven development, scalable mobile patterns, use case analysis. Architecture that grows with the product.</div>
+      </div>
+      <div class="skill-card" data-from="left" data-tilt="-1.5">
+        <div class="skill-num">(02.03)</div>
+        <div class="skill-name">Wearable & companion</div>
+        <div class="skill-desc">watchOS, HealthKit, cross-device experiences. Extending the iOS ecosystem to the wrist.</div>
+      </div>
+      <div class="skill-card" data-from="right" data-tilt="3">
+        <div class="skill-num">(02.04)</div>
+        <div class="skill-name">Engineering culture</div>
+        <div class="skill-desc">Code review, CI/CD pipelines, pair programming. Building software the right way, together.</div>
+      </div>
+      <div class="skill-card" data-from="left" data-tilt="-2">
+        <div class="skill-num">(02.05)</div>
+        <div class="skill-name">API & backend</div>
+        <div class="skill-desc">RESTful API integration, Laravel background. Understanding both sides of the request.</div>
+      </div>
+      <div class="skill-card" data-from="right" data-tilt="1.5">
+        <div class="skill-num">(02.06)</div>
+        <div class="skill-name">Writing & sharing</div>
+        <div class="skill-desc">Technical writing on Medium @ikyrm. Breaking down complex concepts for the community.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE: CLIENTS ============ -->
+<div class="marquee-wrap">
+  <div class="marquee-track" style="--marquee-speed: 25s; animation-direction: reverse;">
+    <span class="marquee-item">nbs.co.id</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">Apple Developer Academy</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">Essential Developer Academy</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">MAFINDO</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">Politeknik Negeri Batam</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">PT Asta Satria Investama</span><span class="marquee-sep">&middot;</span>
+    <!-- Duplicate -->
+    <span class="marquee-item">nbs.co.id</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">Apple Developer Academy</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">Essential Developer Academy</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">MAFINDO</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">Politeknik Negeri Batam</span><span class="marquee-sep">&middot;</span>
+    <span class="marquee-item">PT Asta Satria Investama</span><span class="marquee-sep">&middot;</span>
+  </div>
+</div>
+
+<!-- ============ EXPERIENCE ============ -->
+<section class="exp-pinned" id="experience">
+  <div class="exp-sticky">
+    <!-- Progress bar -->
+    <div class="exp-progress">
+      <div class="exp-progress-fill" id="expProgressFill"></div>
+      <div class="exp-progress-nodes" id="expProgressNodes"></div>
+    </div>
+
+    <!-- Headline entrance -->
+    <div class="exp-headline" id="expHeadline">
+      <div class="section-header">
+        <span class="section-num">(03)</span>
+        <span class="section-title">Experience</span>
+        <span class="section-ast">*</span>
+      </div>
+    </div>
+
+    <!-- Year counter (background parallax layer) -->
+    <div class="exp-year" id="expYear">2019</div>
+
+    <!-- Chapter cards -->
+    <div class="exp-chapters" id="expChapters">
+      <div class="exp-chapter" data-year="2025">
+        <div class="exp-chapter-date">Nov 2025 — Present</div>
+        <div class="exp-chapter-role">Student</div>
+        <div class="exp-chapter-company">Essential Developer Academy by Caio & Mike</div>
+        <div class="exp-chapter-location">London, UK</div>
+        <div class="exp-chapter-desc">Advanced iOS engineering: TDD, clean architecture, design patterns, and professional development practices.</div>
+      </div>
+      <div class="exp-chapter" data-year="2022">
+        <div class="exp-chapter-date">Jun 2022 — Present</div>
+        <div class="exp-chapter-role">iOS Engineer</div>
+        <div class="exp-chapter-company">nbs.co.id</div>
+        <div class="exp-chapter-location">Jakarta, Indonesia</div>
+        <div class="exp-chapter-desc">Lead iOS development on enterprise applications. Scalable architecture, continuous integration, and delivering production-grade mobile experiences.</div>
+      </div>
+      <div class="exp-chapter" data-year="2022">
+        <div class="exp-chapter-date">Mar 2022 — May 2022</div>
+        <div class="exp-chapter-role">iOS Developer</div>
+        <div class="exp-chapter-company">nbs.co.id</div>
+        <div class="exp-chapter-location">Jakarta, Indonesia</div>
+        <div class="exp-chapter-desc">Initial role building iOS features and establishing development workflows.</div>
+      </div>
+      <div class="exp-chapter" data-year="2021">
+        <div class="exp-chapter-date">Feb 2021 — Dec 2021</div>
+        <div class="exp-chapter-role">iOS Developer</div>
+        <div class="exp-chapter-company">Apple Developer Academy</div>
+        <div class="exp-chapter-location">Batam, Indonesia</div>
+        <div class="exp-chapter-desc">Built 6 native iOS apps across multiple challenges. From MVP prototyping to TestFlight releases, including wearable and fact-verification apps.</div>
+      </div>
+      <div class="exp-chapter" data-year="2019">
+        <div class="exp-chapter-date">Sep 2019 — Feb 2021</div>
+        <div class="exp-chapter-role">Junior Web Developer</div>
+        <div class="exp-chapter-company">PT Asta Satria Investama</div>
+        <div class="exp-chapter-location">Batam, Indonesia</div>
+        <div class="exp-chapter-desc">Built APIs and CMS features for mobile gaming platforms using Laravel. Optimization and maintenance at scale.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="about-pinned" id="about">
+  <div class="about-sticky">
+    <!-- Headline entrance -->
+    <div class="about-headline" id="aboutHeadline">
+      <div class="section-header">
+        <span class="section-num">(04)</span>
+        <span class="section-title">About</span>
+        <span class="section-ast">*</span>
+      </div>
+      <!-- Memoji with laptop sticker -->
+      <div class="sticker sticker--about-memoji sticker--scroll-pop" id="stickerAboutMemoji">
+        <img src="assets/stickers/memoji-laptop.png" alt="" draggable="false" />
+      </div>
+    </div>
+
+    <!-- Split content -->
+    <div class="about-split" id="aboutSplit">
+      <!-- Left: Bio phrases -->
+      <div class="about-bio" id="aboutBio">
+        <div class="about-phrase" data-delay="0">
+          <span class="highlight">Rizky Mashudi</span> is an iOS developer based in Jakarta, Indonesia, with over 4 years of experience crafting scalable and maintainable mobile applications.
+        </div>
+        <div class="about-phrase" data-delay="1">
+          A graduate of the <span class="highlight">Apple Developer Academy</span> in Batam and currently studying at the <span class="highlight">Essential Developer Academy</span> in London, he continuously invests in engineering excellence.
+        </div>
+        <div class="about-phrase" data-delay="2">
+          He specializes in delivering exceptional user experiences through clean code, thoughtful architecture, and a deep understanding of the iOS ecosystem. He shares his learnings and insights on <span class="highlight">Medium @ikyrm</span>.
+        </div>
+      </div>
+
+      <!-- Right: Link cards -->
+      <div class="about-links-wrap" id="aboutLinksWrap">
+        <a href="https://www.linkedin.com/in/rizky-mashudi" class="about-link about-link--cyan" target="_blank" rel="noopener" data-link-delay="0">
+          LinkedIn <span class="about-link-arrow">&rarr;</span>
+        </a>
+        <a href="https://github.com/rizkymashudi" class="about-link about-link--primary" target="_blank" rel="noopener" data-link-delay="1">
+          GitHub <span class="about-link-arrow">&rarr;</span>
+        </a>
+        <a href="https://medium.com/@ikyrm" class="about-link about-link--yellow" target="_blank" rel="noopener" data-link-delay="2">
+          Medium blog <span class="about-link-arrow">&rarr;</span>
+        </a>
+        <a href="mailto:rizkymashudi7@gmail.com" class="about-link about-link--orange" data-link-delay="3">
+          Email <span class="about-link-arrow">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER / CONTACT ============ -->
+<section class="footer-section" id="contact" style="position:relative;">
+  <!-- Apple sticker -->
+  <div class="sticker sticker--footer-apple sticker--float-slow">
+    <img src="assets/stickers/apple.png" alt="" draggable="false" />
+  </div>
+  <div class="reveal">
+    <div class="footer-cta">got a project in mind?</div>
+    <a href="mailto:rizkymashudi7@gmail.com" class="footer-email">rizkymashudi7@gmail.com</a>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-sig">RM<span style="color:var(--accent-cyan)">_</span> /26</div>
+    <div class="footer-socials">
+      <a href="https://www.linkedin.com/in/rizky-mashudi" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/rizkymashudi" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://medium.com/@ikyrm" target="_blank" rel="noopener">Medium</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+// Theme Toggle
+const toggle = document.getElementById('themeToggle');
+const icon = document.getElementById('themeIcon');
+const html = document.documentElement;
+
+const sunPath = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+const moonPath = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+
+function setTheme(theme) {
+  html.setAttribute('data-theme', theme);
+  icon.innerHTML = theme === 'dark' ? sunPath : moonPath;
+  localStorage.setItem('rm-theme', theme);
+}
+
+toggle.addEventListener('click', () => {
+  const current = html.getAttribute('data-theme');
+  setTheme(current === 'dark' ? 'light' : 'dark');
+});
+
+const saved = localStorage.getItem('rm-theme');
+if (saved) setTheme(saved);
+
+// Mobile Hamburger — Dynamic Island Expand/Collapse
+const hamburger = document.getElementById('hamburger');
+const mainNav = document.getElementById('mainNav');
+const mobilePanel = document.getElementById('mobilePanel');
+
+function closeNav() {
+  mobilePanel.style.height = mobilePanel.scrollHeight + 'px';
+  requestAnimationFrame(() => {
+    mobilePanel.style.height = '0';
+  });
+  mainNav.classList.remove('expanded');
+  hamburger.setAttribute('aria-expanded', 'false');
+}
+
+function openNav() {
+  mainNav.classList.add('expanded');
+  hamburger.setAttribute('aria-expanded', 'true');
+  mobilePanel.style.height = mobilePanel.scrollHeight + 'px';
+  mobilePanel.addEventListener('transitionend', function handler() {
+    if (mainNav.classList.contains('expanded')) {
+      mobilePanel.style.height = 'auto';
+    }
+    mobilePanel.removeEventListener('transitionend', handler);
+  });
+}
+
+hamburger.addEventListener('click', () => {
+  const isExpanded = mainNav.classList.contains('expanded');
+  if (isExpanded) {
+    closeNav();
+  } else {
+    openNav();
+  }
+});
+
+// Mobile nav links — scroll to section + collapse island
+document.querySelectorAll('.nav-mobile-link').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const href = link.getAttribute('href');
+    closeNav();
+    // Small delay so the collapse animation plays before scroll
+    setTimeout(() => {
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 300);
+  });
+});
+
+// Desktop nav links — smooth scroll
+document.querySelectorAll('.nav-links a, .hero-cta a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    const href = link.getAttribute('href');
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const target = document.querySelector(href);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  });
+});
+
+// Close mobile nav on outside click
+document.addEventListener('click', (e) => {
+  if (!mainNav.contains(e.target) && mainNav.classList.contains('expanded')) {
+    closeNav();
+  }
+});
+
+// Close mobile nav on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && mainNav.classList.contains('expanded')) {
+    closeNav();
+  }
+});
+
+// ============================================
+// Apple-Style Cinematic Scroll Engine
+// ============================================
+
+const prefersReducedGlobal = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// 1. Progressive Reveal — IntersectionObserver for all reveal variants
+const allReveals = document.querySelectorAll('.reveal, .reveal-up, .reveal-scale, .reveal-left, .reveal-right');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.08,
+  rootMargin: '0px 0px -60px 0px'
+});
+
+allReveals.forEach(el => {
+  if (prefersReducedGlobal) {
+    el.classList.add('visible');
+  } else {
+    revealObserver.observe(el);
+  }
+});
+
+// 2. Footer cinematic entrance
+const footerSection = document.querySelector('.footer-section');
+if (footerSection) {
+  const footerObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+        footerObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  footerObserver.observe(footerSection);
+}
+
+// 3. Parallax Engine — scroll-driven depth layers
+(function parallaxEngine() {
+  if (prefersReducedGlobal) return;
+
+  const parallaxEls = document.querySelectorAll('[data-parallax]');
+  if (!parallaxEls.length) return;
+
+  let ticking = false;
+
+  function updateParallax() {
+    const scrollY = window.scrollY;
+    parallaxEls.forEach(el => {
+      const speed = parseFloat(el.dataset.parallax) || 0.2;
+      const rect = el.getBoundingClientRect();
+      const centerOffset = rect.top + rect.height / 2 - window.innerHeight / 2;
+      const offset = centerOffset * speed * -0.3;
+      el.style.transform = `translateY(${offset}px)`;
+    });
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  }, { passive: true });
+})();
+
+// 4. Hero — Parallax Layers + Mouse Tilt + Scatter Exit
+(function heroAtmosphere() {
+  if (prefersReducedGlobal) return;
+
+  const hero = document.getElementById('heroSection');
+  const tiltContainer = document.getElementById('heroTilt');
+  const layers = hero.querySelectorAll('.hero-layer');
+
+  if (!hero || !tiltContainer || !layers.length) return;
+
+  // ── Mouse + Touch reactive tilt ──
+  let mouseX = 0.5;
+  let mouseY = 0.5;
+  let currentTiltX = 0;
+  let currentTiltY = 0;
+
+  // Desktop: mouse
+  hero.addEventListener('mousemove', (e) => {
+    const rect = hero.getBoundingClientRect();
+    mouseX = (e.clientX - rect.left) / rect.width;
+    mouseY = (e.clientY - rect.top) / rect.height;
+  });
+
+  hero.addEventListener('mouseleave', () => {
+    mouseX = 0.5;
+    mouseY = 0.5;
+  });
+
+  // Mobile: device orientation (gyroscope tilt)
+  if (window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', (e) => {
+      if (e.gamma !== null && e.beta !== null) {
+        // gamma: left-right tilt (-90 to 90), beta: front-back (−180 to 180)
+        mouseX = 0.5 + (e.gamma / 90) * 0.5;
+        mouseY = 0.5 + ((e.beta - 45) / 90) * 0.5; // offset 45° for natural hold angle
+        mouseX = Math.max(0, Math.min(1, mouseX));
+        mouseY = Math.max(0, Math.min(1, mouseY));
+      }
+    }, { passive: true });
+  }
+
+  // Mobile fallback: touch drag
+  hero.addEventListener('touchmove', (e) => {
+    const touch = e.touches[0];
+    const rect = hero.getBoundingClientRect();
+    mouseX = (touch.clientX - rect.left) / rect.width;
+    mouseY = (touch.clientY - rect.top) / rect.height;
+    mouseX = Math.max(0, Math.min(1, mouseX));
+    mouseY = Math.max(0, Math.min(1, mouseY));
+  }, { passive: true });
+
+  hero.addEventListener('touchend', () => {
+    mouseX = 0.5;
+    mouseY = 0.5;
+  });
+
+  // ── Scroll parallax + scatter exit ──
+  let ticking = false;
+
+  function update() {
+    const scrollY = window.scrollY;
+    const heroH = hero.offsetHeight;
+    const progress = Math.min(scrollY / heroH, 1);
+
+    // Smooth tilt interpolation (lerp)
+    const isMobileHero = window.innerWidth <= 768;
+    const tiltAmount = isMobileHero ? 1.5 : 2.5;
+    const targetTiltX = (mouseY - 0.5) * -tiltAmount;
+    const targetTiltY = (mouseX - 0.5) * tiltAmount;
+    currentTiltX += (targetTiltX - currentTiltX) * 0.08;
+    currentTiltY += (targetTiltY - currentTiltY) * 0.08;
+
+    // Reduce tilt as scroll increases (don't tilt when scrolled away)
+    const tiltFade = 1 - progress;
+    tiltContainer.style.transform = `rotateX(${currentTiltX * tiltFade}deg) rotateY(${currentTiltY * tiltFade}deg)`;
+
+    // Per-layer parallax + scatter
+    const parallaxScale = isMobileHero ? 0.2 : 0.4;
+    layers.forEach((layer, i) => {
+      const speed = parseFloat(layer.dataset.speed) || 0.3;
+
+      if (progress < 0.6) {
+        // Normal parallax — each layer scrolls at different speed
+        const parallaxY = scrollY * speed * -parallaxScale;
+        const layerOpacity = 1 - progress * (0.5 + speed * 0.8);
+
+        layer.style.transform = `translateY(${parallaxY}px)`;
+        layer.style.opacity = Math.max(layerOpacity, 0);
+      } else {
+        // Scatter exit — elements drift apart (scaled for mobile)
+        const scatterP = (progress - 0.6) / 0.4;
+        const eased = scatterP * scatterP;
+        const scatterScale = isMobileHero ? 0.5 : 1;
+
+        const scatterDirections = [
+          { x: -20 * scatterScale, y: -60 * scatterScale },
+          { x: 0, y: -30 * scatterScale },
+          { x: 15 * scatterScale, y: 40 * scatterScale },
+          { x: -10 * scatterScale, y: 70 * scatterScale },
+        ];
+
+        const dir = scatterDirections[i] || { x: 0, y: 40 };
+        const scatterX = dir.x * eased;
+        const scatterY = dir.y * eased;
+        const parallaxY = scrollY * speed * -parallaxScale;
+        const layerOpacity = Math.max(1 - progress * 1.2, 0);
+        const blur = eased * (isMobileHero ? 2 : 4);
+
+        layer.style.transform = `translateY(${parallaxY + scatterY}px) translateX(${scatterX}px)`;
+        layer.style.opacity = Math.max(layerOpacity, 0);
+        layer.style.filter = blur > 0.5 ? `blur(${blur}px)` : '';
+      }
+    });
+
+    // Overall hero container
+    const heroOpacity = 1 - progress * 0.9;
+    hero.style.opacity = Math.max(heroOpacity, 0);
+
+    ticking = false;
+  }
+
+  // Combined scroll + mouse RAF loop
+  function loop() {
+    update();
+    requestAnimationFrame(loop);
+  }
+
+  requestAnimationFrame(loop);
+})();
+
+// 5. Marquee Speed Shift — marquees accelerate slightly on scroll proximity
+(function marqueeScrollSpeed() {
+  if (prefersReducedGlobal) return;
+
+  const marquees = document.querySelectorAll('.marquee-track');
+  if (!marquees.length) return;
+
+  const marqueeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const track = entry.target;
+      if (entry.isIntersecting) {
+        const ratio = entry.intersectionRatio;
+        const baseSpeed = parseFloat(track.style.getPropertyValue('--marquee-speed')) || 22;
+        const boost = baseSpeed * (1 - ratio * 0.25);
+        track.style.animationDuration = boost + 's';
+      }
+    });
+  }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
+
+  marquees.forEach(t => marqueeObserver.observe(t));
+})();
+
+// 5b. Featured Work — 7-Phase Cinematic Scroll-Jack
+(function workCinematic() {
+  if (prefersReducedGlobal) return;
+
+
+  const pinned = document.querySelector('.work-pinned');
+  const headline = document.getElementById('workHeadline');
+  const subtitle = document.getElementById('workSubtitle');
+  const carousel = document.getElementById('workCarousel');
+  const track = document.getElementById('workTrack');
+  const cards = track.querySelectorAll('.project-card');
+
+  if (!pinned || !headline || !track || !cards.length) return;
+
+  const totalCards = cards.length;
+  const isMobileView = window.innerWidth <= 768;
+  let subtitleTyped = false;
+  let subtitleDone = false;
+
+  // Work section stickers
+  const stickerSwift = document.getElementById('stickerSwift');
+  const stickerXcode = document.getElementById('stickerXcode');
+  const stickerArkit = document.getElementById('stickerArkit');
+
+  // Subtitle typing
+  const subtitleText = 'Projects that made it from concept to production. Real apps, real users.';
+  let subtitleCharIndex = 0;
+  let subtitleCursor = null;
+
+  function typeSubtitle() {
+    if (subtitleTyped) return;
+    subtitleTyped = true;
+    subtitle.textContent = '';
+    subtitleCursor = document.createElement('span');
+    subtitleCursor.className = 'cursor-blink';
+    subtitle.appendChild(subtitleCursor);
+
+    function typeChar() {
+      if (subtitleCharIndex < subtitleText.length) {
+        subtitleCursor.before(subtitleText[subtitleCharIndex]);
+        subtitleCharIndex++;
+        const delay = subtitleText[subtitleCharIndex - 1] === ' ' ? 20 : 30 + Math.random() * 15;
+        setTimeout(typeChar, delay);
+      } else {
+        subtitleDone = true;
+      }
+    }
+    typeChar();
+  }
+
+  let ticking = false;
+
+  function update() {
+    const pinnedTop = pinned.offsetTop;
+    const scrollY = window.scrollY;
+    const vh = window.innerHeight;
+    const totalScroll = pinned.offsetHeight - vh;
+
+    if (totalScroll <= 0) { ticking = false; return; }
+
+    const scrollIntoPin = scrollY - pinnedTop;
+    const progress = Math.max(0, Math.min(scrollIntoPin / totalScroll, 1));
+
+    // ── PHASE MAP ──
+    // 0.00–0.15 : Headline entrance (scale + fade in)
+    // 0.10–0.15 : Subtitle typing starts
+    // 0.15–0.25 : Headline holds, then fades out
+    // 0.20–0.78 : Card carousel (horizontal scroll)
+    // 0.78–0.88 : Cards accelerate off left edge
+    // 0.85–0.97 : "(02) What I do *" scales in
+    // 0.97–1.00 : Hold, then release
+
+    // ── Phase 1-2: Headline ──
+    if (progress < 0.25) {
+      const headP = Math.min(progress / 0.15, 1); // 0→1 over first 15%
+      const fadeOut = progress > 0.15 ? (progress - 0.15) / 0.1 : 0; // fade 15-25%
+
+      const opacity = Math.min(headP, 1) * (1 - fadeOut);
+      const scale = 0.85 + headP * 0.15;
+
+      headline.style.opacity = Math.max(opacity, 0);
+      headline.style.transform = `scale(${Math.min(scale, 1)})`;
+      headline.style.pointerEvents = opacity > 0.5 ? 'auto' : 'none';
+
+      // Trigger typing at 10%
+      if (progress > 0.10 && !subtitleTyped) {
+        typeSubtitle();
+      }
+    } else {
+      headline.style.opacity = 0;
+      headline.style.pointerEvents = 'none';
+    }
+
+    // ── Sticker pop-in / pop-out ──
+    // Swift sticker: pops in at 5%, pops out at 18% (when cards start)
+    if (stickerSwift) {
+      if (progress > 0.05 && progress < 0.18) {
+        stickerSwift.classList.add('popped-in');
+        stickerSwift.classList.remove('popped-out');
+      } else if (progress >= 0.18) {
+        stickerSwift.classList.remove('popped-in');
+        stickerSwift.classList.add('popped-out');
+      } else {
+        stickerSwift.classList.remove('popped-in', 'popped-out');
+      }
+    }
+
+    // Xcode sticker: pops in at 8% (staggered), pops out at 20%
+    if (stickerXcode) {
+      if (progress > 0.08 && progress < 0.20) {
+        stickerXcode.classList.add('popped-in');
+        stickerXcode.classList.remove('popped-out');
+      } else if (progress >= 0.20) {
+        stickerXcode.classList.remove('popped-in');
+        stickerXcode.classList.add('popped-out');
+      } else {
+        stickerXcode.classList.remove('popped-in', 'popped-out');
+      }
+    }
+
+    // ── Phase 3-6: Card Carousel ──
+    const exitHeadline = document.getElementById('workExitHeadline');
+
+    if (progress > 0.18) {
+      const carouselStart = 0.18;
+      const carouselEnd = 0.95;
+
+      // Constant scroll speed — keep translating until all cards exit
+      const carP = Math.max(0, Math.min((progress - carouselStart) / (carouselEnd - carouselStart), 1));
+
+      // Carousel container stays visible — individual cards handle their own fade
+      const carouselOpacity = Math.min((progress - 0.18) / 0.03, 1);
+      carousel.style.opacity = carouselOpacity;
+
+      // Horizontal translate — same behavior on all screen sizes
+      const viewWidth = window.innerWidth;
+      const trackWidth = track.scrollWidth;
+      const startOffset = viewWidth - 60;
+      const endOffset = -(trackWidth + 400);
+      const fullRange = endOffset - startOffset;
+      const translateX = startOffset + fullRange * carP;
+      track.style.transform = `translateX(${translateX}px)`;
+
+      // Per-card fade: leading edge (left) fade-out + trailing edge (right) fade-in
+      const fadeZone = Math.min(viewWidth * 0.4, 400); // Scale fade zone to screen
+      cards.forEach((card) => {
+        const cardRect = card.getBoundingClientRect();
+        const cardLeft = cardRect.left;
+        const cardRight = cardRect.right;
+
+        if (cardRight < 0) {
+          card.style.opacity = 0;
+        } else if (cardRight < 300) {
+          card.style.opacity = Math.max(0, cardRight / 300);
+        } else if (cardLeft > viewWidth) {
+          card.style.opacity = 0;
+        } else if (cardLeft > viewWidth - fadeZone) {
+          const fadeProgress = 1 - (cardLeft - (viewWidth - fadeZone)) / fadeZone;
+          card.style.opacity = Math.max(0, Math.min(fadeProgress, 1));
+        } else {
+          card.style.opacity = 1;
+        }
+      });
+    } else {
+      carousel.style.opacity = 0;
+      cards.forEach(card => { card.style.opacity = 0; });
+    }
+
+    // ── Phase 7: "(02) What I do *" headline entrance ──
+    if (progress > 0.85) {
+      const headStart = 0.85;
+      const headEnd = 0.97;
+      const headP = Math.min((progress - headStart) / (headEnd - headStart), 1);
+
+      // Smooth ease out
+      const eased = 1 - Math.pow(1 - headP, 3);
+
+      exitHeadline.style.opacity = eased;
+      exitHeadline.style.transform = `scale(${0.85 + eased * 0.15})`;
+
+      // ARKit sticker pops in slightly after the headline
+      if (stickerArkit) {
+        if (progress > 0.90) {
+          stickerArkit.classList.add('popped-in');
+          stickerArkit.classList.remove('popped-out');
+        }
+      }
+    } else {
+      exitHeadline.style.opacity = 0;
+      exitHeadline.style.transform = 'scale(0.85)';
+
+      // Sticker hidden when headline not visible
+      if (stickerArkit) {
+        stickerArkit.classList.remove('popped-in');
+        if (progress > 0.5) {
+          // Only add popped-out if we're in the section (not before it)
+        } else {
+          stickerArkit.classList.remove('popped-out');
+        }
+      }
+    }
+
+    // Keep carousel vertically centered
+    if (progress > 0.18) {
+      carousel.style.transform = 'translateY(-50%)';
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  update();
+
+})();
+
+// 6. Section Scroll Progress — subtle opacity fade on scroll-out
+(function sectionScrollFade() {
+  if (prefersReducedGlobal) return;
+
+  const fadeSections = document.querySelectorAll('[data-scroll-fade]');
+  if (!fadeSections.length) return;
+
+  let ticking = false;
+
+  function update() {
+    fadeSections.forEach(section => {
+      const rect = section.getBoundingClientRect();
+      const vh = window.innerHeight;
+
+      // When section is leaving the top of viewport, fade it
+      if (rect.bottom < vh * 0.3 && rect.bottom > 0) {
+        const progress = 1 - (rect.bottom / (vh * 0.3));
+        section.style.opacity = Math.max(1 - progress * 0.4, 0.6);
+      } else if (rect.top > vh) {
+        section.style.opacity = 1;
+      } else {
+        section.style.opacity = 1;
+      }
+    });
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
+})();
+
+// 6b. Skills — Stacking Card Animation
+(function skillsStacking() {
+  if (prefersReducedGlobal) return;
+
+
+  const pinned = document.querySelector('.skills-pinned');
+  const stack = document.getElementById('skillsStack');
+  const cards = stack.querySelectorAll('.skill-card');
+
+  if (!pinned || !stack || !cards.length) return;
+
+  const totalCards = cards.length;
+  const stickerArkitForSkills = document.getElementById('stickerArkit');
+  const stickerSwiftUI = document.getElementById('stickerSwiftUI');
+  const stickerPhotos = document.getElementById('stickerPhotos');
+  let ticking = false;
+
+  function update() {
+    const pinnedTop = pinned.offsetTop;
+    const scrollY = window.scrollY;
+    const vh = window.innerHeight;
+    const totalScroll = pinned.offsetHeight - vh;
+
+    if (totalScroll <= 0) { ticking = false; return; }
+
+    const scrollIntoPin = scrollY - pinnedTop;
+    const progress = Math.max(0, Math.min(scrollIntoPin / totalScroll, 1));
+
+    // Pop out the ARKit sticker when first card starts entering
+    if (stickerArkitForSkills && progress > 0.05) {
+      stickerArkitForSkills.classList.remove('popped-in');
+      stickerArkitForSkills.classList.add('popped-out');
+    }
+
+    // SwiftUI sticker pops in when 2nd card starts stacking
+    if (stickerSwiftUI && progress > 0.15) {
+      stickerSwiftUI.classList.add('popped-in');
+    }
+
+    // Photos sticker pops in when 4th card starts stacking
+    if (stickerPhotos && progress > 0.35) {
+      stickerPhotos.classList.add('popped-in');
+    }
+
+    // ── PHASE MAP ──
+    // 0.00–0.85 : Cards stack one by one
+    // 0.85–1.00 : Hold the full stack
+
+    // Cards: each card gets a slice of the 0.00–0.85 range
+    const cardStart = 0.0;
+    const cardEnd = 0.85;
+    const cardRange = cardEnd - cardStart;
+    const slicePerCard = cardRange / totalCards;
+
+    cards.forEach((card, i) => {
+      const myStart = cardStart + i * slicePerCard;
+      const myEnd = myStart + slicePerCard;
+      const cardP = Math.max(0, Math.min((progress - myStart) / (myEnd - myStart), 1));
+
+      // Ease out cubic for smooth landing
+      const eased = 1 - Math.pow(1 - cardP, 3);
+
+      const fromLeft = card.dataset.from === 'left';
+      const tilt = parseFloat(card.dataset.tilt) || 0;
+
+      // Entry: slide from left or right + fade in (scaled for viewport)
+      const isMobileSkills = window.innerWidth <= 768;
+      const slideDistance = isMobileSkills ? 150 : 300;
+      const tiltScale = isMobileSkills ? 0.6 : 1;
+      const startX = fromLeft ? -slideDistance : slideDistance;
+      const currentX = startX * (1 - eased);
+      const currentRotate = tilt * tiltScale * eased;
+      const currentOpacity = eased;
+
+      // Slight vertical stacking offset — each card sits a bit lower
+      const stackOffset = i * (isMobileSkills ? 3 : 4);
+
+      // z-index: later cards on top
+      card.style.zIndex = i + 1;
+
+      card.style.transform = `translateX(${currentX}px) translateY(${stackOffset}px) rotate(${currentRotate}deg)`;
+      card.style.opacity = currentOpacity;
+
+      // Once landed, add subtle shadow depth based on stack position
+      if (cardP >= 1) {
+        const shadowDepth = 4 + i * 3;
+        card.style.boxShadow = `0 ${shadowDepth}px ${shadowDepth * 2}px var(--glass-shadow), 0 0 0 0.5px var(--glass-border-inner) inset, 0 1px 0 var(--glass-highlight) inset`;
+      }
+    });
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  update();
+
+})();
+
+// 6c. Experience — Cinematic Chapter Reveals
+(function expCinematic() {
+  if (prefersReducedGlobal) return;
+
+
+  const pinned = document.querySelector('.exp-pinned');
+  const headline = document.getElementById('expHeadline');
+  const yearEl = document.getElementById('expYear');
+  const chapters = document.querySelectorAll('.exp-chapter');
+  const progressFill = document.getElementById('expProgressFill');
+  const nodesContainer = document.getElementById('expProgressNodes');
+
+  if (!pinned || !chapters.length) return;
+
+  const totalChapters = chapters.length;
+
+  // Create progress nodes
+  chapters.forEach((ch, i) => {
+    const node = document.createElement('div');
+    node.className = 'exp-node';
+    node.style.top = (i / (totalChapters - 1) * 100) + '%';
+    nodesContainer.appendChild(node);
+  });
+  const nodes = nodesContainer.querySelectorAll('.exp-node');
+
+  // Year targets for each chapter
+  const years = Array.from(chapters).map(ch => parseInt(ch.dataset.year));
+
+  // Typing state per chapter
+  const roleTyped = new Array(totalChapters).fill(false);
+  const roleElements = Array.from(chapters).map(ch => ch.querySelector('.exp-chapter-role'));
+  const roleTexts = roleElements.map(el => el.textContent);
+  roleElements.forEach(el => { el.dataset.originalText = el.textContent; });
+
+  function typeRole(index) {
+    if (roleTyped[index]) return;
+    roleTyped[index] = true;
+
+    const el = roleElements[index];
+    const text = roleTexts[index];
+    el.textContent = '';
+
+    let charIdx = 0;
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor-blink';
+    cursor.style.background = 'var(--accent-orange)';
+    cursor.style.width = '2px';
+    cursor.style.height = '0.9em';
+    cursor.style.display = 'inline-block';
+    cursor.style.verticalAlign = 'middle';
+    cursor.style.marginLeft = '4px';
+    el.appendChild(cursor);
+
+    function typeChar() {
+      if (charIdx < text.length) {
+        cursor.before(text[charIdx]);
+        charIdx++;
+        const delay = text[charIdx - 1] === ' ' ? 25 : 40 + Math.random() * 20;
+        setTimeout(typeChar, delay);
+      } else {
+        // Remove cursor after typing finishes
+        setTimeout(() => cursor.remove(), 1500);
+      }
+    }
+    typeChar();
+  }
+
+  // Animated year counter
+  let currentDisplayYear = years[years.length - 1]; // Start from earliest
+  let yearAnimFrame = null;
+
+  function animateYear(target) {
+    if (currentDisplayYear === target) return;
+
+    const start = currentDisplayYear;
+    const diff = target - start;
+    const duration = 600;
+    const startTime = performance.now();
+
+    function step(now) {
+      const elapsed = now - startTime;
+      const p = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      const current = Math.round(start + diff * eased);
+
+      yearEl.textContent = current;
+      currentDisplayYear = current;
+
+      if (p < 1) {
+        yearAnimFrame = requestAnimationFrame(step);
+      }
+    }
+
+    if (yearAnimFrame) cancelAnimationFrame(yearAnimFrame);
+    yearAnimFrame = requestAnimationFrame(step);
+  }
+
+  let ticking = false;
+
+  function update() {
+    const pinnedTop = pinned.offsetTop;
+    const scrollY = window.scrollY;
+    const vh = window.innerHeight;
+    const totalScroll = pinned.offsetHeight - vh;
+
+    if (totalScroll <= 0) { ticking = false; return; }
+
+    const scrollIntoPin = scrollY - pinnedTop;
+    const progress = Math.max(0, Math.min(scrollIntoPin / totalScroll, 1));
+
+    // ── PHASE MAP ──
+    // 0.00–0.12 : Headline entrance
+    // 0.08–0.20 : Headline fade out
+    // 0.15–0.90 : Chapter reveals (one per slice)
+    // 0.90–1.00 : Hold last chapter, section releases
+
+    // ── Headline ──
+    if (progress < 0.20) {
+      const headIn = Math.min(progress / 0.12, 1);
+      const headOut = progress > 0.12 ? (progress - 0.12) / 0.08 : 0;
+      const opacity = headIn * (1 - headOut);
+      const scale = 0.85 + headIn * 0.15;
+
+      headline.style.opacity = Math.max(opacity, 0);
+      headline.style.transform = `scale(${Math.min(scale, 1)})`;
+    } else {
+      headline.style.opacity = 0;
+    }
+
+    // ── Progress bar ──
+    const barStart = 0.15;
+    const barEnd = 0.90;
+    const barProgress = Math.max(0, Math.min((progress - barStart) / (barEnd - barStart), 1));
+    progressFill.style.height = (barProgress * 100) + '%';
+
+    // ── Chapters ──
+    const chapterStart = 0.15;
+    const chapterEnd = 0.90;
+    const chapterRange = chapterEnd - chapterStart;
+    const slicePerChapter = chapterRange / totalChapters;
+
+    // Determine active chapter
+    let activeIndex = -1;
+    if (progress >= chapterStart) {
+      activeIndex = Math.min(
+        Math.floor((progress - chapterStart) / slicePerChapter),
+        totalChapters - 1
+      );
+    }
+
+    // Year counter + parallax
+    if (activeIndex >= 0) {
+      const targetYear = years[activeIndex];
+      animateYear(targetYear);
+
+      // Parallax: year moves slower than content
+      const chapterLocalP = ((progress - chapterStart) - activeIndex * slicePerChapter) / slicePerChapter;
+      const yearParallax = chapterLocalP * -20;
+      yearEl.style.transform = `translateY(${yearParallax}px)`;
+      yearEl.style.opacity = 0.15;
+    } else {
+      yearEl.style.opacity = 0;
+    }
+
+    // Update each chapter
+    chapters.forEach((ch, i) => {
+      const myStart = chapterStart + i * slicePerChapter;
+      const myEnd = myStart + slicePerChapter;
+      const chP = (progress - myStart) / slicePerChapter;
+
+      if (i === activeIndex) {
+        // Active chapter: fade in
+        const enterP = Math.min(chP / 0.3, 1);
+        const eased = 1 - Math.pow(1 - enterP, 3);
+
+        ch.style.opacity = eased;
+        ch.style.transform = `translateY(${(1 - eased) * 40}px)`;
+        ch.classList.add('active');
+
+        // Trigger typing when chapter becomes active
+        if (enterP > 0.3) typeRole(i);
+      } else if (i < activeIndex) {
+        // Previous chapter: fade out upward
+        ch.style.opacity = 0;
+        ch.style.transform = 'translateY(-30px)';
+        ch.classList.remove('active');
+      } else {
+        // Future chapter: hidden below
+        ch.style.opacity = 0;
+        ch.style.transform = 'translateY(40px)';
+        ch.classList.remove('active');
+      }
+    });
+
+    // Update nodes
+    nodes.forEach((node, i) => {
+      if (i < activeIndex) {
+        node.className = 'exp-node passed';
+      } else if (i === activeIndex) {
+        node.className = 'exp-node active';
+      } else {
+        node.className = 'exp-node';
+      }
+    });
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  update();
+
+})();
+
+// 6d. About — "The Reveal" Cinematic Personal Intro
+(function aboutReveal() {
+  if (prefersReducedGlobal) return;
+
+
+  const pinned = document.querySelector('.about-pinned');
+  const headline = document.getElementById('aboutHeadline');
+  const split = document.getElementById('aboutSplit');
+  const phrases = document.querySelectorAll('.about-phrase');
+  const links = document.querySelectorAll('.about-links-wrap .about-link');
+  const highlights = document.querySelectorAll('.about-phrase .highlight');
+
+  if (!pinned || !headline) return;
+
+  const totalPhrases = phrases.length;
+  const totalLinks = links.length;
+  let glowTriggered = new Set();
+  const stickerAboutMemoji = document.getElementById('stickerAboutMemoji');
+
+  let ticking = false;
+
+  function update() {
+    const pinnedTop = pinned.offsetTop;
+    const scrollY = window.scrollY;
+    const vh = window.innerHeight;
+    const totalScroll = pinned.offsetHeight - vh;
+
+    if (totalScroll <= 0) { ticking = false; return; }
+
+    const scrollIntoPin = scrollY - pinnedTop;
+    const progress = Math.max(0, Math.min(scrollIntoPin / totalScroll, 1));
+
+    // ── PHASE MAP ──
+    // 0.00–0.12 : Headline entrance (scale + fade)
+    // 0.07      : Memoji sticker pops in
+    // 0.10–0.20 : Headline fade out
+    // 0.18      : Memoji sticker pops out
+    // 0.18–0.22 : Split layout fades in
+    // 0.20–0.60 : Bio phrases reveal one by one
+    // 0.55–0.80 : Link cards cascade in from right
+    // 0.80–1.00 : Hold, section releases
+
+    // ── Memoji sticker pop-in / pop-out ──
+    if (stickerAboutMemoji) {
+      if (progress > 0.07 && progress < 0.20) {
+        stickerAboutMemoji.classList.add('popped-in');
+        stickerAboutMemoji.classList.remove('popped-out');
+      } else if (progress >= 0.20) {
+        stickerAboutMemoji.classList.remove('popped-in');
+        stickerAboutMemoji.classList.add('popped-out');
+      } else {
+        stickerAboutMemoji.classList.remove('popped-in', 'popped-out');
+      }
+    }
+
+    // ── Headline ──
+    if (progress < 0.20) {
+      const headIn = Math.min(progress / 0.12, 1);
+      const headOut = progress > 0.10 ? (progress - 0.10) / 0.10 : 0;
+      const opacity = headIn * (1 - headOut);
+      const scale = 0.85 + headIn * 0.15;
+
+      headline.style.opacity = Math.max(opacity, 0);
+      headline.style.transform = `scale(${Math.min(scale, 1)})`;
+    } else {
+      headline.style.opacity = 0;
+    }
+
+    // ── Split layout container ──
+    const isMobileAbout = window.innerWidth <= 768;
+
+    if (progress > 0.18) {
+      const splitIn = Math.min((progress - 0.18) / 0.04, 1);
+      split.style.opacity = splitIn;
+
+      // On mobile: scroll content up within the sticky viewport
+      if (isMobileAbout && progress > 0.25) {
+        const contentScrollP = Math.max(0, (progress - 0.25) / 0.65); // 0.25→0.90
+        const splitHeight = split.scrollHeight;
+        const vh = window.innerHeight;
+        const maxScroll = Math.max(splitHeight - vh + 140, 0); // 140px for top padding + nav
+        split.style.transform = `translateY(${-contentScrollP * maxScroll}px)`;
+      } else {
+        split.style.transform = '';
+      }
+    } else {
+      split.style.opacity = 0;
+      split.style.transform = '';
+    }
+
+    // ── Bio phrases — sequential fade up ──
+    const phraseStart = 0.20;
+    const phraseEnd = 0.60;
+    const phraseRange = phraseEnd - phraseStart;
+    const slicePerPhrase = phraseRange / totalPhrases;
+
+    phrases.forEach((phrase, i) => {
+      const myStart = phraseStart + i * slicePerPhrase;
+      const phraseP = Math.max(0, Math.min((progress - myStart) / (slicePerPhrase * 0.6), 1));
+
+      if (phraseP > 0) {
+        phrase.classList.add('visible');
+        phrase.style.transitionDelay = '0s';
+      } else {
+        phrase.classList.remove('visible');
+      }
+    });
+
+    // ── Highlight glow pulse ──
+    highlights.forEach((hl, i) => {
+      // Find which phrase this highlight belongs to
+      const phraseEl = hl.closest('.about-phrase');
+      if (phraseEl && phraseEl.classList.contains('visible') && !glowTriggered.has(i)) {
+        glowTriggered.add(i);
+        // Add glow class, remove after 1.2s
+        setTimeout(() => {
+          hl.classList.add('glow');
+          setTimeout(() => hl.classList.remove('glow'), 1200);
+        }, 300);
+      }
+    });
+
+    // ── Link cards cascade from right ──
+    const linkStart = 0.55;
+    const linkEnd = 0.80;
+    const linkRange = linkEnd - linkStart;
+    const slicePerLink = linkRange / totalLinks;
+
+    links.forEach((link, i) => {
+      const myStart = linkStart + i * slicePerLink;
+      const linkP = Math.max(0, Math.min((progress - myStart) / (slicePerLink * 0.7), 1));
+
+      if (linkP > 0.1) {
+        link.classList.add('visible');
+        link.style.transitionDelay = '0s';
+      } else {
+        link.classList.remove('visible');
+      }
+    });
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  update();
+
+})();
+
+// 7. Nav scroll behavior — shrink/grow on scroll direction
+(function navScrollBehavior() {
+  const navOuter = document.getElementById('navOuter');
+  if (!navOuter) return;
+
+  let lastScrollY = 0;
+  let ticking = false;
+
+  function update() {
+    const scrollY = window.scrollY;
+    if (scrollY > 100 && scrollY > lastScrollY) {
+      // Scrolling down — nudge nav up slightly
+      navOuter.style.top = '8px';
+      navOuter.style.opacity = '0.9';
+    } else {
+      // Scrolling up or at top — full position
+      navOuter.style.top = scrollY > 50 ? '12px' : '16px';
+      navOuter.style.opacity = '1';
+    }
+    navOuter.style.transition = 'top 0.4s var(--ease-out-expo), opacity 0.4s var(--ease-out-expo)';
+    lastScrollY = scrollY;
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(update);
+      ticking = true;
+    }
+  }, { passive: true });
+})();
+
+// Hero Typing Animation
+(function heroTyping() {
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const heroTitle = document.getElementById('heroTitle');
+  const cursor = document.getElementById('typingCursor');
+  const heroSub = document.querySelector('.hero-sub');
+  const heroCta = document.querySelector('.hero-cta');
+
+  // Segments: text to type, then optionally insert an icon
+  const segments = [
+    { text: 'iOS engineer ', icon: 'swift' },
+    { text: 'crafting scalable mobile experiences ', icon: 'ui' },
+    { text: 'with a focus on clean architecture ', icon: 'code' },
+    { text: 'and thoughtful interfaces', icon: null },
+  ];
+
+  function createIcon(type) {
+    const span = document.createElement('span');
+    span.className = 'icon-slot icon-' + type;
+    span.style.opacity = '0';
+    span.style.transform = 'scale(0.5)';
+    span.style.transition = 'opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo)';
+    return span;
+  }
+
+  function popIcon(iconEl) {
+    requestAnimationFrame(() => {
+      iconEl.style.opacity = '1';
+      iconEl.style.transform = 'scale(1)';
+    });
+  }
+
+  function showAfterTyping() {
+    // Cursor keeps blinking at the end
+    setTimeout(() => {
+      heroSub.classList.add('visible');
+    }, 200);
+    setTimeout(() => {
+      heroCta.classList.add('visible');
+    }, 500);
+  }
+
+  // If reduced motion, show everything immediately
+  if (prefersReduced) {
+    heroTitle.innerHTML = '';
+    segments.forEach(seg => {
+      heroTitle.appendChild(document.createTextNode(seg.text));
+      if (seg.icon) {
+        const ic = createIcon(seg.icon);
+        ic.style.opacity = '1';
+        ic.style.transform = 'scale(1)';
+        heroTitle.appendChild(ic);
+        heroTitle.appendChild(document.createTextNode(' '));
+      }
+    });
+    heroTitle.appendChild(cursor);
+    heroSub.classList.add('visible');
+    heroCta.classList.add('visible');
+    return;
+  }
+
+  // Remove cursor from initial position, we'll re-append during typing
+  cursor.remove();
+
+  let segIndex = 0;
+  let charIndex = 0;
+  let currentTextNode = null;
+  const baseDelay = 35;
+
+  function typeNext() {
+    const seg = segments[segIndex];
+
+    if (charIndex < seg.text.length) {
+      // Type one character
+      if (!currentTextNode) {
+        currentTextNode = document.createTextNode('');
+        heroTitle.appendChild(currentTextNode);
+        heroTitle.appendChild(cursor);
+      }
+      currentTextNode.textContent += seg.text[charIndex];
+      charIndex++;
+
+      // Variable speed: faster for spaces, slight randomness
+      const ch = seg.text[charIndex - 1];
+      const delay = ch === ' ' ? baseDelay * 0.5 : baseDelay + Math.random() * 25;
+      setTimeout(typeNext, delay);
+    } else {
+      // Segment text done — insert icon if needed
+      if (seg.icon) {
+        cursor.remove();
+        const iconEl = createIcon(seg.icon);
+        heroTitle.appendChild(iconEl);
+        heroTitle.appendChild(document.createTextNode(' '));
+        heroTitle.appendChild(cursor);
+
+        // Pop the icon in after a tiny beat
+        setTimeout(() => popIcon(iconEl), 80);
+
+        // Pause briefly after icon, then continue
+        setTimeout(() => {
+          segIndex++;
+          charIndex = 0;
+          currentTextNode = null;
+          if (segIndex < segments.length) {
+            typeNext();
+          } else {
+            showAfterTyping();
+          }
+        }, 350);
+      } else {
+        // Last segment, no icon
+        segIndex++;
+        charIndex = 0;
+        currentTextNode = null;
+        if (segIndex < segments.length) {
+          typeNext();
+        } else {
+          showAfterTyping();
+        }
+      }
+    }
+  }
+
+  // Start typing after label fadeUp finishes
+  setTimeout(typeNext, 800);
+})();
+
+// Floating Particle Dots in Project Thumbnails
+(function initParticles() {
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReduced) return;
+
+  document.querySelectorAll('.project-thumb').forEach(thumb => {
+    const canvas = document.createElement('canvas');
+    canvas.className = 'particles';
+    thumb.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let raf;
+    let w, h;
+
+    function resize() {
+      const rect = thumb.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = rect.width;
+      h = rect.height;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx.scale(dpr, dpr);
+    }
+
+    function createParticles() {
+      const count = Math.floor((w * h) / 8000);
+      particles = [];
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.random() * 1.5 + 0.5,
+          dx: (Math.random() - 0.5) * 0.3,
+          dy: (Math.random() - 0.5) * 0.3,
+          alpha: Math.random() * 0.5 + 0.2,
+          pulse: Math.random() * Math.PI * 2,
+          pulseSpeed: Math.random() * 0.02 + 0.005,
+        });
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const dotColor = isDark ? '224,224,224' : '26,26,26';
+
+      particles.forEach(p => {
+        p.x += p.dx;
+        p.y += p.dy;
+        p.pulse += p.pulseSpeed;
+
+        if (p.x < -5) p.x = w + 5;
+        if (p.x > w + 5) p.x = -5;
+        if (p.y < -5) p.y = h + 5;
+        if (p.y > h + 5) p.y = -5;
+
+        const flicker = (Math.sin(p.pulse) + 1) / 2;
+        const a = p.alpha * (0.4 + flicker * 0.6);
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${dotColor}, ${a})`;
+        ctx.fill();
+      });
+
+      // Draw faint connecting lines between close particles
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 80) {
+            const lineAlpha = (1 - dist / 80) * 0.08;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(${dotColor}, ${lineAlpha})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      raf = requestAnimationFrame(draw);
+    }
+
+    resize();
+    createParticles();
+    draw();
+
+    const ro = new ResizeObserver(() => {
+      resize();
+      createParticles();
+    });
+    ro.observe(thumb);
+  });
+})();
+</script>
+
+</body>
+</html>
