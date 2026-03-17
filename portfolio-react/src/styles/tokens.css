@@ -48,3 +48,43 @@
   --glass-refraction: rgba(255, 255, 255, 0.15);
   --exp-year-color: var(--accent-orange);
 }
+
+/* ============================
+   Light Theme
+   ============================ */
+[data-theme="light"] {
+  --bg-primary: #E0E0E0;
+  --bg-secondary: #D2D2D2;
+  --bg-card: rgba(0, 0, 0, 0.03);
+  --bg-card-hover: rgba(0, 0, 0, 0.07);
+  --text-primary: #1a1a1a;
+  --text-secondary: #6C6C6C;
+  --text-tertiary: #808080;
+  --text-hint: rgba(0, 0, 0, 0.2);
+  --border: rgba(0, 0, 0, 0.1);
+  --border-hover: rgba(0, 0, 0, 0.18);
+  --accent-swift: #E65A4F;
+  --accent-ui: #3EC1C9;
+  --accent-code: #D4A828;
+  --accent-watch: #D4A828;
+  --accent-orange: #E65A4F;
+  --accent-cyan: #2A9EA5;
+  --accent-yellow: #D4A828;
+  --accent-orange-muted: rgba(230, 90, 79, 0.1);
+  --accent-cyan-muted: rgba(62, 193, 201, 0.1);
+  --accent-yellow-muted: rgba(212, 168, 40, 0.1);
+  --toggle-bg: rgba(0, 0, 0, 0.06);
+  --toggle-icon: #1a1a1a;
+  --nav-bg: rgba(255, 255, 255, 0.45);
+  --nav-border: rgba(255, 255, 255, 0.6);
+  --nav-border-inner: rgba(255, 255, 255, 0.5);
+  --nav-shadow-outer: rgba(0, 0, 0, 0.08);
+  --nav-highlight: rgba(255, 255, 255, 0.7);
+  --glass-bg: rgba(255, 255, 255, 0.35);
+  --glass-border: rgba(255, 255, 255, 0.55);
+  --glass-border-inner: rgba(255, 255, 255, 0.45);
+  --glass-shadow: rgba(0, 0, 0, 0.04);
+  --glass-highlight: rgba(255, 255, 255, 0.6);
+  --glass-refraction: rgba(255, 255, 255, 0.8);
+  --exp-year-color: var(--text-hint);
+}
