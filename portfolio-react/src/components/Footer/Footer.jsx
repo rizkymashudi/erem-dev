@@ -38,7 +38,7 @@ export default function Footer() {
   return (
     <section className={styles.footerSection} id="contact">
       <Sticker
-        src="/assets/stickers/apple.png"
+        src="/assets/stickers/apple.webp"
         className={`${styles.stickerFooterApple} ${styles.stickerFloatSlow}`}
       />
       <div className={styles.reveal} ref={revealRef}>

@@ -77,10 +77,10 @@ export default function SkillsSection() {
     <section className={styles.skillsPinned} id="skills" ref={sectionRef}>
       <div className={styles.skillsSticky}>
         <div ref={stickerSwiftUIRef}>
-          <Sticker src="/assets/stickers/swiftui.png" className={`${styles.stickerSwiftui} ${styles.stickerScrollPop}`} />
+          <Sticker src="/assets/stickers/swiftui.webp" className={`${styles.stickerSwiftui} ${styles.stickerScrollPop}`} />
         </div>
         <div ref={stickerPhotosRef}>
-          <Sticker src="/assets/stickers/photos.png" className={`${styles.stickerPhotos} ${styles.stickerScrollPop}`} />
+          <Sticker src="/assets/stickers/photos.webp" className={`${styles.stickerPhotos} ${styles.stickerScrollPop}`} />
         </div>
         <div className={styles.skillsStack}>
           {SKILLS.map((skill, i) => (
