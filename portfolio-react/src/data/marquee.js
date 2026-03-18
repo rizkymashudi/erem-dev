@@ -1,10 +1,13 @@
 export const TECH_ITEMS = [
   'Swift', 'SwiftUI', 'UIKit', 'Combine', 'Core Data',
-  'Clean Architecture', 'TDD', 'WatchKit', 'HealthKit',
-  'CI/CD', 'Domain Driven Design', 'Systems Design',
+  'Clean Architecture', 'MVVM', 'TDD', 'SOLID',
+  'WatchKit', 'HealthKit', 'XCTest',
+  'CI/CD', 'Agile/Scrum', 'REST API',
 ];
 
 export const CLIENT_ITEMS = [
-  'nbs.co.id', 'Apple Developer Academy', 'Essential Developer Academy',
-  'MAFINDO', 'Politeknik Negeri Batam', 'PT Asta Satria Investama',
+  'NBS', 'Apple Developer Academy', 'Essential Developer Academy',
+  'Fintech', 'Banking', 'Telecom', 'E-commerce', 'Edtech',
+  'Government', 'Streaming', 'Transit', 'Sports', 'Crypto',
+  'Health Services', 'Precious Metals Marketplace', 'Religious Services',
 ];
