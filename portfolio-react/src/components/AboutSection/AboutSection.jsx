@@ -165,7 +165,7 @@ export default function AboutSection() {
           </div>
           <div ref={stickerMemojiRef}>
             <Sticker
-              src="/assets/stickers/memoji-laptop.png"
+              src="/assets/stickers/memoji-laptop.webp"
               className={`${styles.stickerAboutMemoji} ${styles.stickerScrollPop}`}
             />
           </div>
