@@ -98,7 +98,7 @@ export default function Hero() {
     let segIndex = 0;
     let charIndex = 0;
     let currentTextNode = null;
-    const baseDelay = 35;
+    const baseDelay = 23;
 
     function typeNext() {
       const seg = SEGMENTS[segIndex];
@@ -113,7 +113,7 @@ export default function Hero() {
         charIndex++;
 
         const ch = seg.text[charIndex - 1];
-        const delay = ch === ' ' ? baseDelay * 0.5 : baseDelay + Math.random() * 25;
+        const delay = ch === ' ' ? baseDelay * 0.5 : baseDelay + Math.random() * 17;
         setTimeout(typeNext, delay);
       } else {
         if (seg.icon) {
