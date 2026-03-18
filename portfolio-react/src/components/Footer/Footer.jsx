@@ -12,7 +12,8 @@ export default function Footer() {
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) {
-      reveal.classList.add(styles.visible);
+      reveal.style.opacity = '1';
+      reveal.style.transform = 'translateY(0)';
       return;
     }
 
@@ -20,12 +21,13 @@ export default function Footer() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add(styles.visible);
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.08, rootMargin: '0px 0px -60px 0px' }
+      { threshold: 0.05 }
     );
 
     observer.observe(reveal);

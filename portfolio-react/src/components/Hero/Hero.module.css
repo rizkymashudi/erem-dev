@@ -190,3 +190,23 @@
 @media (max-width: 480px) {
   .heroTitle { font-size: 20px; }
 }
+
+/* Keyframes (local to module so CSS Modules hashes match) */
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes stickerFloatHero {
+  0%, 100% { transform: translateY(-55%) rotate(-5deg); }
+  50% { transform: translateY(calc(-55% - 10px)) rotate(-3deg); }
+}
+
+@keyframes stickerFloatHeroMobile {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-6px) rotate(-5deg); }
+}

@@ -22,16 +22,11 @@
   color: var(--accent-orange);
 }
 
-/* Reveal animation — controlled by JS in Phase 4 */
+/* Reveal animation — initial hidden state, JS sets final inline styles */
 .reveal {
   opacity: 0;
   transform: translateY(50px);
   transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .footerBottom {
@@ -85,4 +80,9 @@
 @media (max-width: 768px) {
   .footerSection { padding: 60px 20px 40px; }
   .stickerFooterApple { width: 80px; }
+}
+
+@keyframes stickerFloat {
+  0%, 100% { transform: translateY(0) rotate(var(--sticker-rotate, 0deg)); }
+  50% { transform: translateY(-8px) rotate(var(--sticker-rotate, 0deg)); }
 }

@@ -42,7 +42,7 @@ a {
 .popped-in > * {
   transform: scale(1) rotate(var(--sticker-rotate, 0deg)) !important;
   opacity: 1 !important;
-  animation: stickerFloat 4s ease-in-out infinite 0.5s;
+  animation: stickerFloat 4s ease-in-out infinite 0.5s !important;
 }
 
 .popped-out > * {
