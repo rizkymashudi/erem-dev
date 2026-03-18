@@ -108,6 +108,7 @@
 }
 
 @media (max-width: 480px) {
+  .skillsPinned { height: 500vh; }
   .skillsStack { height: 200px; }
   .skillCard { padding: 16px 14px; }
 }

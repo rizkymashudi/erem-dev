@@ -186,3 +186,7 @@
     animation: stickerFloatHeroMobile 4s ease-in-out infinite;
   }
 }
+
+@media (max-width: 480px) {
+  .heroTitle { font-size: 20px; }
+}
