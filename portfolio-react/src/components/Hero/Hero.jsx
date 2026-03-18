@@ -268,50 +268,52 @@ export default function Hero() {
 
   return (
     <section className={styles.hero} id="heroSection" ref={sectionRef}>
-      <div className={styles.heroTilt} ref={tiltRef}>
-        <div className={styles.heroLayer} ref={(el) => setLayerRef(el, 0)}>
-          <div className={styles.heroLabel}>(00) — intro</div>
-        </div>
-        <div className={styles.heroLayer} ref={(el) => setLayerRef(el, 1)}>
-          <h1 className={styles.heroTitle} ref={titleRef}>
-            <span className={styles.cursorBlink} ref={cursorRef} />
-          </h1>
-        </div>
-        <div className={styles.heroLayer} ref={(el) => setLayerRef(el, 2)}>
-          <p className={styles.heroSub} ref={subRef}>
-            4+ years shipping production iOS apps across fintech, government, and e-commerce. 13+ client projects delivered. Apple Developer Academy graduate, currently at Essential Developer Academy, London.
-          </p>
-        </div>
-        <div className={styles.heroLayer} ref={(el) => setLayerRef(el, 3)}>
-          <div className={styles.heroCta} ref={ctaRef}>
-            <a
-              href="#work"
-              className={`${styles.btn} ${styles.btnPrimary}`}
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector('#work')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }}
-            >
-              view work &darr;
-            </a>
-            <a
-              href="#contact"
-              className={styles.btn}
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }}
-            >
-              get in touch
-            </a>
+      <div className={styles.heroInner}>
+        <div className={styles.heroTilt} ref={tiltRef}>
+          <div className={styles.heroLayer} ref={(el) => setLayerRef(el, 0)}>
+            <div className={styles.heroLabel}>(00) — intro</div>
+          </div>
+          <div className={styles.heroLayer} ref={(el) => setLayerRef(el, 1)}>
+            <h1 className={styles.heroTitle} ref={titleRef}>
+              <span className={styles.cursorBlink} ref={cursorRef} />
+            </h1>
+          </div>
+          <div className={styles.heroLayer} ref={(el) => setLayerRef(el, 2)}>
+            <p className={styles.heroSub} ref={subRef}>
+              4+ years shipping production iOS apps across fintech, government, and e-commerce. 13+ client projects delivered. Apple Developer Academy graduate, currently at Essential Developer Academy, London.
+            </p>
+          </div>
+          <div className={styles.heroLayer} ref={(el) => setLayerRef(el, 3)}>
+            <div className={styles.heroCta} ref={ctaRef}>
+              <a
+                href="#work"
+                className={`${styles.btn} ${styles.btnPrimary}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector('#work')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }}
+              >
+                view work &darr;
+              </a>
+              <a
+                href="#contact"
+                className={styles.btn}
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }}
+              >
+                get in touch
+              </a>
+            </div>
           </div>
         </div>
+        <Sticker
+          src="/assets/stickers/hello.webp"
+          alt=""
+          className={`${styles.stickerHeroHello} ${styles.stickerFloat}`}
+        />
       </div>
-      <Sticker
-        src="/assets/stickers/hello.webp"
-        alt=""
-        className={`${styles.stickerHeroHello} ${styles.stickerFloat}`}
-      />
       <div className={styles.heroFadeOverlay} />
     </section>
   );
