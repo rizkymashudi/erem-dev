@@ -1,6 +1,7 @@
 .card {
   flex: 0 0 380px;
   min-width: 380px;
+  height: 100%;
   position: relative;
   border-radius: 16px;
   cursor: pointer;
