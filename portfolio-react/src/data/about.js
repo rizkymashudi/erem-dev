@@ -30,5 +30,5 @@ export const LINK_CARDS = [
   { href: 'https://www.linkedin.com/in/rizky-mashudi', label: 'LinkedIn', color: 'cyan', external: true },
   { href: 'https://github.com/rizkymashudi', label: 'GitHub', color: 'primary', external: true },
   { href: 'https://medium.com/@ikyrm', label: 'Medium blog', color: 'yellow', external: true },
-  { href: 'mailto:rizkymashudi7@gmail.com', label: 'Email', color: 'orange', external: false },
+  { href: 'mailto:eremism1@gmail.com', label: 'Email', color: 'orange', external: false },
 ];

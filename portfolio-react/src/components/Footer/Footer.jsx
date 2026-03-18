@@ -40,8 +40,8 @@ export default function Footer() {
       <div className={styles.footerInner}>
         <div className={styles.reveal} ref={revealRef}>
           <div className={styles.footerCta}>got a project in mind?</div>
-          <a href="mailto:rizkymashudi7@gmail.com" className={styles.footerEmail}>
-            rizkymashudi7@gmail.com
+          <a href="mailto:eremism1@gmail.com" className={styles.footerEmail}>
+            eremism1@gmail.com
           </a>
         </div>
         <Sticker
