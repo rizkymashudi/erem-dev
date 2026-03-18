@@ -4,6 +4,14 @@
   position: relative;
 }
 
+.footerInner {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
 .footerCta {
   font-size: clamp(20px, 2.5vw, 32px);
   font-weight: 300;
@@ -24,6 +32,8 @@
 
 /* Reveal animation — initial hidden state, JS sets final inline styles */
 .reveal {
+  flex: 1;
+  min-width: 0;
   opacity: 0;
   transform: translateY(50px);
   transition: opacity 1s var(--ease-out-expo), transform 1s var(--ease-out-expo);
@@ -36,6 +46,9 @@
   margin-top: 80px;
   padding-top: 20px;
   border-top: 0.5px solid var(--border);
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .footerSig {
@@ -65,12 +78,15 @@
   color: var(--accent-cyan);
 }
 
-/* Sticker */
-.stickerFooterApple {
-  right: 10%;
-  top: 30%;
+/* Sticker — override base .sticker absolute positioning */
+.stickerFooterApple.stickerFooterApple {
+  position: relative;
+  top: auto;
+  right: auto;
+  transform: rotate(-13deg);
   width: clamp(80px, 10vw, 140px);
-  --sticker-rotate: -4deg;
+  flex-shrink: 0;
+  --sticker-rotate: -13deg;
 }
 
 .stickerFloatSlow {
@@ -79,10 +95,25 @@
 
 @media (max-width: 768px) {
   .footerSection { padding: 60px 20px 40px; }
-  .stickerFooterApple { width: 80px; }
+
+  .footerInner {
+    flex-direction: column-reverse;
+    gap: 16px;
+    text-align: center;
+  }
+
+  .stickerFooterApple.stickerFooterApple {
+    width: 80px;
+  }
+
+  .footerBottom {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
 }
 
 @keyframes stickerFloat {
-  0%, 100% { transform: translateY(0) rotate(var(--sticker-rotate, 0deg)); }
-  50% { transform: translateY(-8px) rotate(var(--sticker-rotate, 0deg)); }
+  0%, 100% { transform: rotate(-13deg); }
+  50% { transform: translateY(-8px) rotate(-13deg); }
 }
