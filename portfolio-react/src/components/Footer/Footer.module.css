@@ -40,6 +40,13 @@
   transform: translateY(0);
 }
 
+/* In-view entrance animation */
+.inView .footerCta,
+.inView .footerEmail {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
 .footerBottom {
   display: flex;
   justify-content: space-between;
