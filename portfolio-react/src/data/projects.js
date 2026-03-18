@@ -4,7 +4,7 @@ export const PROJECTS = [
     name: 'Banking app',
     desc: 'Body hire engagement for one of Indonesia\'s largest private banks. Contributed to mobile banking features within an established codebase.',
     tags: ['Swift', 'Clean Architecture', 'Modular', 'MVVM', 'Banking'],
-    gradient: 'linear-gradient(135deg, rgba(62,193,201,0.14), rgba(62,193,201,0.04) 50%, rgba(230,90,79,0.08))',
+    gradient: 'linear-gradient(135deg, rgba(245,130,32,0.18), rgba(245,130,32,0.06) 50%, rgba(0,163,161,0.10))',
     rotate: -3,
   },
   {
@@ -12,7 +12,7 @@ export const PROJECTS = [
     name: 'Telecom',
     desc: 'Developed localization asset SDK for Indonesia\'s largest mobile operator, enabling scalable multi-language support across the app.',
     tags: ['Swift', 'SDK Development', 'Localization', 'SDK', 'System Design', 'Telecom'],
-    gradient: 'linear-gradient(135deg, rgba(230,90,79,0.14), rgba(230,90,79,0.04) 50%, rgba(62,193,201,0.08))',
+    gradient: 'linear-gradient(135deg, rgba(237,28,36,0.18), rgba(237,28,36,0.06) 50%, rgba(237,28,36,0.04))',
     rotate: 2,
   },
   {
@@ -20,7 +20,7 @@ export const PROJECTS = [
     name: 'Precious metals marketplace',
     desc: 'Built features for a digital precious metals marketplace by Pegadaian, covering gold trading and investment flows.',
     tags: ['Swift', 'MVVM', 'Clean Architecture', 'Design Token System', 'Fintech', 'Marketplace'],
-    gradient: 'linear-gradient(135deg, rgba(242,201,76,0.14), rgba(242,201,76,0.04) 50%, rgba(230,90,79,0.06))',
+    gradient: 'linear-gradient(135deg, rgba(201,161,74,0.18), rgba(201,161,74,0.06) 50%, rgba(26,26,26,0.10))',
     rotate: -1.5,
   },
   {
@@ -28,7 +28,7 @@ export const PROJECTS = [
     name: 'Digital Investment platform',
     desc: 'Contributed feature development on a leading Indonesian investment app serving retail stock and mutual fund investors.',
     tags: ['Swift', 'Multi Design Pattern', 'Modular', 'Fintech', 'Investment'],
-    gradient: 'linear-gradient(135deg, rgba(62,193,201,0.14), rgba(62,193,201,0.04))',
+    gradient: 'linear-gradient(135deg, rgba(111,63,245,0.18), rgba(111,63,245,0.06) 50%, rgba(167,139,250,0.08))',
     rotate: 3,
   },
   {
@@ -36,7 +36,7 @@ export const PROJECTS = [
     name: 'Pegadaian Syariah Digital Service — fintech',
     desc: 'Led development coordination for Pegadaian\'s sharia-compliant digital financial service. Managed task breakdown, code reviews, and sprint delivery.',
     tags: ['Swift', 'MVVM', 'Team Coordinator', 'Fintech', 'Sharia'],
-    gradient: 'linear-gradient(135deg, rgba(242,201,76,0.14), rgba(242,201,76,0.04))',
+    gradient: 'linear-gradient(135deg, rgba(0,132,61,0.18), rgba(0,132,61,0.06) 50%, rgba(212,175,55,0.10))',
     rotate: -2,
   },
   {
@@ -44,7 +44,7 @@ export const PROJECTS = [
     name: 'Kawal Haji — gov services',
     desc: 'Contributed to hajj pilgrimage monitoring app, helping Indonesian citizens track their journey status and documentation.',
     tags: ['Swift', 'UIKit', 'Government', 'Public Service'],
-    gradient: 'linear-gradient(135deg, rgba(62,193,201,0.14), rgba(230,90,79,0.06) 50%, rgba(242,201,76,0.08))',
+    gradient: 'linear-gradient(135deg, rgba(0,105,92,0.18), rgba(0,105,92,0.06) 50%, rgba(0,105,92,0.04))',
     rotate: 1.5,
   },
   {
@@ -52,7 +52,7 @@ export const PROJECTS = [
     name: 'Persita — sports app',
     desc: 'Coordinated iOS development for Persita Tangerang football club app. Match updates, team info, and fan engagement features.',
     tags: ['Swift', 'MVVM', 'Team Coordinator', 'Sports'],
-    gradient: 'linear-gradient(135deg, rgba(230,90,79,0.14), rgba(230,90,79,0.04))',
+    gradient: 'linear-gradient(135deg, rgba(106,27,154,0.18), rgba(106,27,154,0.06) 50%, rgba(106,27,154,0.04))',
     rotate: -3.5,
   },
   {
@@ -60,7 +60,7 @@ export const PROJECTS = [
     name: 'MyMRTJ — transit app',
     desc: 'Led development coordination for Jakarta MRT transit app. Task breakdown, code reviews, and sprint delivery as team coordinator.',
     tags: ['Swift', 'MVVM', 'Team Coordinator', 'Clean Architecture', 'Transit'],
-    gradient: 'linear-gradient(135deg, rgba(62,193,201,0.14), rgba(62,193,201,0.04) 50%, rgba(230,90,79,0.08))',
+    gradient: 'linear-gradient(135deg, rgba(0,102,179,0.18), rgba(0,102,179,0.06) 50%, rgba(0,102,179,0.04))',
     rotate: 2.5,
   },
   {
@@ -68,7 +68,7 @@ export const PROJECTS = [
     name: 'Eraspace — e-commerce',
     desc: 'Built features for Erajaya\'s flagship e-commerce platform selling electronics and gadgets across Indonesia.',
     tags: ['Swift', 'UIKit', 'E-commerce', 'Retail'],
-    gradient: 'linear-gradient(135deg, rgba(230,90,79,0.14), rgba(242,201,76,0.06) 50%, rgba(62,193,201,0.08))',
+    gradient: 'linear-gradient(135deg, rgba(227,25,55,0.18), rgba(227,25,55,0.06) 50%, rgba(227,25,55,0.04))',
     rotate: -1,
   },
   {
@@ -76,7 +76,7 @@ export const PROJECTS = [
     name: 'BPJS JMO — gov health services',
     desc: 'Owned end-to-end feature implementation as individual contributor on a national-scale government health service app.',
     tags: ['Swift', 'MVVM', 'Government', 'National Scale'],
-    gradient: 'linear-gradient(135deg, rgba(242,201,76,0.14), rgba(242,201,76,0.04))',
+    gradient: 'linear-gradient(135deg, rgba(0,166,81,0.18), rgba(0,166,81,0.06) 50%, rgba(0,114,188,0.08))',
     rotate: 3.5,
   },
   {
@@ -84,7 +84,7 @@ export const PROJECTS = [
     name: 'UseeTV / IndihomeTV — streaming',
     desc: 'Built features for Telkom Indonesia streaming platforms. High-traffic consumer apps with large user bases.',
     tags: ['UIKit', 'Streaming', 'Media', 'Telkom'],
-    gradient: 'linear-gradient(135deg, rgba(62,193,201,0.14), rgba(62,193,201,0.04))',
+    gradient: 'linear-gradient(135deg, rgba(238,39,55,0.18), rgba(238,39,55,0.06) 50%, rgba(238,39,55,0.04))',
     rotate: -2.5,
   },
   {
@@ -92,7 +92,7 @@ export const PROJECTS = [
     name: 'Tokenomy — crypto exchange',
     desc: 'Contributed feature development on a cryptocurrency exchange platform, handling trading flows and digital asset management.',
     tags: ['Swift', 'Clean Architecture', 'Fintech', 'Crypto'],
-    gradient: 'linear-gradient(135deg, rgba(230,90,79,0.14), rgba(62,193,201,0.06))',
+    gradient: 'linear-gradient(135deg, rgba(30,136,229,0.18), rgba(30,136,229,0.06) 50%, rgba(30,136,229,0.04))',
     rotate: 1,
   },
   {
@@ -100,7 +100,7 @@ export const PROJECTS = [
     name: 'Sekolahmu — edtech platform',
     desc: 'Contributed feature development on high-traffic education platform serving millions of Indonesian students.',
     tags: ['UIKit', 'Clean Architecture', 'Edtech'],
-    gradient: 'linear-gradient(135deg, rgba(230,90,79,0.14), rgba(230,90,79,0.04))',
+    gradient: 'linear-gradient(135deg, rgba(255,199,44,0.18), rgba(255,199,44,0.06) 50%, rgba(31,60,136,0.10))',
     rotate: -3,
   },
   {
@@ -108,7 +108,7 @@ export const PROJECTS = [
     name: 'Sleeplance — watchOS companion',
     desc: 'Sleep tracking wearable app with WatchOS companion. Evolved through challenge iterations from MVP to TestFlight release.',
     tags: ['WatchKit', 'HealthKit', 'SwiftUI', 'TestFlight'],
-    gradient: 'linear-gradient(135deg, rgba(230,90,79,0.1), rgba(242,201,76,0.08))',
+    gradient: 'linear-gradient(135deg, rgba(92,107,192,0.18), rgba(92,107,192,0.06) 50%, rgba(63,81,181,0.08))',
     rotate: 2.5,
     isLast: true,
   },

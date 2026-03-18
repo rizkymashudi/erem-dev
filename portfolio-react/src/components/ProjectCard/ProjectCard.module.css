@@ -1,0 +1,191 @@
+.card {
+  flex: 0 0 380px;
+  min-width: 380px;
+  position: relative;
+  border-radius: 16px;
+  cursor: pointer;
+  isolation: isolate;
+  overflow: hidden;
+  border: 0.5px solid var(--nav-border);
+  -webkit-backdrop-filter: blur(40px) saturate(1.8);
+  backdrop-filter: blur(40px) saturate(1.8);
+  box-shadow:
+    0 4px 24px var(--nav-shadow-outer),
+    0 0 0 0.5px var(--nav-border-inner) inset,
+    0 1px 0 var(--nav-highlight) inset;
+  transition:
+    box-shadow 0.5s var(--ease-out-expo),
+    border-color 0.4s var(--ease-out-expo),
+    transform 0.5s var(--ease-out-expo);
+}
+
+.card:hover {
+  border-color: var(--accent-orange);
+  transform: translateY(-6px);
+  box-shadow:
+    0 24px 60px var(--nav-shadow-outer),
+    0 0 0 0.5px var(--nav-border-inner) inset,
+    0 1px 0 var(--nav-highlight) inset,
+    0 0 0 1px var(--accent-orange-muted);
+  z-index: 10;
+}
+
+/* Full-card gradient background */
+.cardBg {
+  position: absolute;
+  inset: 0;
+  background: var(--brand-gradient);
+  z-index: 0;
+  transition: transform 0.8s var(--ease-out-expo);
+}
+
+.card:hover .cardBg {
+  transform: scale(1.08);
+}
+
+/* Shimmer overlay on hover */
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.04) 40%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 60%,
+    transparent
+  );
+  transition: none;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card:hover::after {
+  left: 140%;
+  transition: left 0.8s var(--ease-out-expo);
+}
+
+/* Content overlay */
+.cardContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 28px 24px;
+  min-height: 240px;
+}
+
+.cardName {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  transition: color 0.3s var(--ease-out-expo);
+}
+
+.card:hover .cardName {
+  color: var(--accent-orange);
+}
+
+.cardDesc {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.cardTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cardTag {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  padding: 5px 12px;
+  border: 0.5px solid var(--border);
+  border-radius: 100px;
+  color: var(--text-secondary);
+  transition: all 0.4s var(--ease-out-expo);
+  background: transparent;
+}
+
+.card:hover .cardTag {
+  border-color: var(--accent-cyan-muted);
+  color: var(--text-primary);
+  background: var(--accent-cyan-muted);
+}
+
+.card:hover .cardTag:nth-child(1) { transition-delay: 0s; }
+.card:hover .cardTag:nth-child(2) { transition-delay: 0.03s; }
+.card:hover .cardTag:nth-child(3) { transition-delay: 0.06s; }
+.card:hover .cardTag:nth-child(4) { transition-delay: 0.09s; }
+
+.card:not(:hover) .cardTag {
+  transition-delay: 0s;
+}
+
+/* First card glow pulse */
+.card:first-child {
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+.card:first-child:hover {
+  animation: none;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow:
+      0 2px 16px var(--nav-shadow-outer),
+      0 0 0 0.5px var(--nav-border-inner) inset,
+      0 1px 0 var(--nav-highlight) inset,
+      0 0 20px var(--accent-orange-muted),
+      0 0 60px var(--accent-orange-muted);
+  }
+  50% {
+    box-shadow:
+      0 2px 16px var(--nav-shadow-outer),
+      0 0 0 0.5px var(--nav-border-inner) inset,
+      0 1px 0 var(--nav-highlight) inset,
+      0 0 30px var(--accent-orange-muted),
+      0 0 80px var(--accent-cyan-muted);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card {
+    flex: 0 0 300px;
+    min-width: 300px;
+  }
+
+  .cardContent {
+    padding: 20px 18px;
+    min-height: 200px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .card {
+    flex: 0 0 320px;
+    min-width: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    flex: 0 0 260px;
+    min-width: 260px;
+  }
+
+  .cardContent {
+    padding: 16px 14px;
+    min-height: 180px;
+  }
+}
