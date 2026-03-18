@@ -378,7 +378,13 @@
   .stickerSkillsArkit { width: 100px; left: 5%; top: 50%; }
 }
 
+@media (min-width: 769px) and (max-width: 1024px) {
+  .projectCard { flex: 0 0 320px; min-width: 320px; }
+  .workTrack { gap: 28px; }
+}
+
 @media (max-width: 480px) {
+  .workPinned { height: 550vh; }
   .projectCard {
     flex: 0 0 260px;
     min-width: 260px;

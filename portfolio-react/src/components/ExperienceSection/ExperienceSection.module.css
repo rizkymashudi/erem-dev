@@ -198,6 +198,10 @@
   .expHeadline .sectionTitle { font-size: 18px; }
 }
 
+@media (min-width: 769px) and (max-width: 1024px) {
+  .expChapters { max-width: 60vw; }
+}
+
 @media (max-width: 480px) {
   .expPinned { height: 600vh; }
 }
