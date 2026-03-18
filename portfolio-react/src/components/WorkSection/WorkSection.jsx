@@ -1,28 +1,9 @@
 import { useRef, useEffect, useCallback } from 'react';
 import styles from './WorkSection.module.css';
 import Sticker from '../Sticker/Sticker';
+import ProjectCard from '../ProjectCard/ProjectCard';
 import useScrollProgress from '../../hooks/useScrollProgress';
 import { PROJECTS, SUBTITLE_TEXT } from '../../data/projects';
-
-function ProjectCard({ project, cardRef }) {
-  return (
-    <div className={styles.projectCard} data-card-rotate={project.rotate} ref={cardRef}>
-      <div className={styles.projectThumb}>
-        <div className={styles.projectThumbBg} style={{ background: project.gradient }} />
-        <div className={styles.projectPlay} />
-      </div>
-      <div className={styles.projectInfo}>
-        <div className={styles.projectName}>{project.name}</div>
-        <div className={styles.projectDesc}>{project.desc}</div>
-        <div className={styles.projectTags}>
-          {project.tags.map((tag) => (
-            <span key={tag} className={styles.projectTag}>{tag}</span>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
 
 export default function WorkSection() {
   const sectionRef = useRef(null);

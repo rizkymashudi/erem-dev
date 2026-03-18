@@ -302,7 +302,8 @@
   overflow: visible;
 }
 
-.projectCardWrap .projectCard {
+.projectCardWrap .projectCard,
+.projectCardWrap > div:last-child {
   flex: none;
   min-width: 0;
   width: 100%;
@@ -333,7 +334,7 @@
 .stickerCardUnicorn {
   position: absolute;
   top: -20px;
-  right: -50px;
+  right: -70px;
   width: clamp(120px, 15vw, 180px);
   z-index: 10;
   pointer-events: none;
@@ -370,7 +371,7 @@
   .workExitHeadline .sectionTitle { font-size: 18px; }
   .stickerWorkSwift { width: 70px; right: 8%; top: 10%; }
   .stickerWorkXcode { width: 80px; left: 5%; bottom: 25%; }
-  .stickerCardUnicorn { width: 110px; top: -15px; right: -30px; }
+  .stickerCardUnicorn { width: 110px; top: -15px; right: -45px; }
   .projectCardWrap {
     flex: 0 0 300px;
     min-width: 300px;
