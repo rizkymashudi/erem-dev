@@ -284,10 +284,24 @@ export default function Hero() {
         </div>
         <div className={styles.heroLayer} ref={(el) => setLayerRef(el, 3)}>
           <div className={styles.heroCta} ref={ctaRef}>
-            <a href="#work" className={`${styles.btn} ${styles.btnPrimary}`}>
+            <a
+              href="#work"
+              className={`${styles.btn} ${styles.btnPrimary}`}
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector('#work')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+            >
               view work &darr;
             </a>
-            <a href="#contact" className={styles.btn}>
+            <a
+              href="#contact"
+              className={styles.btn}
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+            >
               get in touch
             </a>
           </div>
