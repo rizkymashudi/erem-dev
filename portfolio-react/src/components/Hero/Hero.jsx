@@ -309,6 +309,7 @@ export default function Hero() {
       </div>
       <Sticker
         src="/assets/stickers/hello.webp"
+        alt=""
         className={`${styles.stickerHeroHello} ${styles.stickerFloat}`}
       />
       <div className={styles.heroFadeOverlay} />
