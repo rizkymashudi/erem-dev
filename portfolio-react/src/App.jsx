@@ -37,13 +37,15 @@ export default function App() {
   return (
     <>
       <Nav theme={theme} toggleTheme={toggleTheme} />
-      <Hero />
-      <Marquee items={TECH_ITEMS} speed="22s" />
-      <WorkSection />
-      <SkillsSection />
-      <Marquee items={CLIENT_ITEMS} separator="·" speed="25s" reverse />
-      <ExperienceSection />
-      <AboutSection />
+      <main>
+        <Hero />
+        <Marquee items={TECH_ITEMS} speed="22s" />
+        <WorkSection />
+        <SkillsSection />
+        <Marquee items={CLIENT_ITEMS} separator="·" speed="25s" reverse />
+        <ExperienceSection />
+        <AboutSection />
+      </main>
       <Footer />
     </>
   );

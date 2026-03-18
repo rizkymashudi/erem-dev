@@ -204,10 +204,10 @@ export default function WorkSection() {
         </div>
 
         <div ref={stickerSwiftRef}>
-          <Sticker src="/assets/stickers/swift.webp" className={`${styles.stickerWorkSwift} ${styles.stickerScrollPop}`} />
+          <Sticker src="/assets/stickers/swift.webp" alt="" className={`${styles.stickerWorkSwift} ${styles.stickerScrollPop}`} />
         </div>
         <div ref={stickerXcodeRef}>
-          <Sticker src="/assets/stickers/xcode.webp" className={`${styles.stickerWorkXcode} ${styles.stickerScrollPop}`} />
+          <Sticker src="/assets/stickers/xcode.webp" alt="" className={`${styles.stickerWorkXcode} ${styles.stickerScrollPop}`} />
         </div>
 
         <div className={styles.workCarousel} ref={carouselRef}>
@@ -218,7 +218,7 @@ export default function WorkSection() {
             })}
             {lastProject && (
               <div className={styles.projectCardWrap}>
-                <Sticker src="/assets/stickers/unicorn.webp" className={`${styles.stickerCardUnicorn} ${styles.stickerFloat}`} />
+                <Sticker src="/assets/stickers/unicorn.webp" alt="" className={`${styles.stickerCardUnicorn} ${styles.stickerFloat}`} />
                 <ProjectCard project={lastProject} cardRef={(el) => setCardRef(el, cardIndex++)} />
               </div>
             )}
@@ -234,7 +234,7 @@ export default function WorkSection() {
             </div>
           </div>
           <div ref={stickerArkitRef}>
-            <Sticker src="/assets/stickers/arkit.webp" className={`${styles.stickerSkillsArkit} ${styles.stickerScrollPop}`} />
+            <Sticker src="/assets/stickers/arkit.webp" alt="" className={`${styles.stickerSkillsArkit} ${styles.stickerScrollPop}`} />
           </div>
         </div>
       </div>

@@ -39,6 +39,7 @@ export default function Footer() {
     <section className={styles.footerSection} id="contact">
       <Sticker
         src="/assets/stickers/apple.webp"
+        alt=""
         className={`${styles.stickerFooterApple} ${styles.stickerFloatSlow}`}
       />
       <div className={styles.reveal} ref={revealRef}>
