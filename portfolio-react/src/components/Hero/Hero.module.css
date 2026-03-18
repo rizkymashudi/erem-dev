@@ -141,7 +141,7 @@
   right: 8%;
   top: 50%;
   transform: translateY(-55%) rotate(-5deg);
-  width: clamp(180px, 22vw, 300px);
+  width: clamp(225px, 27.5vw, 375px);
   --sticker-rotate: -5deg;
 }
 
@@ -175,7 +175,7 @@
   }
 
   .stickerHeroHello {
-    width: clamp(90px, 24vw, 120px);
+    width: clamp(112px, 30vw, 150px);
     right: 8%;
     top: 22%;
     transform: rotate(-5deg);
