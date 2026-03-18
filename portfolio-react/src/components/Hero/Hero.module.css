@@ -1,7 +1,7 @@
 .hero {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
   padding: 120px 40px 80px;
   position: relative;
@@ -9,11 +9,20 @@
   z-index: 1;
 }
 
+.heroInner {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  max-width: 960px;
+  width: 100%;
+}
+
 .heroTilt {
   transform-style: preserve-3d;
   transition: transform 0.15s ease-out;
   will-change: transform;
-  max-width: 600px;
+  flex: 1;
+  min-width: 0;
 }
 
 .heroLayer {
@@ -136,13 +145,15 @@
   color: #fff;
 }
 
-/* Hello sticker */
-.stickerHeroHello {
-  right: 8%;
-  top: 50%;
-  transform: translateY(-55%) rotate(-5deg);
-  width: clamp(225px, 27.5vw, 375px);
-  --sticker-rotate: -5deg;
+/* Hello sticker — override base .sticker absolute positioning */
+.stickerHeroHello.stickerHeroHello {
+  position: relative;
+  top: auto;
+  right: auto;
+  transform: rotate(-13deg);
+  width: clamp(200px, 25vw, 320px);
+  flex-shrink: 0;
+  --sticker-rotate: -13deg;
 }
 
 .stickerFloat {
@@ -166,20 +177,25 @@
     perspective: 800px;
   }
 
+  .heroInner {
+    flex-direction: column-reverse;
+    gap: 16px;
+    text-align: center;
+  }
+
   .heroCta {
     flex-direction: column;
+    align-items: center;
   }
 
   .heroTilt {
     max-width: 100%;
   }
 
-  .stickerHeroHello {
-    width: clamp(112px, 30vw, 150px);
-    right: 8%;
-    top: 22%;
-    transform: rotate(-5deg);
-    opacity: 0.6;
+  .stickerHeroHello.stickerHeroHello {
+    width: clamp(100px, 28vw, 140px);
+    transform: rotate(-13deg);
+    opacity: 0.8;
   }
 
   .stickerFloat {
@@ -202,11 +218,11 @@
 }
 
 @keyframes stickerFloatHero {
-  0%, 100% { transform: translateY(-55%) rotate(-5deg); }
-  50% { transform: translateY(calc(-55% - 10px)) rotate(-3deg); }
+  0%, 100% { transform: rotate(-13deg); }
+  50% { transform: translateY(-10px) rotate(-11deg); }
 }
 
 @keyframes stickerFloatHeroMobile {
-  0%, 100% { transform: translateY(0) rotate(-5deg); }
-  50% { transform: translateY(-6px) rotate(-5deg); }
+  0%, 100% { transform: rotate(-13deg); }
+  50% { transform: translateY(-6px) rotate(-13deg); }
 }

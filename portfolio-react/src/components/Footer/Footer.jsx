@@ -37,16 +37,18 @@ export default function Footer() {
 
   return (
     <section className={styles.footerSection} id="contact">
-      <Sticker
-        src="/assets/stickers/apple.webp"
-        alt=""
-        className={`${styles.stickerFooterApple} ${styles.stickerFloatSlow}`}
-      />
-      <div className={styles.reveal} ref={revealRef}>
-        <div className={styles.footerCta}>got a project in mind?</div>
-        <a href="mailto:rizkymashudi7@gmail.com" className={styles.footerEmail}>
-          rizkymashudi7@gmail.com
-        </a>
+      <div className={styles.footerInner}>
+        <div className={styles.reveal} ref={revealRef}>
+          <div className={styles.footerCta}>got a project in mind?</div>
+          <a href="mailto:eremism1@gmail.com" className={styles.footerEmail}>
+            eremism1@gmail.com
+          </a>
+        </div>
+        <Sticker
+          src="/assets/stickers/apple.webp"
+          alt=""
+          className={`${styles.stickerFooterApple} ${styles.stickerFloatSlow}`}
+        />
       </div>
       <div className={styles.footerBottom}>
         <div className={styles.footerSig}>

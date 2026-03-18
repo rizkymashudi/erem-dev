@@ -200,7 +200,7 @@ export default function Nav({ theme, toggleTheme }) {
             ))}
           </div>
           <div className={styles.navMobileFooter}>
-            <span className={styles.navMobileEmail}>rizkymashudi7@gmail.com</span>
+            <span className={styles.navMobileEmail}>eremism1@gmail.com</span>
           </div>
         </div>
       </nav>

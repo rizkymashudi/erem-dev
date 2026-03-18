@@ -58,7 +58,7 @@ export default function ExperienceSection() {
       if (charIdx < text.length) {
         cursor.before(text[charIdx]);
         charIdx++;
-        const delay = text[charIdx - 1] === ' ' ? 25 : 40 + Math.random() * 20;
+        const delay = text[charIdx - 1] === ' ' ? 17 : 27 + Math.random() * 13;
         setTimeout(typeChar, delay);
       } else {
         setTimeout(() => cursor.remove(), 1500);

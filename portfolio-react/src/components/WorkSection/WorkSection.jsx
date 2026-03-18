@@ -41,7 +41,7 @@ export default function WorkSection() {
         if (i < SUBTITLE_TEXT.length) {
           cursor.before(SUBTITLE_TEXT[i]);
           i++;
-          const delay = SUBTITLE_TEXT[i - 1] === ' ' ? 20 : 30 + Math.random() * 15;
+          const delay = SUBTITLE_TEXT[i - 1] === ' ' ? 13 : 20 + Math.random() * 10;
           setTimeout(typeChar, delay);
         } else {
           subtitleState.current.done = true;
