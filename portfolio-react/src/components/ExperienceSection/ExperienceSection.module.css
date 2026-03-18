@@ -118,8 +118,34 @@
   pointer-events: none;
 }
 
-.expChapter.active {
+.active {
   pointer-events: auto;
+}
+
+/* Progress nodes */
+.expNode {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-tertiary);
+  background: var(--bg-primary);
+  transition: all 0.4s var(--ease-out-expo);
+  z-index: 1;
+}
+
+.activeNode {
+  border-color: var(--accent-cyan);
+  background: var(--accent-cyan);
+  transform: translateX(-50%) scale(1.3);
+}
+
+.passed {
+  border-color: var(--accent-cyan);
+  background: var(--accent-cyan);
+  transform: translateX(-50%) scale(1);
 }
 
 .expChapterDate {
