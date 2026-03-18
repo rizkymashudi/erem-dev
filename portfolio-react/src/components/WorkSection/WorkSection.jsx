@@ -106,27 +106,25 @@ export default function WorkSection() {
 
     // Sticker pops
     if (swiftEl) {
-      const parent = swiftEl.closest('[class]') || swiftEl;
       if (progress > 0.05 && progress < 0.18) {
-        parent.classList.add('popped-in');
-        parent.classList.remove('popped-out');
+        swiftEl.classList.add('popped-in');
+        swiftEl.classList.remove('popped-out');
       } else if (progress >= 0.18) {
-        parent.classList.remove('popped-in');
-        parent.classList.add('popped-out');
+        swiftEl.classList.remove('popped-in');
+        swiftEl.classList.add('popped-out');
       } else {
-        parent.classList.remove('popped-in', 'popped-out');
+        swiftEl.classList.remove('popped-in', 'popped-out');
       }
     }
     if (xcodeEl) {
-      const parent = xcodeEl.closest('[class]') || xcodeEl;
       if (progress > 0.08 && progress < 0.20) {
-        parent.classList.add('popped-in');
-        parent.classList.remove('popped-out');
+        xcodeEl.classList.add('popped-in');
+        xcodeEl.classList.remove('popped-out');
       } else if (progress >= 0.20) {
-        parent.classList.remove('popped-in');
-        parent.classList.add('popped-out');
+        xcodeEl.classList.remove('popped-in');
+        xcodeEl.classList.add('popped-out');
       } else {
-        parent.classList.remove('popped-in', 'popped-out');
+        xcodeEl.classList.remove('popped-in', 'popped-out');
       }
     }
 
@@ -179,16 +177,14 @@ export default function WorkSection() {
         exitHL.style.transform = `scale(${0.85 + eased * 0.15})`;
 
         if (arkitEl && progress > 0.90) {
-          const parent = arkitEl.closest('[class]') || arkitEl;
-          parent.classList.add('popped-in');
-          parent.classList.remove('popped-out');
+          arkitEl.classList.add('popped-in');
+          arkitEl.classList.remove('popped-out');
         }
       } else {
         exitHL.style.opacity = 0;
         exitHL.style.transform = 'scale(0.85)';
         if (arkitEl) {
-          const parent = arkitEl.closest('[class]') || arkitEl;
-          parent.classList.remove('popped-in');
+          arkitEl.classList.remove('popped-in');
         }
       }
     }

@@ -50,6 +50,27 @@
   animation: blink 1s step-end infinite;
 }
 
+/* Inline icon slots in hero title */
+.iconSlot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 20px;
+  border-radius: 4px;
+  vertical-align: middle;
+  margin: 0 3px;
+  transition: transform 0.3s var(--ease-out-expo);
+}
+
+.iconSlot:hover {
+  transform: scale(1.2);
+}
+
+.iconSwift { background: var(--accent-swift); }
+.iconUi { background: var(--accent-ui); }
+.iconCode { background: var(--accent-code); }
+
 .heroSub {
   margin-top: 40px;
   font-size: 13px;

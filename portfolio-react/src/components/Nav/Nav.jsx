@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import styles from './Nav.module.css';
 
 const NAV_LINKS = [
@@ -33,6 +33,8 @@ export default function Nav({ theme, toggleTheme }) {
   const [expanded, setExpanded] = useState(false);
   const panelRef = useRef(null);
   const navRef = useRef(null);
+  const outerRef = useRef(null);
+  const lastScrollYRef = useRef(0);
 
   const closeNav = useCallback(() => {
     const panel = panelRef.current;
@@ -87,8 +89,62 @@ export default function Nav({ theme, toggleTheme }) {
     }
   };
 
+  // Close on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (expanded && navRef.current && !navRef.current.contains(e.target)) {
+        closeNav();
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [expanded, closeNav]);
+
+  // Close on Escape key
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && expanded) {
+        closeNav();
+      }
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [expanded, closeNav]);
+
+  // Nav scroll behavior — shrink/grow on scroll direction
+  useEffect(() => {
+    const navOuter = outerRef.current;
+    if (!navOuter) return;
+
+    let ticking = false;
+
+    function update() {
+      const scrollY = window.scrollY;
+      if (scrollY > 100 && scrollY > lastScrollYRef.current) {
+        navOuter.style.top = '8px';
+        navOuter.style.opacity = '0.9';
+      } else {
+        navOuter.style.top = scrollY > 50 ? '12px' : '16px';
+        navOuter.style.opacity = '1';
+      }
+      navOuter.style.transition = 'top 0.4s var(--ease-out-expo), opacity 0.4s var(--ease-out-expo)';
+      lastScrollYRef.current = scrollY;
+      ticking = false;
+    }
+
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   return (
-    <div className={styles.navOuter}>
+    <div className={styles.navOuter} ref={outerRef}>
       <nav
         ref={navRef}
         className={`${styles.nav} ${expanded ? styles.expanded : ''}`}
