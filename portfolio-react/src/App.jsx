@@ -9,6 +9,7 @@ import SkillsSection from './components/SkillsSection/SkillsSection';
 import ExperienceSection from './components/ExperienceSection/ExperienceSection';
 import AboutSection from './components/AboutSection/AboutSection';
 import Footer from './components/Footer/Footer';
+import { TECH_ITEMS, CLIENT_ITEMS } from './data/marquee';
 
 export default function App() {
   const { theme, toggleTheme } = useTheme();
@@ -37,18 +38,10 @@ export default function App() {
     <>
       <Nav theme={theme} toggleTheme={toggleTheme} />
       <Hero />
-      <Marquee
-        items={['Swift', 'SwiftUI', 'UIKit', 'Combine', 'Core Data', 'Clean Architecture', 'TDD', 'WatchKit', 'HealthKit', 'CI/CD', 'Domain Driven Design', 'Systems Design']}
-        speed="22s"
-      />
+      <Marquee items={TECH_ITEMS} speed="22s" />
       <WorkSection />
       <SkillsSection />
-      <Marquee
-        items={['nbs.co.id', 'Apple Developer Academy', 'Essential Developer Academy', 'MAFINDO', 'Politeknik Negeri Batam', 'PT Asta Satria Investama']}
-        separator="·"
-        speed="25s"
-        reverse
-      />
+      <Marquee items={CLIENT_ITEMS} separator="·" speed="25s" reverse />
       <ExperienceSection />
       <AboutSection />
       <Footer />

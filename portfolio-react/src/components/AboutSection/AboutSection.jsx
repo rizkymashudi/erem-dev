@@ -2,47 +2,24 @@ import { useRef, useEffect, useCallback } from 'react';
 import styles from './AboutSection.module.css';
 import Sticker from '../Sticker/Sticker';
 import useScrollProgress from '../../hooks/useScrollProgress';
+import { BIO_PHRASES, LINK_CARDS } from '../../data/about';
 
-const BIO_PHRASES = [
-  {
-    delay: 0,
-    content: (
-      <>
-        <span className={styles.highlight}>Rizky Mashudi</span> is an iOS developer based in Jakarta, Indonesia, with over 4 years of experience crafting scalable and maintainable mobile applications.
-      </>
-    ),
-  },
-  {
-    delay: 1,
-    content: (
-      <>
-        A graduate of the <span className={styles.highlight}>Apple Developer Academy</span> in Batam and currently studying at the <span className={styles.highlight}>Essential Developer Academy</span> in London, he continuously invests in engineering excellence.
-      </>
-    ),
-  },
-  {
-    delay: 2,
-    content: (
-      <>
-        He specializes in delivering exceptional user experiences through clean code, thoughtful architecture, and a deep understanding of the iOS ecosystem. He shares his learnings and insights on <span className={styles.highlight}>Medium @ikyrm</span>.
-      </>
-    ),
-  },
-];
-
-const LINK_CARDS = [
-  { href: 'https://www.linkedin.com/in/rizky-mashudi', label: 'LinkedIn', color: 'cyan', delay: 0, external: true },
-  { href: 'https://github.com/rizkymashudi', label: 'GitHub', color: 'primary', delay: 1, external: true },
-  { href: 'https://medium.com/@ikyrm', label: 'Medium blog', color: 'yellow', delay: 2, external: true },
-  { href: 'mailto:rizkymashudi7@gmail.com', label: 'Email', color: 'orange', delay: 3, external: false },
-];
-
-const colorClass = {
+const COLOR_CLASS = {
   cyan: 'aboutLinkCyan',
   primary: 'aboutLinkPrimary',
   yellow: 'aboutLinkYellow',
   orange: 'aboutLinkOrange',
 };
+
+function renderPhrase(segments) {
+  return segments.map((seg, i) =>
+    seg.highlight ? (
+      <span key={i} className={styles.highlight}>{seg.text}</span>
+    ) : (
+      <span key={i}>{seg.text}</span>
+    )
+  );
+}
 
 export default function AboutSection() {
   const sectionRef = useRef(null);
@@ -73,16 +50,6 @@ export default function AboutSection() {
     const totalLinks = LINK_CARDS.length;
 
     if (!headline || !split) return;
-
-    // ── PHASE MAP ──
-    // 0.00–0.12 : Headline entrance (scale + fade)
-    // 0.07      : Memoji sticker pops in
-    // 0.10–0.20 : Headline fade out
-    // 0.18      : Memoji sticker pops out
-    // 0.18–0.22 : Split layout fades in
-    // 0.20–0.60 : Bio phrases reveal one by one
-    // 0.55–0.80 : Link cards cascade in from right
-    // 0.80–1.00 : Hold, section releases
 
     // ── Memoji sticker pop-in / pop-out ──
     const memojiParent = stickerMemojiRef.current;
@@ -117,7 +84,6 @@ export default function AboutSection() {
       const splitIn = Math.min((progress - 0.18) / 0.04, 1);
       split.style.opacity = splitIn;
 
-      // On mobile: scroll content up within the sticky viewport
       if (isMobile && progress > 0.25) {
         const contentScrollP = Math.max(0, (progress - 0.25) / 0.65);
         const splitHeight = split.scrollHeight;
@@ -211,7 +177,7 @@ export default function AboutSection() {
           <div className={styles.aboutBio}>
             {BIO_PHRASES.map((phrase, i) => (
               <div key={i} className={styles.aboutPhrase} ref={(el) => setPhraseRef(el, i)}>
-                {phrase.content}
+                {renderPhrase(phrase.segments)}
               </div>
             ))}
           </div>
@@ -222,7 +188,7 @@ export default function AboutSection() {
               <a
                 key={link.label}
                 href={link.href}
-                className={`${styles.aboutLink} ${styles[colorClass[link.color]]}`}
+                className={`${styles.aboutLink} ${styles[COLOR_CLASS[link.color]]}`}
                 ref={(el) => setLinkRef(el, i)}
                 {...(link.external ? { target: '_blank', rel: 'noopener' } : {})}
               >
