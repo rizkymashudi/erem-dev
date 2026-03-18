@@ -8,9 +8,6 @@
   font-size: clamp(20px, 2.5vw, 32px);
   font-weight: 300;
   margin-bottom: 8px;
-  opacity: 0;
-  transform: translateY(40px) scale(0.95);
-  transition: opacity 1.2s var(--ease-out-expo), transform 1.2s var(--ease-out-expo);
 }
 
 .footerEmail {
@@ -19,9 +16,6 @@
   color: var(--text-secondary);
   transition: color 0.3s;
   display: inline-block;
-  opacity: 0;
-  transform: translateY(40px) scale(0.95);
-  transition: opacity 1.2s var(--ease-out-expo), transform 1.2s var(--ease-out-expo), color 0.3s;
 }
 
 .footerEmail:hover {
@@ -38,13 +32,6 @@
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* In-view entrance animation */
-.inView .footerCta,
-.inView .footerEmail {
-  opacity: 1;
-  transform: translateY(0) scale(1);
 }
 
 .footerBottom {
