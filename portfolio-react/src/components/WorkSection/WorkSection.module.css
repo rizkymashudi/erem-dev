@@ -390,3 +390,27 @@
     min-width: 260px;
   }
 }
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow:
+      0 2px 16px var(--nav-shadow-outer),
+      0 0 0 0.5px var(--nav-border-inner) inset,
+      0 1px 0 var(--nav-highlight) inset,
+      0 0 20px var(--accent-orange-muted),
+      0 0 60px var(--accent-orange-muted);
+  }
+  50% {
+    box-shadow:
+      0 2px 16px var(--nav-shadow-outer),
+      0 0 0 0.5px var(--nav-border-inner) inset,
+      0 1px 0 var(--nav-highlight) inset,
+      0 0 30px var(--accent-orange-muted),
+      0 0 80px var(--accent-cyan-muted);
+  }
+}
+
+@keyframes stickerFloat {
+  0%, 100% { transform: translateY(0) rotate(var(--sticker-rotate, 0deg)); }
+  50% { transform: translateY(-8px) rotate(var(--sticker-rotate, 0deg)); }
+}
