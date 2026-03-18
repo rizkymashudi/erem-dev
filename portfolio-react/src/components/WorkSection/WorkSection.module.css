@@ -8,7 +8,7 @@
   position: sticky;
   top: 0;
   height: 100vh;
-  overflow: hidden;
+  overflow: clip;
 }
 
 /* Headline — centered, starts invisible */
@@ -112,11 +112,11 @@
   background: var(--nav-bg);
   border: 0.5px solid var(--nav-border);
   border-radius: 16px;
-  overflow: hidden;
   cursor: pointer;
   position: relative;
-  backdrop-filter: blur(40px) saturate(1.8);
+  isolation: isolate;
   -webkit-backdrop-filter: blur(40px) saturate(1.8);
+  backdrop-filter: blur(40px) saturate(1.8);
   box-shadow:
     0 4px 24px var(--nav-shadow-outer),
     0 0 0 0.5px var(--nav-border-inner) inset,
@@ -204,8 +204,8 @@
   justify-content: center;
   opacity: 0;
   transition: all 0.5s var(--ease-out-expo);
-  backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
   background: rgba(255, 255, 255, 0.06);
   box-shadow: 0 0 0 0.5px rgba(255, 255, 255, 0.1) inset;
 }
