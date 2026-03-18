@@ -7,7 +7,7 @@
   position: sticky;
   top: 0;
   height: 100vh;
-  overflow: hidden;
+  overflow: clip;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,8 +36,9 @@
     0 1px 0 var(--glass-highlight) inset;
   opacity: 0;
   will-change: transform, opacity;
-  backdrop-filter: blur(20px) saturate(1.4);
+  isolation: isolate;
   -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
 }
 
 /* Refraction strip */

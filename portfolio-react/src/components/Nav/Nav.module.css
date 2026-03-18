@@ -10,8 +10,8 @@
   border-radius: 100px;
   border: 0.5px solid var(--nav-border);
   background: var(--nav-bg);
-  backdrop-filter: blur(40px) saturate(1.8);
   -webkit-backdrop-filter: blur(40px) saturate(1.8);
+  backdrop-filter: blur(40px) saturate(1.8);
   box-shadow:
     0 2px 20px var(--nav-shadow-outer),
     0 0 0 0.5px var(--nav-border-inner) inset,
