@@ -10,17 +10,150 @@ const SCATTER_DIRECTIONS = [
   { x: -10, y: 70 },
 ];
 
+const SEGMENTS = [
+  { text: 'iOS engineer ', icon: 'swift' },
+  { text: 'crafting scalable mobile experiences ', icon: 'ui' },
+  { text: 'with a focus on clean architecture ', icon: 'code' },
+  { text: 'and thoughtful interfaces', icon: null },
+];
+
+const ICON_CLASS_MAP = {
+  swift: 'iconSwift',
+  ui: 'iconUi',
+  code: 'iconCode',
+};
+
 export default function Hero() {
   const sectionRef = useRef(null);
   const tiltRef = useRef(null);
   const layerRefs = useRef([]);
   const mouseRef = useRef({ x: 0.5, y: 0.5 });
   const tiltState = useRef({ x: 0, y: 0 });
+  const titleRef = useRef(null);
+  const cursorRef = useRef(null);
+  const subRef = useRef(null);
+  const ctaRef = useRef(null);
 
   const setLayerRef = useCallback((el, i) => {
     layerRefs.current[i] = el;
   }, []);
 
+  // Hero typing animation
+  useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const heroTitle = titleRef.current;
+    const cursor = cursorRef.current;
+    const heroSub = subRef.current;
+    const heroCta = ctaRef.current;
+
+    if (!heroTitle || !cursor) return;
+
+    function createIcon(type) {
+      const span = document.createElement('span');
+      span.className = `${styles.iconSlot} ${styles[ICON_CLASS_MAP[type]] || ''}`;
+      span.style.opacity = '0';
+      span.style.transform = 'scale(0.5)';
+      span.style.transition = 'opacity 0.4s var(--ease-out-expo), transform 0.4s var(--ease-out-expo)';
+      return span;
+    }
+
+    function popIcon(iconEl) {
+      requestAnimationFrame(() => {
+        iconEl.style.opacity = '1';
+        iconEl.style.transform = 'scale(1)';
+      });
+    }
+
+    function showAfterTyping() {
+      setTimeout(() => {
+        if (heroSub) heroSub.classList.add(styles.visible);
+      }, 200);
+      setTimeout(() => {
+        if (heroCta) heroCta.classList.add(styles.visible);
+      }, 500);
+    }
+
+    // Reduced motion: show everything immediately
+    if (prefersReduced) {
+      heroTitle.innerHTML = '';
+      SEGMENTS.forEach((seg) => {
+        heroTitle.appendChild(document.createTextNode(seg.text));
+        if (seg.icon) {
+          const ic = createIcon(seg.icon);
+          ic.style.opacity = '1';
+          ic.style.transform = 'scale(1)';
+          heroTitle.appendChild(ic);
+          heroTitle.appendChild(document.createTextNode(' '));
+        }
+      });
+      heroTitle.appendChild(cursor);
+      if (heroSub) heroSub.classList.add(styles.visible);
+      if (heroCta) heroCta.classList.add(styles.visible);
+      return;
+    }
+
+    // Remove cursor from initial position, re-append during typing
+    cursor.remove();
+
+    let segIndex = 0;
+    let charIndex = 0;
+    let currentTextNode = null;
+    const baseDelay = 35;
+
+    function typeNext() {
+      const seg = SEGMENTS[segIndex];
+
+      if (charIndex < seg.text.length) {
+        if (!currentTextNode) {
+          currentTextNode = document.createTextNode('');
+          heroTitle.appendChild(currentTextNode);
+          heroTitle.appendChild(cursor);
+        }
+        currentTextNode.textContent += seg.text[charIndex];
+        charIndex++;
+
+        const ch = seg.text[charIndex - 1];
+        const delay = ch === ' ' ? baseDelay * 0.5 : baseDelay + Math.random() * 25;
+        setTimeout(typeNext, delay);
+      } else {
+        if (seg.icon) {
+          cursor.remove();
+          const iconEl = createIcon(seg.icon);
+          heroTitle.appendChild(iconEl);
+          heroTitle.appendChild(document.createTextNode(' '));
+          heroTitle.appendChild(cursor);
+
+          setTimeout(() => popIcon(iconEl), 80);
+
+          setTimeout(() => {
+            segIndex++;
+            charIndex = 0;
+            currentTextNode = null;
+            if (segIndex < SEGMENTS.length) {
+              typeNext();
+            } else {
+              showAfterTyping();
+            }
+          }, 350);
+        } else {
+          segIndex++;
+          charIndex = 0;
+          currentTextNode = null;
+          if (segIndex < SEGMENTS.length) {
+            typeNext();
+          } else {
+            showAfterTyping();
+          }
+        }
+      }
+    }
+
+    // Start typing after label fadeUp finishes
+    const timerId = setTimeout(typeNext, 800);
+    return () => clearTimeout(timerId);
+  }, []);
+
+  // Parallax + tilt scroll engine
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) return;
@@ -140,17 +273,17 @@ export default function Hero() {
           <div className={styles.heroLabel}>(00) — intro</div>
         </div>
         <div className={styles.heroLayer} ref={(el) => setLayerRef(el, 1)}>
-          <h1 className={styles.heroTitle} id="heroTitle">
-            <span className={styles.cursorBlink} id="typingCursor" />
+          <h1 className={styles.heroTitle} ref={titleRef}>
+            <span className={styles.cursorBlink} ref={cursorRef} />
           </h1>
         </div>
         <div className={styles.heroLayer} ref={(el) => setLayerRef(el, 2)}>
-          <p className={styles.heroSub}>
+          <p className={styles.heroSub} ref={subRef}>
             4+ years building production iOS apps at scale. Apple Developer Academy graduate. Currently leveling up at Essential Developer Academy, London.
           </p>
         </div>
         <div className={styles.heroLayer} ref={(el) => setLayerRef(el, 3)}>
-          <div className={styles.heroCta}>
+          <div className={styles.heroCta} ref={ctaRef}>
             <a href="#work" className={`${styles.btn} ${styles.btnPrimary}`}>
               view work &darr;
             </a>
