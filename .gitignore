@@ -23,6 +23,9 @@ CLAUDE.md
 # Agent role files
 agents/
 
+# Vercel
+.vercel
+
 # Logs
 logs/
 *.log
