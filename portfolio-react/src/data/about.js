@@ -3,7 +3,7 @@ export const BIO_PHRASES = [
   {
     segments: [
       { text: 'Rizky Mashudi', highlight: true },
-      { text: ' is an iOS engineer based in Jakarta, Indonesia, with 4+ years of experience building and shipping production mobile applications across fintech, government services, e-commerce, and media.' },
+      { text: ' is an iOS engineer based in Jakarta, Indonesia, with 3+ years of hands-on experience building production-grade mobile apps for clients across industries at a software consulting firm.' },
     ],
   },
   {
@@ -19,7 +19,9 @@ export const BIO_PHRASES = [
     segments: [
       { text: 'With a proven track record delivering ' },
       { text: '13+ client projects', highlight: true },
-      { text: ' at a software consulting firm, he serves as both individual contributor and team coordinator — shipping scalable iOS apps and sharing insights on ' },
+      { text: ' at a software consulting firm, he serves as both individual contributor and team coordinator — shipping scalable iOS apps. Currently exploring ' },
+      { text: 'AI-assisted development', highlight: true },
+      { text: ' workflows and sharing insights on ' },
       { text: 'Medium @ikyrm', highlight: true },
       { text: '.' },
     ],

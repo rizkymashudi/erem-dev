@@ -280,7 +280,7 @@ export default function Hero() {
           </div>
           <div className={styles.heroLayer} ref={(el) => setLayerRef(el, 2)}>
             <p className={styles.heroSub} ref={subRef}>
-              4+ years shipping production iOS apps across fintech, government, and e-commerce. 13+ client projects delivered. Apple Developer Academy graduate, currently at Essential Developer Academy, London.
+              3+ years building production-grade iOS apps across fintech, government, and e-commerce. 13+ client projects shipped at a software consulting firm. Apple Developer Academy alumni, currently at Essential Developer Academy, London.
             </p>
           </div>
           <div className={styles.heroLayer} ref={(el) => setLayerRef(el, 3)}>
