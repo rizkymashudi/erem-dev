@@ -1,8 +1,9 @@
 export const TECH_ITEMS = [
   'Swift', 'SwiftUI', 'UIKit', 'Combine', 'Core Data',
-  'Clean Architecture', 'MVVM', 'TDD', 'SOLID',
+  'Clean Architecture', 'MVVM', 'MVP', 'VIPER', 'TCA', 'TDD', 'SOLID',
   'WatchKit', 'HealthKit', 'XCTest',
-  'CI/CD', 'Agile/Scrum', 'REST API',
+  'CocoaPods', 'SPM', 'Modular Design', 'SDK Development',
+  'CI/CD', 'Agile/Scrum', 'REST API', 'Git',
 ];
 
 export const CLIENT_ITEMS = [
