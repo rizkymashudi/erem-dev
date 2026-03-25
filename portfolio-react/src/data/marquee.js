@@ -3,6 +3,7 @@ export const TECH_ITEMS = [
   'Clean Architecture', 'MVVM', 'MVP', 'VIPER', 'TCA', 'TDD', 'SOLID',
   'WatchKit', 'HealthKit', 'XCTest',
   'CocoaPods', 'SPM', 'Modular Design', 'SDK Development',
+  'JavaScript', 'TypeScript', 'React', 'PHP', 'Laravel', 'SQL',
   'CI/CD', 'Agile/Scrum', 'REST API', 'Git',
 ];
 
