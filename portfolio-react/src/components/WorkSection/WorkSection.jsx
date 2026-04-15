@@ -17,42 +17,59 @@ export default function WorkSection() {
   const stickerArkitRef = useRef(null);
   const cardRefs = useRef([]);
   const subtitleState = useRef({ typed: false, done: false });
-
-  const progress = useScrollProgress(sectionRef);
+  // Cached layout values — recalculated on resize only
+  const layoutCache = useRef({ viewWidth: 0, trackWidth: 0, cardWidths: [], valid: false });
 
   const setCardRef = useCallback((el, i) => {
     cardRefs.current[i] = el;
   }, []);
 
-  // Subtitle typing effect
-  useEffect(() => {
-    if (progress > 0.10 && !subtitleState.current.typed) {
-      subtitleState.current.typed = true;
-      const el = subtitleRef.current;
-      if (!el) return;
-      el.textContent = '';
-      const cursor = document.createElement('span');
-      cursor.className = styles.cursorBlink || 'cursor-blink';
-      cursor.style.cssText = 'display:inline-block;width:2px;height:0.9em;background:var(--accent-cyan);vertical-align:middle;margin-left:4px;animation:blink 1s step-end infinite;';
-      el.appendChild(cursor);
+  // Measure card/track layout (called on mount + resize)
+  const measureCards = useCallback(() => {
+    const track = trackRef.current;
+    const cards = cardRefs.current;
+    if (!track) return;
+    layoutCache.current.viewWidth = window.innerWidth;
+    layoutCache.current.trackWidth = track.scrollWidth;
+    layoutCache.current.cardWidths = cards.map((c) => (c ? c.offsetWidth : 0));
+    layoutCache.current.valid = true;
+  }, []);
 
-      let i = 0;
-      function typeChar() {
-        if (i < SUBTITLE_TEXT.length) {
-          cursor.before(SUBTITLE_TEXT[i]);
-          i++;
-          const delay = SUBTITLE_TEXT[i - 1] === ' ' ? 13 : 20 + Math.random() * 10;
-          setTimeout(typeChar, delay);
-        } else {
-          subtitleState.current.done = true;
-        }
+  useEffect(() => {
+    // Measure after first paint so cards are rendered
+    requestAnimationFrame(() => measureCards());
+    window.addEventListener('resize', measureCards, { passive: true });
+    return () => window.removeEventListener('resize', measureCards);
+  }, [measureCards]);
+
+  // Subtitle typing — triggered once via progress check inside onProgress
+  const startSubtitleTyping = useCallback(() => {
+    if (subtitleState.current.typed) return;
+    subtitleState.current.typed = true;
+    const el = subtitleRef.current;
+    if (!el) return;
+    el.textContent = '';
+    const cursor = document.createElement('span');
+    cursor.className = styles.cursorBlink || 'cursor-blink';
+    cursor.style.cssText = 'display:inline-block;width:2px;height:0.9em;background:var(--accent-cyan);vertical-align:middle;margin-left:4px;animation:blink 1s step-end infinite;';
+    el.appendChild(cursor);
+
+    let i = 0;
+    function typeChar() {
+      if (i < SUBTITLE_TEXT.length) {
+        cursor.before(SUBTITLE_TEXT[i]);
+        i++;
+        const delay = SUBTITLE_TEXT[i - 1] === ' ' ? 13 : 20 + Math.random() * 10;
+        setTimeout(typeChar, delay);
+      } else {
+        subtitleState.current.done = true;
       }
-      typeChar();
     }
-  }, [progress]);
+    typeChar();
+  }, []);
 
-  // Scroll-driven animations via rAF (progress drives everything)
-  useEffect(() => {
+  // All scroll-driven DOM writes happen here, inside the rAF loop
+  const onProgress = useCallback((progress) => {
     const headline = headlineRef.current;
     const carousel = carouselRef.current;
     const track = trackRef.current;
@@ -63,6 +80,9 @@ export default function WorkSection() {
     const arkitEl = stickerArkitRef.current;
 
     if (!headline || !track || !carousel) return;
+
+    // Subtitle typing trigger
+    if (progress > 0.10) startSubtitleTyping();
 
     // Phase 1-2: Headline
     if (progress < 0.25) {
@@ -108,27 +128,33 @@ export default function WorkSection() {
       const carouselOpacity = Math.min((progress - 0.18) / 0.03, 1);
       carousel.style.opacity = carouselOpacity;
 
-      const viewWidth = window.innerWidth;
-      const trackWidth = track.scrollWidth;
+      const { viewWidth, trackWidth } = layoutCache.current;
       const startOffset = viewWidth - 60;
       const endOffset = -(trackWidth + 400);
       const fullRange = endOffset - startOffset;
       const translateX = startOffset + fullRange * carP;
       track.style.transform = `translateX(${translateX}px)`;
 
-      // Per-card fade
+      // Per-card fade using computed position from translateX (no getBoundingClientRect)
       const fadeZone = Math.min(viewWidth * 0.4, 400);
-      cards.forEach((card) => {
+      let accumulatedLeft = translateX;
+      const gap = window.innerWidth <= 768 ? 20 : 36;
+
+      cards.forEach((card, idx) => {
         if (!card) return;
-        const rect = card.getBoundingClientRect();
-        if (rect.right < 0) {
+        const cardW = layoutCache.current.cardWidths[idx] || 0;
+        const cardLeft = accumulatedLeft;
+        const cardRight = cardLeft + cardW;
+        accumulatedLeft += cardW + gap;
+
+        if (cardRight < 0) {
           card.style.opacity = 0;
-        } else if (rect.right < 300) {
-          card.style.opacity = Math.max(0, rect.right / 300);
-        } else if (rect.left > viewWidth) {
+        } else if (cardRight < 300) {
+          card.style.opacity = Math.max(0, cardRight / 300);
+        } else if (cardLeft > viewWidth) {
           card.style.opacity = 0;
-        } else if (rect.left > viewWidth - fadeZone) {
-          card.style.opacity = Math.max(0, Math.min(1 - (rect.left - (viewWidth - fadeZone)) / fadeZone, 1));
+        } else if (cardLeft > viewWidth - fadeZone) {
+          card.style.opacity = Math.max(0, Math.min(1 - (cardLeft - (viewWidth - fadeZone)) / fadeZone, 1));
         } else {
           card.style.opacity = 1;
         }
@@ -164,7 +190,9 @@ export default function WorkSection() {
     if (progress > 0.18) {
       carousel.style.transform = 'translateY(-50%)';
     }
-  }, [progress]);
+  }, [startSubtitleTyping]);
+
+  useScrollProgress(sectionRef, onProgress);
 
   const regularCards = PROJECTS.filter((p) => !p.isLast);
   const lastProject = PROJECTS.find((p) => p.isLast);
