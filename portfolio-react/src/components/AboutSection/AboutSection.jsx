@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useCallback } from 'react';
 import styles from './AboutSection.module.css';
 import Sticker from '../Sticker/Sticker';
 import useScrollProgress from '../../hooks/useScrollProgress';
@@ -29,8 +29,7 @@ export default function AboutSection() {
   const phraseRefs = useRef([]);
   const linkRefs = useRef([]);
   const glowTriggeredRef = useRef(new Set());
-
-  const progress = useScrollProgress(sectionRef);
+  const isMobileRef = useRef(window.innerWidth <= 768);
 
   const setPhraseRef = useCallback((el, i) => {
     phraseRefs.current[i] = el;
@@ -40,8 +39,7 @@ export default function AboutSection() {
     linkRefs.current[i] = el;
   }, []);
 
-  // Scroll-driven animations
-  useEffect(() => {
+  const onProgress = useCallback((progress) => {
     const headline = headlineRef.current;
     const split = splitRef.current;
     const phrases = phraseRefs.current;
@@ -51,7 +49,7 @@ export default function AboutSection() {
 
     if (!headline || !split) return;
 
-    // ── Memoji sticker pop-in / pop-out ──
+    // Memoji sticker pop-in / pop-out
     const memojiParent = stickerMemojiRef.current;
     if (memojiParent) {
       if (progress > 0.07 && progress < 0.20) {
@@ -65,7 +63,7 @@ export default function AboutSection() {
       }
     }
 
-    // ── Headline ──
+    // Headline
     if (progress < 0.20) {
       const headIn = Math.min(progress / 0.12, 1);
       const headOut = progress > 0.10 ? (progress - 0.10) / 0.10 : 0;
@@ -77,8 +75,8 @@ export default function AboutSection() {
       headline.style.opacity = 0;
     }
 
-    // ── Split layout container ──
-    const isMobile = window.innerWidth <= 768;
+    // Split layout container
+    const isMobile = isMobileRef.current;
 
     if (progress > 0.18) {
       const splitIn = Math.min((progress - 0.18) / 0.04, 1);
@@ -98,7 +96,7 @@ export default function AboutSection() {
       split.style.transform = '';
     }
 
-    // ── Bio phrases — sequential fade up ──
+    // Bio phrases — sequential fade up
     const phraseStart = 0.20;
     const phraseEnd = 0.60;
     const phraseRange = phraseEnd - phraseStart;
@@ -116,7 +114,7 @@ export default function AboutSection() {
       }
     });
 
-    // ── Highlight glow pulse ──
+    // Highlight glow pulse
     phrases.forEach((phrase, i) => {
       if (!phrase) return;
       if (phrase.classList.contains(styles.visible)) {
@@ -134,7 +132,7 @@ export default function AboutSection() {
       }
     });
 
-    // ── Link cards cascade from right ──
+    // Link cards cascade from right
     const linkStart = 0.55;
     const linkEnd = 0.80;
     const linkRange = linkEnd - linkStart;
@@ -151,7 +149,9 @@ export default function AboutSection() {
         link.classList.remove(styles.visible);
       }
     });
-  }, [progress]);
+  }, []);
+
+  useScrollProgress(sectionRef, onProgress);
 
   return (
     <section className={styles.aboutPinned} id="about" ref={sectionRef}>
