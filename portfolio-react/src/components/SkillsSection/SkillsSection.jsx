@@ -9,17 +9,16 @@ export default function SkillsSection() {
   const cardRefs = useRef([]);
   const stickerSwiftUIRef = useRef(null);
   const stickerPhotosRef = useRef(null);
-
-  const progress = useScrollProgress(sectionRef);
+  const isMobileRef = useRef(window.innerWidth <= 768);
 
   const setCardRef = useCallback((el, i) => {
     cardRefs.current[i] = el;
   }, []);
 
-  useEffect(() => {
+  const onProgress = useCallback((progress) => {
     const cards = cardRefs.current;
     const totalCards = cards.length;
-    const isMobile = window.innerWidth <= 768;
+    const isMobile = isMobileRef.current;
 
     // Sticker pops
     const swiftUIParent = stickerSwiftUIRef.current;
@@ -71,7 +70,16 @@ export default function SkillsSection() {
         card.style.boxShadow = `0 ${shadowDepth}px ${shadowDepth * 2}px var(--glass-shadow), 0 0 0 0.5px var(--glass-border-inner) inset, 0 1px 0 var(--glass-highlight) inset`;
       }
     });
-  }, [progress]);
+  }, []);
+
+  // Listen for resize to update mobile flag
+  useEffect(() => {
+    const onResize = () => { isMobileRef.current = window.innerWidth <= 768; };
+    window.addEventListener('resize', onResize, { passive: true });
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  useScrollProgress(sectionRef, onProgress);
 
   return (
     <section className={styles.skillsPinned} id="skills" ref={sectionRef}>
