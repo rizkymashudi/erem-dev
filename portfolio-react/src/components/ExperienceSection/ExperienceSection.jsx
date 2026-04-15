@@ -15,8 +15,6 @@ export default function ExperienceSection() {
   const roleTypedRef = useRef(new Array(CHAPTERS.length).fill(false));
   const nodesCreatedRef = useRef(false);
 
-  const progress = useScrollProgress(sectionRef);
-
   const setChapterRef = useCallback((el, i) => {
     chapterRefs.current[i] = el;
   }, []);
@@ -94,8 +92,7 @@ export default function ExperienceSection() {
     state.frame = requestAnimationFrame(step);
   }, []);
 
-  // Scroll-driven animations
-  useEffect(() => {
+  const onProgress = useCallback((progress) => {
     const headline = headlineRef.current;
     const yearEl = yearRef.current;
     const progressFill = progressFillRef.current;
@@ -185,7 +182,9 @@ export default function ExperienceSection() {
         }
       });
     }
-  }, [progress, animateYear, typeRole]);
+  }, [animateYear, typeRole]);
+
+  useScrollProgress(sectionRef, onProgress);
 
   return (
     <section className={styles.expPinned} id="experience" ref={sectionRef}>
