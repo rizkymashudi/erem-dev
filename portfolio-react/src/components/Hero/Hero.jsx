@@ -163,11 +163,22 @@ export default function Hero() {
     const layers = layerRefs.current;
     if (!hero || !tiltContainer) return;
 
-    // Mouse tracking
+    // Cached layout — avoids offsetHeight / innerWidth reads every frame
+    let heroH = hero.offsetHeight;
+    let isMobile = window.innerWidth <= 768;
+    let heroRect = hero.getBoundingClientRect();
+
+    const onResize = () => {
+      heroH = hero.offsetHeight;
+      isMobile = window.innerWidth <= 768;
+      heroRect = hero.getBoundingClientRect();
+    };
+    window.addEventListener('resize', onResize, { passive: true });
+
+    // Mouse tracking — uses cached heroRect, updated on resize
     const onMouseMove = (e) => {
-      const rect = hero.getBoundingClientRect();
-      mouseRef.current.x = (e.clientX - rect.left) / rect.width;
-      mouseRef.current.y = (e.clientY - rect.top) / rect.height;
+      mouseRef.current.x = (e.clientX - heroRect.left) / heroRect.width;
+      mouseRef.current.y = (e.clientY - heroRect.top) / heroRect.height;
     };
     const onMouseLeave = () => {
       mouseRef.current.x = 0.5;
@@ -175,9 +186,8 @@ export default function Hero() {
     };
     const onTouchMove = (e) => {
       const touch = e.touches[0];
-      const rect = hero.getBoundingClientRect();
-      mouseRef.current.x = Math.max(0, Math.min(1, (touch.clientX - rect.left) / rect.width));
-      mouseRef.current.y = Math.max(0, Math.min(1, (touch.clientY - rect.top) / rect.height));
+      mouseRef.current.x = Math.max(0, Math.min(1, (touch.clientX - heroRect.left) / heroRect.width));
+      mouseRef.current.y = Math.max(0, Math.min(1, (touch.clientY - heroRect.top) / heroRect.height));
     };
     const onTouchEnd = () => {
       mouseRef.current.x = 0.5;
@@ -189,11 +199,16 @@ export default function Hero() {
         mouseRef.current.y = Math.max(0, Math.min(1, 0.5 + ((e.beta - 45) / 90) * 0.5));
       }
     };
+    // Also update heroRect on scroll (it's cheap since hero is at top)
+    const onScroll = () => {
+      heroRect = hero.getBoundingClientRect();
+    };
 
     hero.addEventListener('mousemove', onMouseMove);
     hero.addEventListener('mouseleave', onMouseLeave);
     hero.addEventListener('touchmove', onTouchMove, { passive: true });
     hero.addEventListener('touchend', onTouchEnd);
+    window.addEventListener('scroll', onScroll, { passive: true });
     if (window.DeviceOrientationEvent) {
       window.addEventListener('deviceorientation', onDeviceOrientation, { passive: true });
     }
@@ -202,11 +217,9 @@ export default function Hero() {
 
     function loop() {
       const scrollY = window.scrollY;
-      const heroH = hero.offsetHeight;
       const progress = Math.min(scrollY / heroH, 1);
 
       // Tilt
-      const isMobile = window.innerWidth <= 768;
       const tiltAmount = isMobile ? 1.5 : 2.5;
       const targetTiltX = (mouseRef.current.y - 0.5) * -tiltAmount;
       const targetTiltY = (mouseRef.current.x - 0.5) * tiltAmount;
@@ -256,6 +269,8 @@ export default function Hero() {
 
     return () => {
       cancelAnimationFrame(rafId);
+      window.removeEventListener('resize', onResize);
+      window.removeEventListener('scroll', onScroll);
       hero.removeEventListener('mousemove', onMouseMove);
       hero.removeEventListener('mouseleave', onMouseLeave);
       hero.removeEventListener('touchmove', onTouchMove);

@@ -26,6 +26,7 @@
   opacity: 0;
   transform: scale(0.85);
   transition: none;
+  will-change: transform, opacity;
 }
 
 .workHeadlineInner {
@@ -81,6 +82,7 @@
   pointer-events: none;
   opacity: 0;
   transform: scale(0.85);
+  will-change: transform, opacity;
 }
 
 /* Carousel */
@@ -93,6 +95,7 @@
   z-index: 1;
   padding: 0 40px;
   opacity: 0;
+  will-change: opacity;
 }
 
 .workTrack {
