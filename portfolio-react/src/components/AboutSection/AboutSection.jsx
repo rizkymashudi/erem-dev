@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useCallback } from 'react';
 import styles from './AboutSection.module.css';
 import Sticker from '../Sticker/Sticker';
 import useScrollProgress from '../../hooks/useScrollProgress';
@@ -30,8 +30,6 @@ export default function AboutSection() {
   const linkRefs = useRef([]);
   const glowTriggeredRef = useRef(new Set());
 
-  const progress = useScrollProgress(sectionRef);
-
   const setPhraseRef = useCallback((el, i) => {
     phraseRefs.current[i] = el;
   }, []);
@@ -40,8 +38,8 @@ export default function AboutSection() {
     linkRefs.current[i] = el;
   }, []);
 
-  // Scroll-driven animations
-  useEffect(() => {
+  // Scroll-driven animations — imperative, runs inside the rAF loop (no re-render).
+  useScrollProgress(sectionRef, (progress) => {
     const headline = headlineRef.current;
     const split = splitRef.current;
     const phrases = phraseRefs.current;
@@ -151,7 +149,7 @@ export default function AboutSection() {
         link.classList.remove(styles.visible);
       }
     });
-  }, [progress]);
+  });
 
   return (
     <section className={styles.aboutPinned} id="about" ref={sectionRef}>

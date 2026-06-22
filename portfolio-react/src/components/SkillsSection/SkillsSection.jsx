@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useCallback } from 'react';
 import styles from './SkillsSection.module.css';
 import Sticker from '../Sticker/Sticker';
 import useScrollProgress from '../../hooks/useScrollProgress';
@@ -10,13 +10,11 @@ export default function SkillsSection() {
   const stickerSwiftUIRef = useRef(null);
   const stickerPhotosRef = useRef(null);
 
-  const progress = useScrollProgress(sectionRef);
-
   const setCardRef = useCallback((el, i) => {
     cardRefs.current[i] = el;
   }, []);
 
-  useEffect(() => {
+  useScrollProgress(sectionRef, (progress) => {
     const cards = cardRefs.current;
     const totalCards = cards.length;
     const isMobile = window.innerWidth <= 768;
@@ -71,7 +69,7 @@ export default function SkillsSection() {
         card.style.boxShadow = `0 ${shadowDepth}px ${shadowDepth * 2}px var(--glass-shadow), 0 0 0 0.5px var(--glass-border-inner) inset, 0 1px 0 var(--glass-highlight) inset`;
       }
     });
-  }, [progress]);
+  });
 
   return (
     <section className={styles.skillsPinned} id="skills" ref={sectionRef}>

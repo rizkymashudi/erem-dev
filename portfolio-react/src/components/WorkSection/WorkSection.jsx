@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useCallback } from 'react';
 import styles from './WorkSection.module.css';
 import Sticker from '../Sticker/Sticker';
 import ProjectCard from '../ProjectCard/ProjectCard';
@@ -18,41 +18,40 @@ export default function WorkSection() {
   const cardRefs = useRef([]);
   const subtitleState = useRef({ typed: false, done: false });
 
-  const progress = useScrollProgress(sectionRef);
-
   const setCardRef = useCallback((el, i) => {
     cardRefs.current[i] = el;
   }, []);
 
-  // Subtitle typing effect
-  useEffect(() => {
-    if (progress > 0.10 && !subtitleState.current.typed) {
-      subtitleState.current.typed = true;
-      const el = subtitleRef.current;
-      if (!el) return;
-      el.textContent = '';
-      const cursor = document.createElement('span');
-      cursor.className = styles.cursorBlink || 'cursor-blink';
-      cursor.style.cssText = 'display:inline-block;width:2px;height:0.9em;background:var(--accent-cyan);vertical-align:middle;margin-left:4px;animation:blink 1s step-end infinite;';
-      el.appendChild(cursor);
+  // Subtitle typing — triggered once from the scroll callback below.
+  const startSubtitleTyping = useCallback(() => {
+    if (subtitleState.current.typed) return;
+    subtitleState.current.typed = true;
+    const el = subtitleRef.current;
+    if (!el) return;
+    el.textContent = '';
+    const cursor = document.createElement('span');
+    cursor.className = styles.cursorBlink || 'cursor-blink';
+    cursor.style.cssText = 'display:inline-block;width:2px;height:0.9em;background:var(--accent-cyan);vertical-align:middle;margin-left:4px;animation:blink 1s step-end infinite;';
+    el.appendChild(cursor);
 
-      let i = 0;
-      function typeChar() {
-        if (i < SUBTITLE_TEXT.length) {
-          cursor.before(SUBTITLE_TEXT[i]);
-          i++;
-          const delay = SUBTITLE_TEXT[i - 1] === ' ' ? 13 : 20 + Math.random() * 10;
-          setTimeout(typeChar, delay);
-        } else {
-          subtitleState.current.done = true;
-        }
+    let i = 0;
+    function typeChar() {
+      if (i < SUBTITLE_TEXT.length) {
+        cursor.before(SUBTITLE_TEXT[i]);
+        i++;
+        const delay = SUBTITLE_TEXT[i - 1] === ' ' ? 13 : 20 + Math.random() * 10;
+        setTimeout(typeChar, delay);
+      } else {
+        subtitleState.current.done = true;
       }
-      typeChar();
     }
-  }, [progress]);
+    typeChar();
+  }, []);
 
-  // Scroll-driven animations via rAF (progress drives everything)
-  useEffect(() => {
+  // Scroll-driven animations — runs imperatively inside the rAF loop (no re-render).
+  useScrollProgress(sectionRef, (progress) => {
+    if (progress > 0.10) startSubtitleTyping();
+
     const headline = headlineRef.current;
     const carousel = carouselRef.current;
     const track = trackRef.current;
@@ -164,7 +163,7 @@ export default function WorkSection() {
     if (progress > 0.18) {
       carousel.style.transform = 'translateY(-50%)';
     }
-  }, [progress]);
+  });
 
   const regularCards = PROJECTS.filter((p) => !p.isLast);
   const lastProject = PROJECTS.find((p) => p.isLast);

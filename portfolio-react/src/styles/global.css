@@ -9,7 +9,8 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* Smooth scrolling is handled by Lenis (see App.jsx). Native smooth-scroll
+     here double-smooths anchor jumps and fights Lenis, causing stutter. */
   font-size: 16px;
   scrollbar-width: thin;
   scrollbar-color: var(--text-hint) transparent;
