@@ -1,9 +1,9 @@
 export const TECH_ITEMS = [
-  'Swift', 'SwiftUI', 'UIKit', 'Combine', 'Core Data',
-  'Clean Architecture', 'MVVM', 'MVP', 'VIPER', 'TCA', 'TDD', 'SOLID',
-  'WatchKit', 'HealthKit', 'XCTest',
-  'CocoaPods', 'SPM', 'Modular Design', 'SDK Development',
-  'JavaScript', 'TypeScript', 'React', 'PHP', 'Laravel', 'SQL',
+  'Swift', 'SwiftUI', 'UIKit', 'Combine', 'Swift Concurrency', 'Core Data',
+  'Clean Architecture', 'DDD', 'MVVM', 'MVP', 'VIPER', 'TCA', 'SOLID', 'POP',
+  'TDD', 'BDD', 'XCTest', 'Snapshot Tests', 'Instruments',
+  'WatchKit', 'HealthKit', 'CocoaPods', 'SPM', 'Modular Design', 'SDK Development',
+  'Kotlin', 'Dart', 'JavaScript', 'TypeScript', 'React', 'PHP', 'Laravel', 'SQL',
   'CI/CD', 'Agile/Scrum', 'REST API', 'Git',
 ];
 

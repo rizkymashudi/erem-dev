@@ -2,23 +2,23 @@ export const PROJECTS = [
   {
     id: 1,
     name: 'Banking',
-    desc: 'Body hire engagement for one of Indonesia\'s largest private banks. Contributed to mobile banking features within an established codebase.',
-    tags: ['Swift', 'Clean Architecture', 'Modular', 'MVVM', 'Banking'],
+    desc: 'Led a 3-person iOS team within a 25-person cross-functional squad at one of Indonesia\'s largest private banks. Shipped 10+ features and delivered 93% of committed scope, establishing reusable iOS foundation components.',
+    tags: ['Swift', 'Clean Architecture', 'Team Lead', 'Modular', 'Banking'],
     gradient: 'linear-gradient(135deg, rgba(245,130,32,0.18), rgba(245,130,32,0.06) 50%, rgba(0,163,161,0.10))',
     rotate: -3,
   },
   {
     id: 2,
     name: 'Telecom',
-    desc: 'Developed localization asset SDK for Indonesia\'s largest mobile operator, enabling scalable multi-language support across the app.',
-    tags: ['Swift', 'SDK Development', 'Localization', 'SDK', 'System Design', 'Telecom'],
+    desc: 'Sole architect of an internal localization & asset SDK for Indonesia\'s largest mobile operator. Introduced delta-based sync, cutting first-launch memory ~57% and launch CPU from 22% to 3.8%. Adopted across multiple feature teams.',
+    tags: ['Swift', 'SDK Development', 'Clean Architecture', 'System Design', 'Telecom'],
     gradient: 'linear-gradient(135deg, rgba(237,28,36,0.18), rgba(237,28,36,0.06) 50%, rgba(237,28,36,0.04))',
     rotate: 2,
   },
   {
     id: 3,
     name: 'Precious Metals Marketplace',
-    desc: 'Built features for a digital precious metals marketplace, covering gold trading and investment flows.',
+    desc: 'Built features for a digital precious metals marketplace, covering gold trading and investment flows with a reusable design token system.',
     tags: ['Swift', 'MVVM', 'Clean Architecture', 'Design Token System', 'Fintech', 'Marketplace'],
     gradient: 'linear-gradient(135deg, rgba(201,161,74,0.18), rgba(201,161,74,0.06) 50%, rgba(26,26,26,0.10))',
     rotate: -1.5,
@@ -34,14 +34,14 @@ export const PROJECTS = [
   {
     id: 5,
     name: 'Sharia Digital Finance',
-    desc: 'Led development coordination for a sharia-compliant digital financial service. Managed task breakdown, code reviews, and sprint delivery.',
+    desc: 'Coordinated a cross-platform mobile team on a sharia-compliant digital financial service. Owned task breakdown, code reviews, and sprint delivery.',
     tags: ['Swift', 'MVVM', 'Team Coordinator', 'Fintech', 'Sharia'],
     gradient: 'linear-gradient(135deg, rgba(0,132,61,0.18), rgba(0,132,61,0.06) 50%, rgba(212,175,55,0.10))',
     rotate: -2,
   },
   {
     id: 6,
-    name: 'Government Services — Hajj',
+    name: 'Government Services: Hajj',
     desc: 'Contributed to a hajj pilgrimage monitoring app, helping Indonesian citizens track their journey status and documentation.',
     tags: ['Swift', 'UIKit', 'Government', 'Public Service'],
     gradient: 'linear-gradient(135deg, rgba(0,105,92,0.18), rgba(0,105,92,0.06) 50%, rgba(0,105,92,0.04))',
@@ -50,7 +50,7 @@ export const PROJECTS = [
   {
     id: 7,
     name: 'Sports',
-    desc: 'Coordinated iOS development for a football club app. Match updates, team info, and fan engagement features.',
+    desc: 'Coordinated iOS development for a football club app covering match updates, team info, and fan engagement features.',
     tags: ['Swift', 'MVVM', 'Team Coordinator', 'Sports'],
     gradient: 'linear-gradient(135deg, rgba(106,27,154,0.18), rgba(106,27,154,0.06) 50%, rgba(106,27,154,0.04))',
     rotate: -3.5,
@@ -58,8 +58,8 @@ export const PROJECTS = [
   {
     id: 8,
     name: 'Public Transit',
-    desc: 'Led development coordination for a metropolitan transit app. Task breakdown, code reviews, and sprint delivery as team coordinator.',
-    tags: ['Swift', 'MVVM', 'Team Coordinator', 'Clean Architecture', 'Transit'],
+    desc: 'Led a 4-person mobile team (iOS + Android) on an official metropolitan MRT transit app for daily commuters. Owned task breakdown, code reviews, sprint execution, and production releases.',
+    tags: ['Swift', 'Mobile Lead', 'Clean Architecture', 'Transit'],
     gradient: 'linear-gradient(135deg, rgba(0,102,179,0.18), rgba(0,102,179,0.06) 50%, rgba(0,102,179,0.04))',
     rotate: 2.5,
   },
@@ -74,7 +74,7 @@ export const PROJECTS = [
   {
     id: 10,
     name: 'Government Health Services',
-    desc: 'Owned end-to-end feature implementation as individual contributor on a national-scale government health service app.',
+    desc: 'Owned end-to-end feature implementation on a national-scale government health service app serving millions of workers managing social security and health claims.',
     tags: ['Swift', 'MVVM', 'Government', 'National Scale'],
     gradient: 'linear-gradient(135deg, rgba(0,166,81,0.18), rgba(0,166,81,0.06) 50%, rgba(0,114,188,0.08))',
     rotate: 3.5,
@@ -82,8 +82,8 @@ export const PROJECTS = [
   {
     id: 11,
     name: 'Streaming & Media',
-    desc: 'Built features for major Indonesian streaming platforms. High-traffic consumer apps with large user bases.',
-    tags: ['UIKit', 'Streaming', 'Media', 'Telkom'],
+    desc: 'Built features for major Indonesian streaming platforms, high-traffic consumer apps with large user bases.',
+    tags: ['UIKit', 'Streaming', 'Media', 'High Traffic'],
     gradient: 'linear-gradient(135deg, rgba(238,39,55,0.18), rgba(238,39,55,0.06) 50%, rgba(238,39,55,0.04))',
     rotate: -2.5,
   },
@@ -105,8 +105,8 @@ export const PROJECTS = [
   },
   {
     id: 14,
-    name: 'Sleeplance — watchOS companion',
-    desc: 'Sleep tracking wearable app with WatchOS companion. Evolved through challenge iterations from MVP to TestFlight release.',
+    name: 'Sleeplance: watchOS companion',
+    desc: 'Sleep tracking wearable app with a WatchOS companion. Evolved through challenge iterations from MVP to TestFlight release.',
     tags: ['WatchKit', 'HealthKit', 'SwiftUI', 'TestFlight'],
     gradient: 'linear-gradient(135deg, rgba(92,107,192,0.18), rgba(92,107,192,0.06) 50%, rgba(63,81,181,0.08))',
     rotate: 2.5,
@@ -114,4 +114,4 @@ export const PROJECTS = [
   },
 ];
 
-export const SUBTITLE_TEXT = '13+ client projects shipped. From fintech to government services, real apps at scale.';
+export const SUBTITLE_TEXT = '13+ client projects delivered end-to-end. From SDK architecture to banking and government apps at national scale.';

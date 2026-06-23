@@ -271,7 +271,7 @@ export default function Hero() {
       <div className={styles.heroInner}>
         <div className={styles.heroTilt} ref={tiltRef}>
           <div className={styles.heroLayer} ref={(el) => setLayerRef(el, 0)}>
-            <div className={styles.heroLabel}>(00) — intro</div>
+            <div className={styles.heroLabel}>(00) intro</div>
           </div>
           <div className={styles.heroLayer} ref={(el) => setLayerRef(el, 1)}>
             <h1 className={styles.heroTitle} ref={titleRef}>
@@ -280,7 +280,7 @@ export default function Hero() {
           </div>
           <div className={styles.heroLayer} ref={(el) => setLayerRef(el, 2)}>
             <p className={styles.heroSub} ref={subRef}>
-              3+ years building production-grade iOS apps across fintech, government, and e-commerce. 13+ client projects shipped at a software consulting firm. Apple Developer Academy alumni, currently at Essential Developer Academy, London.
+              5+ years building software, with 4+ shipping production iOS apps across fintech, banking, government, and telecom. 13+ client projects delivered end-to-end. Apple Developer Academy alumni, currently at Essential Developer Academy, London.
             </p>
           </div>
           <div className={styles.heroLayer} ref={(el) => setLayerRef(el, 3)}>
