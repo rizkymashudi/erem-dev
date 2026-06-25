@@ -6,7 +6,8 @@ const NAV_LINKS = [
   { href: '#skills', label: 'skills', num: '(02)' },
   { href: '#experience', label: 'experience', num: '(03)' },
   { href: '#about', label: 'about', num: '(04)' },
-  { href: '#contact', label: 'contact', num: '(05)' },
+  { href: '#blog', label: 'blog', num: '(05)' },
+  { href: '#contact', label: 'contact', num: '(06)' },
 ];
 
 const SunIcon = () => (
