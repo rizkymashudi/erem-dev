@@ -8,6 +8,7 @@ import WorkSection from './components/WorkSection/WorkSection';
 import SkillsSection from './components/SkillsSection/SkillsSection';
 import ExperienceSection from './components/ExperienceSection/ExperienceSection';
 import AboutSection from './components/AboutSection/AboutSection';
+import BlogSection from './components/BlogSection/BlogSection';
 import Footer from './components/Footer/Footer';
 import { TECH_ITEMS, CLIENT_ITEMS } from './data/marquee';
 
@@ -47,6 +48,7 @@ export default function App() {
         <Marquee items={CLIENT_ITEMS} separator="·" speed="25s" reverse />
         <ExperienceSection />
         <AboutSection />
+        <BlogSection />
       </main>
       <Footer />
     </>
